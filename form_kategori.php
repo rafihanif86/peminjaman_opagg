@@ -1,158 +1,199 @@
 <?php 
-	include "connection.php";
+    include "connection.php";
+    $halaman = "alat";
+    include 'header_admin.php';
 
-    $id_kat = $name_kat = $edit = null;
+    $id_kat = $nama_kat = $edit = "";
     
-    if(isset($_GET['edit']) and isset($_GET['id_kat'])){
-        $edit=$_GET['edit'];
-        $id_kat = $_GET['id_kat'];
-        $result=mysqli_query("SELECT * FROM kategori WHERE id_kat = $id_kat ");
+    if(isset($_GET['id_kat'])){
+        $id_kat     =   $_GET['id_kat'];
+        $result=mysqli_query($conn, "SELECT * FROM kategori WHERE id_kat = $id_kat ");
         while ($row1=mysqli_fetch_array($result)){
-            $name_kat = $row1["name_kat"];
+            $nama_kat   =   $row1["nama_kat"];
         }
-    }
-
-    if(isset($_GET['id_kat']) and isset($_GET['status']) and isset($_GET['name_kat'])){
-        $id_kat = $_GET['id_kat'];
-        $name_kat = $_GET['name_kat'];
-    }
-
-    if(isset($_POST["reset"])){
-        $id_kat = $_POST["id_kat"];
-        $name_kat=$_POST["name_kat"];
-
-        if($id_kat != null){
-            echo "
-            <script>
-                if (confirm('Do you want clean this form?')) {
-                    location.replace('biodata_form.php');
-                } else {
-                    location.replace('biodata_form.php?edit=true&id_kat=$id_kat');
-                }
-            </script>";
-        }else{
-            echo "
-            <script>
-                if (confirm('Do you want clean this form?')) {
-                    location.replace('biodata_form.php');
-                } else {
-                    location.replace('biodata_form.php?id_kat=$id_kat&status=$status&name_kat=$name_kat');
-                }
-            </script>";
-        }
-        
     }
 
     if(isset($_POST["submit"])){
-        $id_kat=$_POST["id_kat"];
-        $name_kat=$_POST["name_kat"];
-        $edit=$_POST['edit'];
+        $id_kat     =   $_POST["id_kat"];
+        $nama_kat   =   $_POST["nama_kat"];
+        $status = "";
 
-        if($edit != true){
-            if(($id_kat and $status and $name_kat) != null){
-                $query="INSERT INTO kategori (id_kat,name_kat) VALUES ('".$id_kat."','".$name_kat."');";
+        if($id_kat == "" || $id_kat == null){
+            if($nama_kat != ""){
+                $jumlah = count($_FILES['gambar']['name']);
+                $file_name ="";
+                if ($jumlah > 0) {
+                    for ($i=0; $i < $jumlah; $i++) { 
+                        $file_name = $_FILES['gambar']['name'][$i];
+                        $tmp_name = $_FILES['gambar']['tmp_name'][$i];
+                        $file_size = $_FILES['gambar']['size'][$i];
+                        $jenis_gambar = $_FILES['gambar']['type'][$i];
+                        if($file_size <= 1048576){
+                            if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png"|| $jenis_gambar=="image/png"){
+                                move_uploaded_file($tmp_name, "images/".$file_name);
+                            }else{
+                                $file_name =  "";
+                                $status = "filetype";
+                            }
+                            
+                        }else{
+                            $file_name =  "";
+                            $status = "bigsize";
+                        }
+                    }
+                }
+                $query="INSERT INTO kategori set nama_kat = '$nama_kat', foto_kat = '$file_name';";
                 $sql_insert1 = mysqli_query($conn,$query);
-                echo "<script>alert('Data Berhasil Ditambahkan')
-                location.replace('index.php')</script>";
+                
             }else{
                 echo "<script>alert('Ada data yang kosong')</script>";
             }
         }else{
-            $query="UPDATE kategori set id_kat = '$id_kat', name_kat = '$name_kat'where id_kat = $id_kat;";
+
+            $file_name ="";
+            $foto_anggota = "";
+            $result=mysqli_query($conn, "SELECT * FROM kategori WHERE id_kat = $id_kat");
+            while ($row1=mysqli_fetch_array($result)){
+                $foto_anggota      =   $row1["foto_kat"];
+            }
+            $file_name = $foto_anggota;
+
+            $jumlah = count($_FILES['gambar']['name']);
+            if ($jumlah > 0) {
+
+                if ($foto_anggota  != ""){
+                    $target = "images/" .$foto_anggota  ;
+                    if(file_exists($target)){
+                        unlink($target);
+                    }
+                }
+
+                for ($i=0; $i < $jumlah; $i++) { 
+                    $file_name = $_FILES['gambar']['name'][$i];
+                    $tmp_name = $_FILES['gambar']['tmp_name'][$i];
+                    $file_size = $_FILES['gambar']['size'][$i];
+                    $jenis_gambar = $_FILES['gambar']['type'][$i];
+                    if($file_size <= 1048576){
+                        if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png"){
+                            move_uploaded_file($tmp_name, "images/".$file_name);
+                        }else{
+                            $file_name =  $foto_anggota;
+                            $status = "filetype";
+                        }
+                        
+                    }else{
+                        $file_name =  $foto_anggota;
+                        $status = "bigsize";
+                    }
+                }
+            }
+
+            $query="UPDATE kategori set nama_kat = '$nama_kat', foto_kat = '$file_name' where id_kat = $id_kat;";
             $sql_insert1 = mysqli_query($conn,$query);
-            echo "<script>alert('Data Berhasil Diubah')
-                location.replace('index.php')</script>";
+        }
+
+        if($sql_insert1 && $status == ""){
+            echo "<script> location.replace('tabel_kategori.php?status=berhasil')</script>";
+        }else if($sql_insert1  && $status != ""){
+            echo "<script> location.replace('tabel_kategori.php?status=$status')</script>";
+        }else{
+            echo "<script> location.replace('tabel_kategori.php?status=gagal')</script>";
         }
     }
-
-    if(isset($_POST["reset"])){
-       $id_kat = $name_kat =  $edit = null;
-    }
-
-    
-
 ?>
-<SCRIPT LANGUAGE="JavaScript">
-    if($id_vendor=null){
-        document.frm.id1.hidden = "hidden";
-        document.frm.id2.hidden = "hidden";
-    }else{
-        document.frm.id1.hidden = "";
-        document.frm.id1.hidden = "";
-    }
-<!-- 	
-function controlCK(str) {	
-	document.frm.submit.disabled = !str;
-}
-//  End -->
-</script>
-<?php
-        include 'header_admin.php';
-    ?>
-<body>
 
-        <div class="breadcrumbs">
-            <div class="breadcrumbs-inner">
-                <div class="row m-0">
-                    <div class="col-sm-4">
-                        <div class="page-header float-left">
-                            <div class="page-title">
-                                <h1>Form Kategori</h1>
-                            </div>
-                        </div>
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Form Kategori</h1>
                     </div>
-                    <div class="col-sm-8">
-                        <div class="page-header float-right">
-                            <div class="page-title">
-                                <ol class="breadcrumb text-right">
-                                    <li><a href="dashboard_admin.php">Dashboard</a></li>
-                                    <li><a href="#">Forms</a></li>
-                                    <li class="active">Form Kategori</li>
-                                </ol>
-                            </div>
-                        </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="tabel_kategori.php">Tabel Kategori</a></li>
+                            <li class="active">Form Kategori</li>
+                        </ol>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="content">
-            <div class="animated fadeIn">
-                <div class="row">
-                    <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <strong>Isikan Data Kategori</strong>
+<div class="content">
+    <div class="animated fadeIn">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Isikan Data Kategori</strong>
+                    </div>
+                    <form action="form_kategori.php" method="post" name="frm" enctype="multipart/form-data"
+                        class="form-horizontal">
+                        <div class="card-body card-block">
+                            <div class="container">
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Kategori</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <input type="text" id="text-input" name="nama_kat" placeholder="Kategori"
+                                            class="form-control" value="<?php echo $nama_kat; ?>">
+                                        <small class="form-text text-muted">Masukkan Nama Kategori</small>
+                                    </div>
                                 </div>
-                                <div class="card-body card-block">
-                                <form action="form_kategori.php" method="post" name="frm" enctype="multipart/form-data" class="form-horizontal">
-                                        
-                                        <div class="row form-group">
-                                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Masukkan Nama Kategori Baru</label></div>
-                                            <div class="col-12 col-md-9"><input type="text" id="text-input" name="name_kat" placeholder="Kategori" class="form-control" value="<?php echo $name_kat; ?>"><small class="form-text text-muted">Masukkan Nama Kategori</small></div>
-                                        </div>
-                                                                                   
+                                <div class="row form-group">
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Lampirkan Foto
+                                            kategori</label>
                                     </div>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary btn-sm" name="submit">
-                                            <i class="fa fa-dot-circle-o"></i> Submit
-                                        </button>
-                                        <button type="reset" class="btn btn-danger btn-sm" name="reset">
-                                            <i class="fa fa-ban"></i> Reset
-                                        </button>
+                                    <div class="col-12 col-md-9">
+                                        <input type="file" name="gambar[]" placeholder="Choose file"
+                                            class="form-control" value="" accept="image/jpg,image/jpeg,image/png" capture="camera" id="camera">
+                                        <img id="frame">
+                                        <small class="help-block form-text">Tambahkan gambar kategori. Pilih gambar untuk mengubah</small>
                                     </div>
-                                    </form>
                                 </div>
                             </div>
-                        </div>    
-                    </div>
+                        </div>
+                        <div class="card-footer">
+                            <input type="hidden" name="id_kat" value="<?php echo $id_kat; ?>">
+                            <button type="submit" class="btn btn-primary btn-sm" name="submit">
+                                <i class="fa fa-dot-circle-o"></i> Submit
+                            </button>
+                            <button type="reset" class="btn btn-danger btn-sm" name="reset" onclick="reset()">
+                                <i class="fa fa-ban"></i> Reset
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </div><!-- .animated -->
-        </div><!-- .content -->
+            </div>
+        </div>
 
-    <div class="clearfix"></div>
-        <?php
-            include 'footer_admin.php'
-        ?>
-</body>
-</html>
+    </div><!-- .animated -->
+</div><!-- .content -->
+
+<div class="clearfix"></div>
+<?php include 'footer_admin.php'; ?>
+<script>
+var camera = document.getElementById('camera');
+var frame = document.getElementById('frame');
+
+camera.addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    // Do something with the image file.
+    frame.src = URL.createObjectURL(file);
+});
+
+function reset() {
+    frame.src = "";
+}
+
+</script>
