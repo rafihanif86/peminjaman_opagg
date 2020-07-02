@@ -551,22 +551,22 @@
         <?php } ?>
 
         <?php 
-                if($id_peminjaman_masuk != ""){
-                    $foto_jaminan = "";
-                    $result=mysqli_query($conn,"SELECT foto_jaminan FROM peminjaman_masuk WHERE  id_peminjaman_masuk = '$id_peminjaman_masuk';");
-                    while ($row1=mysqli_fetch_array($result)){
-                        $foto_jaminan      =   $row1["foto_jaminan"];
-                    }
-                    $hidden_foto = "hidden";
-                    if($foto_jaminan != "" || $foto_jaminan != null || !empty($foto_jaminan)){ $hidden_foto = "";}
-
-            ?>
-        <div class="row" <?php echo $hidden_foto; ?>>
+            if($id_peminjaman_masuk != ""){
+                $foto_jaminan = "";
+                $foto_alat_pengambilan = "";
+                $foto_alat_pengembalian = "";
+                $result=mysqli_query($conn,"SELECT foto_jaminan, foto_alat_pengambilan, foto_alat_pengembalian FROM peminjaman_masuk WHERE  id_peminjaman_masuk = '$id_peminjaman_masuk';");
+                while ($row1=mysqli_fetch_array($result)){
+                    $foto_jaminan = $row1["foto_jaminan"];
+                    $foto_alat_pengambilan = $row1["foto_alat_pengambilan"];
+                    $foto_alat_pengembalian = $row1["foto_alat_pengembalian"];
+                }
+        ?>
+        <div class="row" <?php if($foto_jaminan == ""){echo "hidden";} ?>>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Lampiran Foto Jaminan Peminjam
-                            <?php echo $id_peminjaman_masuk ?></strong>
+                        <strong>Lampiran Foto Jaminan Peminjam <?php echo $id_peminjaman_masuk; ?></strong>
                     </div>
                     <div class="card-body card-block">
                         <div class="container">
@@ -580,6 +580,66 @@
                                                         alt="">
                                                     <div class="carousel-caption d-none d-md-block">
                                                         <p>File name : <?php echo $foto_jaminan;?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" <?php if($foto_alat_pengambilan == ""){echo "hidden";} ?>>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Lampiran Foto Seluruh Alal diserahkan <?php echo $id_peminjaman_masuk; ?></strong>
+                    </div>
+                    <div class="card-body card-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="images/<?php echo $foto_alat_pengambilan;?>" class="d-block w-100"
+                                                        alt="">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>File name : <?php echo $foto_alat_pengambilan;?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" <?php if($foto_alat_pengembalian == ""){echo "hidden";} ?>>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Lampiran Foto Seluruh Alal Dikembalikan <?php echo $id_peminjaman_masuk; ?></strong>
+                    </div>
+                    <div class="card-body card-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="images/<?php echo $foto_alat_pengembalian;?>" class="d-block w-100"
+                                                        alt="">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>File name : <?php echo $foto_alat_pengembalian;?></p>
                                                     </div>
                                                 </div>
                                             </div>

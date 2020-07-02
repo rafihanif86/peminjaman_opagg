@@ -236,60 +236,10 @@
         <div class="float-right">
             <!-- BUTTON NEXT -->
             <div class="float-right">
-            <?php
-                $btn_selesai = true;
-                $res1=mysqli_query($conn,"SELECT d.* FROM `detail_peminjaman_diterima` D, `detail_peminjaman_masuk` M WHERE m.`id_detail_masuk` = d.`id_detail_masuk` AND m.`id_peminjaman_masuk` = '$id_peminjaman_masuk';") ;
-                while ($row1=mysqli_fetch_array($res1)){
-                    if($row1["id_check_masuk"] == ""){
-                        $btn_selesai = false;
-                        break;
-                    }
-                }
-                $status = ""; 
-                $res3=mysqli_query($conn,"SELECT * FROM peminjaman_masuk WHERE id_peminjaman_masuk = '$id_peminjaman_masuk';");
-                    while ($row1=mysqli_fetch_array($res3)){
-                        $status = $row1["status"];
-                }
-                if($btn_selesai && $status == "diambil" ){  
-                    $email = "";
-                    $nama = "";
-                    $nia_dept = ""; 
-                    $res2=mysqli_query($conn,"SELECT * FROM USER WHERE `status_anggota` = 'Departemen Rumah Tangga';");
-                    while ($row1=mysqli_fetch_array($res2)){
-                        $email = $row1["email"];
-                        $nama = $row1["nama_user"];
-                        $nia_dept = $row1["nia"];
-                    }
-                    
-                    if($nia_dept != $nia ){ 
-            ?> 
-                <form id="contact-form" action="sent_email.php" method="get" role="form">
-                    <input type="hidden" name="email" value="<?php echo  $email; ?>">
-                    <input type="hidden" name="name" value="<?php echo  $nama; ?>">
-                    <input type="hidden" name="subject" value="Peminjaman Peralatan OPA Ganendra Giri">
-                    <input type="hidden" name="message" value="Peminjaman <?php echo $id_peminjaman_masuk;?> telah dikembalikan. Segera lakukan pengecekan alat yang telah dikembalikan secara langsung di sekretariat
-                    .">
-                    <input type="hidden" name="pesan_replace"
-                        value="Terima Kasih telah melakukan pengecekan pengembalian alat. kami akan menginformasikan pengembalian peminjaman ini kepada Departemen Rumah Tangga.">
-                    <input type="hidden" name="link"
-                        value="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>">
-                    <button type="submit" class="btn btn-primary btn-md active float-right">
-                        Selesai <i class="fas fa-chevron-right "></i>
-                    </button>
-                </form>
-                <?php 
-                    $q_keluar="UPDATE peminjaman_masuk set status = 'dikembalikan', petugas_pengembalian = '$nia' where id_peminjaman_masuk = '$id_peminjaman_masuk';";
-                    $hasil = mysqli_query($conn,$q_keluar);
-                    } else {
-                ?>
-                <a href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"
+                <a href="form_peminjaman_jaminan.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"
                     class="btn btn-primary btn-md active" role="button" aria-pressed="true">
-                    Selesai <i class="fas fa-chevron-right "></i>
+                    Selanjutnya <i class="fas fa-chevron-right "></i>
                 </a>
-                <?php 
-                    $q_keluar="UPDATE peminjaman_masuk set status = 'dikembalikan', petugas_pengembalian = '$nia' where id_peminjaman_masuk = '$id_peminjaman_masuk';";
-                    $hasil = mysqli_query($conn,$q_keluar);
-                } }?>
             </div>
         </div>
     </div><!-- .animated -->

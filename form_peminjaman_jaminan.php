@@ -1,5 +1,7 @@
 <?php 
-	include "connection.php";
+    include "connection.php";
+    $halaman = "peminjaman";
+    include 'header_admin.php';
 
     $id_peminjaman_masuk = $capture_true = $foto_jaminan = $status_peminjaman = "";
 
@@ -11,11 +13,6 @@
             $status_peminjaman = $row1["status_peminjaman"];
         }
     }
-
-    
-    
-    // HEADER INCLUDE
-    include 'header_admin.php';
  ?>
 
 <div class="breadcrumbs">
@@ -116,10 +113,36 @@
                                         <label for="text-input" class=" form-control-label">Lampirkan Foto
                                             Jaminan</label>
                                     </div>
+                                    <div class="col col-md-9" <?php if($status_peminjaman != "disetujui" ){echo "hidden";}?>>
+                                        <input type="file" name="gambar1[]" placeholder="Choose file"
+                                            class="form-control" value="" accept="image/*" capture="camera" id="camera1" onchange="validate(this);">
+                                        <img id="frame1">
+                                        <small class="help-block form-text">Lampirkan foto jaminan untuk syarat
+                                            pengeluaran peminjaman</small>
+                                    </div>
+                                </div>
+                                <div class="row form-group" <?php if($status_peminjaman != "disetujui" ){echo "hidden";}?>>
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Lampirkan Foto
+                                            Seluruh Alat Diserahkan</label>
+                                    </div>
                                     <div class="col col-md-9">
-                                        <input type="file" name="gambar[]" placeholder="Choose file"
-                                            class="form-control" value="" accept="image/*" capture="camera" id="camera" onchange="validate(this);">
-                                        <img id="frame">
+                                        <input type="file" name="gambar2[]" placeholder="Choose file"
+                                            class="form-control" value="" accept="image/*" capture="camera" id="camera2" onchange="validate(this);">
+                                        <img id="frame2">
+                                        <small class="help-block form-text">Lampirkan foto seluruh alat diserahkan untuk syarat
+                                            pengeluaran peminjaman</small>
+                                    </div>
+                                </div>
+                                <div class="row form-group" <?php if($status_peminjaman != "diambil" ){echo "hidden";}?>>
+                                    <div class="col col-md-3">
+                                        <label for="text-input" class=" form-control-label">Lampirkan Foto
+                                            Seluruh Alat Dikembalikan</label>
+                                    </div>
+                                    <div class="col col-md-9">
+                                        <input type="file" name="gambar3[]" placeholder="Choose file"
+                                            class="form-control" value="" accept="image/*" capture="camera" id="camera3" onchange="validate(this);">
+                                        <img id="frame3">
                                         <small class="help-block form-text">Lampirkan foto jaminan untuk syarat
                                             pengeluaran peminjaman</small>
                                     </div>
@@ -145,20 +168,22 @@
         </div>
 
         <?php 
-            if(isset($_GET['id_peminjaman_masuk'])){
+            if($id_peminjaman_masuk != ""){
                 $foto_jaminan = "";
-                $result=mysqli_query($conn,"SELECT foto_jaminan FROM peminjaman_masuk WHERE  id_peminjaman_masuk = '$id_peminjaman_masuk';");
+                $foto_alat_pengambilan = "";
+                $foto_alat_pengembalian = "";
+                $result=mysqli_query($conn,"SELECT foto_jaminan, foto_alat_pengambilan, foto_alat_pengembalian FROM peminjaman_masuk WHERE  id_peminjaman_masuk = '$id_peminjaman_masuk';");
                 while ($row1=mysqli_fetch_array($result)){
                     $foto_jaminan      =   $row1["foto_jaminan"];
+                    $foto_alat_pengambilan      =   $row1["foto_alat_pengambilan"];
+                    $foto_alat_pengembalian      =   $row1["foto_alat_pengembalian"];
                 }
-                $hidden_foto = "hidden";
-                if($foto_jaminan != "" || $foto_jaminan != null || !empty($foto_jaminan)){ $hidden_foto = "";}
         ?>
-        <div class="row" <?php echo $hidden_foto; ?>>
+        <div class="row" <?php if($foto_jaminan == ""){echo "hidden";} ?>>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Lampiran Foto Jaminan Peminjam <?php echo $nia." ".$id_peminjaman_masuk ?></strong>
+                        <strong>Lampiran Foto Jaminan Peminjam <?php echo $id_peminjaman_masuk; ?></strong>
                     </div>
                     <div class="card-body card-block">
                         <div class="container">
@@ -184,29 +209,120 @@
                 </div>
             </div>
         </div>
+        <div class="row" <?php if($foto_alat_pengambilan == ""){echo "hidden";} ?>>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Lampiran Foto Seluruh Alal diserahkan <?php echo $id_peminjaman_masuk; ?></strong>
+                    </div>
+                    <div class="card-body card-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="images/<?php echo $foto_alat_pengambilan;?>" class="d-block w-100"
+                                                        alt="">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>File name : <?php echo $foto_alat_pengambilan;?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" <?php if($foto_alat_pengembalian == ""){echo "hidden";} ?>>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong>Lampiran Foto Seluruh Alal Dikembalikan <?php echo $id_peminjaman_masuk; ?></strong>
+                    </div>
+                    <div class="card-body card-block">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                                            <div class="carousel-inner">
+                                                <div class="carousel-item active">
+                                                    <img src="images/<?php echo $foto_alat_pengembalian;?>" class="d-block w-100"
+                                                        alt="">
+                                                    <div class="carousel-caption d-none d-md-block">
+                                                        <p>File name : <?php echo $foto_alat_pengembalian;?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <?php } ?>
 
 
         <!-- BUTTON BACK -->
         <div class="float-left">
-            <a href="form_peminjaman_pengambilan.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"
+            <?php 
+                $link_back = "";
+                if(isset($_POST['status'])){
+                    if($_POST['status'] == "disetujui"){
+                        $link_back = "form_peminjaman_pengambilan.php?id_peminjaman_masuk=".$id_peminjaman_masuk;
+                    }else if($_POST['status'] == "diambil"){
+                        $link_back = "form_peminjaman_pengembalian.php?id_peminjaman_masuk=".$id_peminjaman_masuk;
+                    }
+                }else if($status_peminjaman = "disetujui"){
+                    $link_back = "form_peminjaman_pengambilan.php?id_peminjaman_masuk=".$id_peminjaman_masuk;
+                }else if($status_peminjaman = "diambil"){
+                    $link_back = "form_peminjaman_pengembalian.php?id_peminjaman_masuk=".$id_peminjaman_masuk;
+                }
+            ?>
+            <a href=<?php echo $link_back;?>
                 class="btn btn-secondary btn-md active float-left" role="button" aria-pressed="true">
                 <i class="fas fa-chevron-left "></i> Kembali
             </a>
         </div>
 
         <!-- BUTTON NEXT -->
-        <?php if(isset($_GET['id_peminjaman_masuk'])){ ?>
+        <?php if($id_peminjaman_masuk != ""){ ?>
         <div class="float-right">
             <?php 
                 $email_peminjam = "";
                 $nama_peminjam = "";
-                $status = ""; 
-                $res2=mysqli_query($conn,"SELECT U.* FROM peminjaman_masuk P, peminjam U WHERE p.nik = u.nik and p.id_peminjaman_masuk = '$id_peminjaman_masuk'");
+                $tgl_kembali = "";
+                $status = "";
+                $nik = "";
+                $res2=mysqli_query($conn,"SELECT U.*, p.tgl_kembali, p.status FROM peminjaman_masuk P, peminjam U WHERE p.nik = u.nik and p.id_peminjaman_masuk = '$id_peminjaman_masuk'");
                 while ($row1=mysqli_fetch_array($res2)){
-                    $email_peminjam = $row1["email"];
-                    $nama_peminjam = $row1["nama"];
+                    $tgl_kembali = $row1["tgl_kembali"];
                     $status = $row1["status"];
+                    $nik = $row1["nik"];
+                }
+
+                $nik_potong = substr($nik,0,3);
+                if($nik_potong == "910"){
+                    $result=mysqli_query($conn,"SELECT * FROM user WHERE nia = '$nik';");
+                    while ($row1=mysqli_fetch_array($result)){
+                        $nama_peminjam      =   $row1["nama_user"];
+                        $email_peminjam     =   $row1["email"];
+                    }
+                }else{
+                    $result=mysqli_query($conn,"SELECT * FROM peminjam  WHERE nik = '$nik';");
+                    while ($row1=mysqli_fetch_array($result)){
+                        $nama_peminjam      =   $row1["nama"];
+                        $email_peminjam     =   $row1["email"];
+                    }
                 }
                 
                 if($status == "diambil"){
@@ -230,7 +346,42 @@
                 class="btn btn-primary btn-md active" role="button" aria-pressed="true">
                 Selesai <i class="fas fa-chevron-right "></i>
             </a>
-            <?php }?>
+            <?php
+                } 
+                if($status == "diambil" ){  
+                    $email = "";
+                    $nama = "";
+                    $nia_dept = ""; 
+                    $res2=mysqli_query($conn,"SELECT * FROM USER WHERE `status_anggota` = 'Departemen Rumah Tangga';");
+                    while ($row1=mysqli_fetch_array($res2)){
+                        $email = $row1["email"];
+                        $nama = $row1["nama_user"];
+                        $nia_dept = $row1["nia"];
+                    }
+                    
+                    if($nia_dept != $nia ){ 
+            ?> 
+                <form id="contact-form" action="sent_email.php" method="get" role="form">
+                    <input type="hidden" name="email" value="<?php echo  $email; ?>">
+                    <input type="hidden" name="name" value="<?php echo  $nama; ?>">
+                    <input type="hidden" name="subject" value="Peminjaman Peralatan OPA Ganendra Giri">
+                    <input type="hidden" name="message" value="Peminjaman <?php echo $id_peminjaman_masuk;?> telah dikembalikan. Segera lakukan pengecekan alat yang telah dikembalikan secara langsung di sekretariat.">
+                    <input type="hidden" name="pesan_replace"
+                        value="Terima Kasih telah melakukan pengecekan pengembalian alat. kami akan menginformasikan pengembalian peminjaman ini kepada Departemen Rumah Tangga.">
+                    <input type="hidden" name="link"
+                        value="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>">
+                    <button type="submit" class="btn btn-primary btn-md active float-right">
+                        Selesai <i class="fas fa-chevron-right "></i>
+                    </button>
+                </form>
+                <?php 
+                    } else {
+                ?>
+                <a href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"
+                    class="btn btn-primary btn-md active" role="button" aria-pressed="true">
+                    Selesai <i class="fas fa-chevron-right "></i>
+                </a>
+                <?php  } }?>
         </div>
         <?php } ?>
 
@@ -380,17 +531,37 @@
 
 ?>
 <script>
-var camera = document.getElementById('camera');
-var frame = document.getElementById('frame');
+var camera1 = document.getElementById('camera1');
+var frame1 = document.getElementById('frame1');
 
-camera.addEventListener('change', function(e) {
+camera1.addEventListener('change', function(e) {
     var file = e.target.files[0];
     // Do something with the image file.
-    frame.src = URL.createObjectURL(file);
+    frame1.src = URL.createObjectURL(file);
+});
+
+var camera2 = document.getElementById('camera2');
+var frame2 = document.getElementById('frame2');
+
+camera2.addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    // Do something with the image file.
+    frame2.src = URL.createObjectURL(file);
+});
+
+var camera3 = document.getElementById('camera3');
+var frame3 = document.getElementById('frame3');
+
+camera3.addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    // Do something with the image file.
+    frame3.src = URL.createObjectURL(file);
 });
 
 function reset() {
-    frame.src = "";
+    frame1.src = "";
+    frame2.src = "";
+    frame3.src = "";
 }
 
 var _validFileExtensions = [".pdf"];
