@@ -22,6 +22,26 @@
                     <li class="<?php if($halaman == "dashboard"){echo 'active';}?>">
                         <a href="dashboard_admin.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
+                    <?php 
+                        $res=mysqli_query($conn,"SELECT * FROM `checklist_group` WHERE `status` = 'waiting' || `status` = 'onprocess';") ;
+                        $jumlah_berjalan = mysqli_num_rows($res);
+                        if($jumlah_berjalan > 0){
+                            while ($row=mysqli_fetch_array($res)) {
+                                $koordinator =  $row['koordinator'];
+                            }
+                            $link = "";
+                            if($nia == $koordinator){
+                                $link = "form_checklist_group.php";
+                            }else{
+                                $link = "form_checklist_mengikuti.php";
+                            }
+                    ?>
+                    <li class="<?php if($halaman == "checklist bulanan"){echo 'active';}?>">
+                        <a href=<?php echo $link; ?>><i class="menu-icon fa fa-calendar-check"></i>Checklist Bulanan</a>
+                    </li>
+                    <?php
+                        }
+                    ?>
                     <li class="<?php if($halaman == "tracking"){echo 'active';}?>" 
                         <?php
                             $tampilkan = false;

@@ -41,16 +41,18 @@ insert  into `alat`(`id_alat`,`merk`,`type`,`id_jenis_alat`,`checklist_masuk`,`c
 DROP TABLE IF EXISTS `checklist_group`;
 
 CREATE TABLE `checklist_group` (
-  `id_checklist_group` varchar(11) NOT NULL,
+  `id_checklist_group` int(11) NOT NULL AUTO_INCREMENT,
   `koordinator` varchar(50) DEFAULT NULL,
   `tgl_checklist_group` date DEFAULT NULL,
   `status` varbinary(15) DEFAULT NULL,
   `resume` text DEFAULT NULL,
   `dokumentasi` varbinary(40) DEFAULT NULL,
   PRIMARY KEY (`id_checklist_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `checklist_group` */
+
+insert  into `checklist_group`(`id_checklist_group`,`koordinator`,`tgl_checklist_group`,`status`,`resume`,`dokumentasi`) values (1,'910280519','2020-07-02','onprocess',NULL,NULL);
 
 /*Table structure for table `checklist_group_item` */
 
@@ -63,9 +65,11 @@ CREATE TABLE `checklist_group_item` (
   `id_alat` varchar(25) DEFAULT NULL,
   `id_check` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_checklist_group_item`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
 
 /*Data for the table `checklist_group_item` */
+
+insert  into `checklist_group_item`(`id_checklist_group_item`,`id_checklist_group`,`petugas_check`,`id_alat`,`id_check`) values (39,1,910280513,'12/INV-ALT/OPA-GG/038',0),(40,1,910280515,'21/INV-ALT/OPA-GG/035',0),(41,1,910290520,'7/INV-ALT/OPA-GG/041',0);
 
 /*Table structure for table `checklist_record` */
 
@@ -87,7 +91,7 @@ CREATE TABLE `checklist_record` (
 
 /*Data for the table `checklist_record` */
 
-insert  into `checklist_record`(`id_check`,`tgl_checklist`,`id_alat`,`kondisi`,`keterangan`,`petugas`,`status_peminjaman`,`id_peminjaman_masuk`,`id_checklist_group`,`foto_alat_check`) values (5,'2020-06-05','21/INV-ALT/OPA-GG/035','valid','baik seperti baru','910280519','diambil','PJ20200525810','',''),(6,'2020-06-11','21/INV-ALT/OPA-GG/035','valid','baik seperti pada saat pengambilan','910280519','dikembalikan','PJ20200525810','',''),(7,'2020-06-19','12/INV-ALT/OPA-GG/038','valid','Kondisi seperti baru','910280519','','','',''),(8,'2020-06-23','12/INV-ALT/OPA-GG/038','valid','ada lecet sedikit','910280519','','','',''),(9,'2020-06-30','7/INV-ALT/OPA-GG/042','valid','masih baru','910280519','','','',''),(10,'2020-06-30','7/INV-ALT/OPA-GG/041','valid','masih baru','910280519','','','',''),(11,'2020-06-30','7/INV-ALT/OPA-GG/041','valid','baik seperti baru','910280519','','','','0c2b71e6-3b6b-4337-bd0a-dcce62bc8197.jpg');
+insert  into `checklist_record`(`id_check`,`tgl_checklist`,`id_alat`,`kondisi`,`keterangan`,`petugas`,`status_peminjaman`,`id_peminjaman_masuk`,`id_checklist_group`,`foto_alat_check`) values (5,'2020-06-05','21/INV-ALT/OPA-GG/035','valid','baik seperti baru','910280519','diambil','PJ20200525810','',''),(6,'2020-06-11','21/INV-ALT/OPA-GG/035','valid','baik seperti pada saat pengambilan','910280519','dikembalikan','PJ20200525810','',''),(7,'2020-06-19','12/INV-ALT/OPA-GG/038','valid','Kondisi seperti baru','910280519','','','',''),(8,'2020-06-23','12/INV-ALT/OPA-GG/038','valid','ada lecet sedikit','910280519','','','',''),(10,'2020-06-30','7/INV-ALT/OPA-GG/041','valid','masih baru','910280519','','','',''),(11,'2020-06-30','7/INV-ALT/OPA-GG/041','valid','baik seperti baru','910280519','','','','0c2b71e6-3b6b-4337-bd0a-dcce62bc8197.jpg');
 
 /*Table structure for table `detail_peminjaman_diterima` */
 
@@ -187,12 +191,14 @@ CREATE TABLE `peminjaman_masuk` (
   `petugas_pengambilan` int(9) DEFAULT NULL,
   `petugas_pengembalian` int(9) DEFAULT NULL,
   `lampiran_surat` varchar(50) DEFAULT NULL,
+  `foto_alat_pengambilan` varchar(25) DEFAULT NULL,
+  `foto_alat_pengembalian` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`id_peminjaman_masuk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `peminjaman_masuk` */
 
-insert  into `peminjaman_masuk`(`id_peminjaman_masuk`,`nik`,`nama_kegiatan`,`tgl_ambil`,`tgl_kembali`,`status`,`foto_jaminan`,`petugas_menyetujui`,`petugas_pengambilan`,`petugas_pengembalian`,`lampiran_surat`) values ('PJ20200525001','1234567890','dikjut RC','2020-05-28','2020-05-30','dikembalikan','logo_GGWCC_2020.png',910280519,910280519,910280519,NULL),('PJ20200604002','1234567890','dikjut RC','2020-06-13','2020-06-16','disetujui',NULL,910280519,NULL,0,''),('PJ20200615003','1234567890','pendakian','2020-06-25','2020-06-26','disetujui',NULL,910280519,NULL,NULL,NULL),('PJ20200616004','1234567890','latgab','2020-06-27','2020-08-29','baru',NULL,NULL,NULL,NULL,NULL),('PJ20200619005','1234567890','fun rafting','2020-06-22','2020-06-23','baru',NULL,NULL,NULL,NULL,NULL),('PJ20200627006','1234567890','latgab','2020-06-30','2020-07-01','disetujui',NULL,910280519,NULL,NULL,''),('PJ20200629007','1234567890','dikjut RC','2020-07-03','2020-07-04','disetujui',NULL,910280519,NULL,NULL,'pengumuman ujian TA045.pdf'),('PJ20200630008','910280519','Latihan Panjat di LK','2020-07-01','2020-07-01','baru',NULL,NULL,NULL,NULL,''),('PJ20200701009','910290520','Latihan Panjat','2020-07-02','2020-07-02','baru',NULL,910280519,NULL,NULL,'');
+insert  into `peminjaman_masuk`(`id_peminjaman_masuk`,`nik`,`nama_kegiatan`,`tgl_ambil`,`tgl_kembali`,`status`,`foto_jaminan`,`petugas_menyetujui`,`petugas_pengambilan`,`petugas_pengembalian`,`lampiran_surat`,`foto_alat_pengambilan`,`foto_alat_pengembalian`) values ('PJ20200525001','1234567890','dikjut RC','2020-05-28','2020-05-30','dikembalikan','logo_GGWCC_2020.png',910280519,910280519,910280519,NULL,NULL,NULL),('PJ20200604002','1234567890','dikjut RC','2020-06-13','2020-06-16','disetujui',NULL,910280519,NULL,0,'',NULL,NULL),('PJ20200615003','1234567890','pendakian','2020-06-25','2020-06-26','disetujui',NULL,910280519,NULL,NULL,NULL,NULL,NULL),('PJ20200616004','1234567890','latgab','2020-06-27','2020-08-29','baru',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('PJ20200619005','1234567890','fun rafting','2020-06-22','2020-06-23','baru',NULL,NULL,NULL,NULL,NULL,NULL,NULL),('PJ20200627006','1234567890','latgab','2020-06-30','2020-07-01','disetujui',NULL,910280519,NULL,NULL,'',NULL,NULL),('PJ20200629007','1234567890','dikjut RC','2020-07-03','2020-07-04','disetujui',NULL,910280519,NULL,NULL,'pengumuman ujian TA045.pdf',NULL,NULL),('PJ20200630008','910280519','Latihan Panjat di LK','2020-07-01','2020-07-01','baru',NULL,NULL,NULL,NULL,'',NULL,NULL),('PJ20200701009','910290520','Latihan Panjat','2020-07-02','2020-07-02','baru',NULL,910280519,NULL,NULL,'',NULL,NULL);
 
 /*Table structure for table `user` */
 
@@ -214,7 +220,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`nia`,`nama_user`,`username`,`password`,`posisi`,`login_status`,`status_anggota`,`no_telp`,`email`,`foto_anggota`) values (910280513,'M.Yusril Iqbal','palapa','palapa','admin','logout','Departemen Rumah Tangga',NULL,'myusriliqbal@hmail.com',NULL),(910280515,'Aldy Zazmi Yuliansyah','aldyzazmi','aldyzazmi','anggota','logout','Anggota Biasa','081203469015','aldyzazmi@gmail.com',''),(910280519,'Rafi Hanif Rahmadhani','kagura','kagura','admin','login','Wakil Ketua 1','085896404314','rafizmujahid86@gmail.com','DSC_1239-min.jpg'),(910290520,'Arikh Thuqo','nagoya','nagoya','anggota','login','Anggota Biasa','085608583337','arikhthuqo@gmail.com','');
+insert  into `user`(`nia`,`nama_user`,`username`,`password`,`posisi`,`login_status`,`status_anggota`,`no_telp`,`email`,`foto_anggota`) values (910280509,'Fricelia Andrianing Putri','sniper','sniper','anggota','logout','Anggota Biasa','081938734916','friceliaandrian@gmail.com',''),(910280513,'M.Yusril Iqbal','palapa','palapa','admin','login','Departemen Rumah Tangga',NULL,'myusriliqbal@hmail.com',NULL),(910280515,'Aldy Zazmi Yuliansyah','aldyzazmi','aldyzazmi','anggota','login','Anggota Biasa','081203469015','aldyzazmi@gmail.com',''),(910280519,'Rafi Hanif Rahmadhani','kagura','kagura','admin','login','Wakil Ketua 1','085896404314','rafizmujahid86@gmail.com','DSC_1239-min.jpg'),(910290520,'Arikh Thuqo','nagoya','nagoya','anggota','login','Anggota Biasa','085608583337','arikhthuqo@gmail.com','');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

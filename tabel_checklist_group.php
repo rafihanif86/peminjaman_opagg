@@ -1,8 +1,24 @@
 <?php 
     include "connection.php";
+    $halaman = "checklist";
     include "header_admin.php";
+
+    $hidden_button = "";
+    $res=mysqli_query($conn,"SELECT * FROM `checklist_group` WHERE `status` = 'waiting' || `status` = 'onprogress';") ;
+    $jumlah_berjalan = mysqli_num_rows($res);
+    if($jumlah_berjalan > 0){
+        while ($row=mysqli_fetch_array($res)) {
+            $koordinator =  $row['koordinator'];
+        }
+        if($nia == $koordinator){
+            echo "<script> location.replace('form_checklist_group.php')</script>";
+        }else{
+            echo "<script> location.replace('form_checklist_mengikuti.php')</script>";
+        }
+        $hidden_button = "hidden";
+    }
+
 ?>
-<html>
 
 <div class="breadcrumbs">
     <div class="breadcrumbs-inner">
@@ -34,9 +50,20 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Data Tabel</strong>
-                        <a href="form_checklist_group.php" class="btn btn-primary btn-md active float-right"
-                            role="button" aria-pressed="true">Mulai Checklist Group</a>
+                        <div class="row">
+                            <div class="col col-md-6">
+                                <strong class="card-title">Data Tabel</strong>
+                            </div>
+                            <div class="col col-md-6">
+                                <form action="tabel_checklist_group.php" method="post" name="frm"
+                                    enctype="multipart/form-data">
+                                    <button type="submit" class="btn btn-primary btn-sm float-right" name="mulai"
+                                        <?php echo $hidden_button;?>>
+                                        <i class="fa fa-dot-circle-o"></i> Mulai Checklist Group
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-border">
@@ -102,7 +129,7 @@
                                                                             <tr>
                                                                                 <td>Alat dichecklist</td>
                                                                                 <td>
-                                                                                <?php
+                                                                                    <?php
                                                                                     if(isset($row1["id_checklist_group"])){
                                                                                         $jumlah_alat = "";
                                                                                         $result1=mysqli_query($conn,"SELECT COUNT(*) AS jumlah FROM `checklist_group_item` WHERE `id_checklist_group` = '$id_checklist_group' AND GROUP BY `id_alat`;");
@@ -142,9 +169,17 @@
 <div class="clearfix"></div>
 
 <?php
-            include 'footer_admin.php'
-        ?>
+    include 'footer_admin.php';
 
-</body>
+    $tgl_hari_ini = date('Y-m-d');
 
-</html>
+    if(isset($_POST["mulai"])){
+        $query1="INSERT INTO checklist_group (koordinator,tgl_checklist_group,status) VALUES ('".$nia."','".$tgl_hari_ini."','waiting');";
+            $sql_insert1 = mysqli_query($conn,$query1);
+            if($sql_insert1){
+                echo "<script> location.replace('form_checklist_group.php')</script>";
+            }else{
+                echo "<script type='text/javascript'> window.onload = function(){  alert('Gagal memulai checklist group'); } </script>";
+            }
+    }
+?>

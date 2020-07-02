@@ -62,9 +62,7 @@
                                     <th></th>
                             </thead>
                             <tbody>
-
                                 <tr>
-
                                     <?php
                                         $i = 0;
                                         $jumlah = 0;

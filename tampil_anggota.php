@@ -171,7 +171,7 @@ function printContent(el) {
                             </thead>
                             <tbody>
                                 <?php
-                                    $result=mysqli_query($conn,"SELECT * FROM peminjaman_masuk where nik = '$nia' order by id_peminjaman_masuk desc;"); //query vendor
+                                    $result=mysqli_query($conn,"SELECT * FROM peminjaman_masuk where nik = '$nia_anggota' order by id_peminjaman_masuk desc;"); //query vendor
                                     $i = 0;
                                     while ($row1=mysqli_fetch_array($result)){
                                         $i++;
@@ -190,9 +190,7 @@ function printContent(el) {
                                                                         class="text-secondary"><?php echo $row1["tgl_ambil"]." s/d ".$row1["tgl_kembali"]; ?></small>
                                                                     <br />
                                                                     <a class="text-dark" href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $row1["id_peminjaman_masuk"];?>">
-                                                                        <h5><?php echo $row1["id_peminjaman_masuk"]; ?>
-                                                                        </h5>
-
+                                                                        <h5><?php echo $row1["id_peminjaman_masuk"]; ?></h5> 
                                                                         <?php
                                                                             $nama_instansi      =   "";
                                                                             $nama_peminjam      =   "";
