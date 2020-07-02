@@ -72,16 +72,16 @@
 
         if($edit != true){
             if(($tgl_checklist and $kondisi and $id_alat) != null){
-                $query1="INSERT INTO checklist_record (tgl_checklist,kondisi,id_alat,keterangan,dipinjam,id_user,id_detail) VALUES ('".$tgl_checklist."','".$kondisi."','".$id_alat."','".$keterangan."','".$dipinjam."','".$id_user."','".$id_detail."');";
-                $sql_insert1 = mysqli_query($query1,$conn);
+                $query="INSERT INTO checklist_record (tgl_checklist,kondisi,id_alat,keterangan,dipinjam,id_user,id_detail) VALUES ('".$tgl_checklist."','".$kondisi."','".$id_alat."','".$keterangan."','".$dipinjam."','".$id_user."','".$id_detail."');";
+                $sql_insert1 = mysqli_query($conn,$query);
                 echo "<script>alert('Data Berhasil Ditambahkan')
                 location.replace('index.php')</script>";
             }else{
                 echo "<script>alert('Ada data yang kosong')</script>";
             }
         }else{
-            $query1="UPDATE checklist_record set tgl_checklist = '$tgl_checklist',kondisi = '$kondisi', id_alat = '$id_alat', keterangan = '$keterangan', dipinjam = '$dipinjam', id_user = '$id_user', id_detail = '$id_detail' where id_check = $id_check;";
-            $sql_insert1 = mysqli_query($query1,$conn);
+            $query="UPDATE checklist_record set tgl_checklist = '$tgl_checklist',kondisi = '$kondisi', id_alat = '$id_alat', keterangan = '$keterangan', dipinjam = '$dipinjam', id_user = '$id_user', id_detail = '$id_detail' where id_check = $id_check;";
+            $sql_insert1 = mysqli_query($conn,$query);
             echo "<script>alert('Data Berhasil Diubah')
                 location.replace('index.php')</script>";
         }

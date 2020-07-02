@@ -73,16 +73,16 @@
 
         if($edit != true){
             if(($nama_instansi and $nama_kegiatan and $email_peminjam) != null){
-                $query1="INSERT INTO peminjaman_masuk (nama_instansi,nama_kegiatan,email_peminjam,tgl_ambil,tgl_kembali,no_wa,status) VALUES ('".$nama_instansi."','".$nama_kegiatan."','".$email_peminjam."','".$tgl_ambil."','".$tgl_kembali."','".$no_wa."','".$status."');";
-                $sql_insert1 = mysqli_query($query1,$conn);
+                $query="INSERT INTO peminjaman_masuk (nama_instansi,nama_kegiatan,email_peminjam,tgl_ambil,tgl_kembali,no_wa,status) VALUES ('".$nama_instansi."','".$nama_kegiatan."','".$email_peminjam."','".$tgl_ambil."','".$tgl_kembali."','".$no_wa."','".$status."');";
+                $sql_insert1 = mysqli_query($conn,$query);
                 echo "<script>alert('Data Berhasil Ditambahkan')
                 location.replace('index.php')</script>";
             }else{
                 echo "<script>alert('Ada data yang kosong')</script>";
             }
         }else{
-            $query1="UPDATE peminjaman_masuk set nama_instansi = '$nama_instansi',nama_kegiatan = '$nama_kegiatan', email_peminjam = '$email_peminjam', tgl_ambil = '$tgl_ambil', tgl_kembali = '$tgl_kembali', no_wa = '$no_wa', status = '$status' where id_peminjaman_masuk = $id_peminjaman_masuk;";
-            $sql_insert1 = mysqli_query($query1,$conn);
+            $query="UPDATE peminjaman_masuk set nama_instansi = '$nama_instansi',nama_kegiatan = '$nama_kegiatan', email_peminjam = '$email_peminjam', tgl_ambil = '$tgl_ambil', tgl_kembali = '$tgl_kembali', no_wa = '$no_wa', status = '$status' where id_peminjaman_masuk = $id_peminjaman_masuk;";
+            $sql_insert1 = mysqli_query($conn,$query);
             echo "<script>alert('Data Berhasil Diubah')
                 location.replace('index.php')</script>";
         }

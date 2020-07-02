@@ -61,16 +61,16 @@
 
         if($edit != true){
             if(($id_kat and $status and $jumlah_permintaan) != null){
-                $query1="INSERT INTO detail_peminjaman (id_kat,status,jumlah_permintaan,jumlah_dikeluarkan) VALUES ('".$id_kat."','".$status."','".$jumlah_permintaan."','".$jumlah_dikeluarkan."');";
-                $sql_insert1 = mysqli_query($query1,$conn);
+                $query="INSERT INTO detail_peminjaman (id_kat,status,jumlah_permintaan,jumlah_dikeluarkan) VALUES ('".$id_kat."','".$status."','".$jumlah_permintaan."','".$jumlah_dikeluarkan."');";
+                $sql_insert1 = mysqli_query($conn,$query);
                 echo "<script>alert('Data Berhasil Ditambahkan')
                 location.replace('index.php')</script>";
             }else{
                 echo "<script>alert('Ada data yang kosong')</script>";
             }
         }else{
-            $query1="UPDATE detail_peminjaman set id_kat = '$id_kat',status = '$status', jumlah_permintaan = '$jumlah_permintaan', jumlah_dikeluarkan = '$jumlah_dikeluarkan' where id_detail = $id_detail;";
-            $sql_insert1 = mysqli_query($query1,$conn);
+            $query="UPDATE detail_peminjaman set id_kat = '$id_kat',status = '$status', jumlah_permintaan = '$jumlah_permintaan', jumlah_dikeluarkan = '$jumlah_dikeluarkan' where id_detail = $id_detail;";
+            $sql_insert1 = mysqli_query($conn,$query);
             echo "<script>alert('Data Berhasil Diubah')
                 location.replace('index.php')</script>";
         }

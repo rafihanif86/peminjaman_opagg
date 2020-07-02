@@ -65,16 +65,16 @@
 
         if($edit != true){
             if(($nama_user and $password and $username) != null){
-                $query1="INSERT INTO user (nama_user,password,username,nia,posisi) VALUES ('".$nama_user."','".$password."','".$username."','".$nia."','".$posisi."');";
-                $sql_insert1 = mysqli_query($query1,$conn);
+                $query="INSERT INTO user (nama_user,password,username,nia,posisi) VALUES ('".$nama_user."','".$password."','".$username."','".$nia."','".$posisi."');";
+                $sql_insert1 = mysqli_query($conn,$query);
                 echo "<script>alert('Data Berhasil Ditambahkan')
                 location.replace('index.php')</script>";
             }else{
                 echo "<script>alert('Ada data yang kosong')</script>";
             }
         }else{
-            $query1="UPDATE user set nama_user = '$nama_user',password = '$password', username = '$username', nia = '$nia', posisi = '$posisi' where id_user = $id_user;";
-            $sql_insert1 = mysqli_query($query1,$conn);
+            $query="UPDATE user set nama_user = '$nama_user',password = '$password', username = '$username', nia = '$nia', posisi = '$posisi' where id_user = $id_user;";
+            $sql_insert1 = mysqli_query($conn,$query);
             echo "<script>alert('Data Berhasil Diubah')
                 location.replace('index.php')</script>";
         }

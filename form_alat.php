@@ -67,16 +67,16 @@
 
         if($edit != true){
             if(($merk and $id_kat and $type) != null){
-                $query1="INSERT INTO alat (merk,id_kat,type,tgl_masuk,tgl_keluar,id_user) VALUES ('".$merk."','".$id_kat."','".$type."','".$tgl_masuk."','".$tgl_keluar."','".$id_user."');";
-                $sql_insert1 = mysqli_query($query1,$conn);
+                $query="INSERT INTO alat (merk,id_kat,type,tgl_masuk,tgl_keluar,id_user) VALUES ('".$merk."','".$id_kat."','".$type."','".$tgl_masuk."','".$tgl_keluar."','".$id_user."');";
+                $sql_insert1 = mysqli_query($conn,$query);
                 echo "<script>alert('Data Berhasil Ditambahkan')
                 location.replace('index.php')</script>";
             }else{
                 echo "<script>alert('Ada data yang kosong')</script>";
             }
         }else{
-            $query1="UPDATE alat set merk = '$merk',id_kat = '$id_kat', type = '$type', tgl_masuk = '$tgl_masuk', tgl_keluar = '$tgl_keluar', id_user = '$id_user' where id_alat = $id_alat;";
-            $sql_insert1 = mysqli_query($query1,$conn);
+            $query="UPDATE alat set merk = '$merk',id_kat = '$id_kat', type = '$type', tgl_masuk = '$tgl_masuk', tgl_keluar = '$tgl_keluar', id_user = '$id_user' where id_alat = $id_alat;";
+            $sql_insert1 = mysqli_query($conn,$query);
             echo "<script>alert('Data Berhasil Diubah')
                 location.replace('index.php')</script>";
         }

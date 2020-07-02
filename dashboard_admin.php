@@ -18,7 +18,7 @@
     // $queryProduct = $queryProduct." limit $start, $per_hal ";
     
     
-    $result=mysqli_query($query,$conn);
+    $result=mysqli_query($conn,$query);
 
 ?>
 <html>

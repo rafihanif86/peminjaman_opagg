@@ -4,7 +4,8 @@
     $id_user=$_GET["id_user"];
     
     if($id_user != null){
-        $delete=mysqli_query("DELETE FROM checklist_record where id_user = $id_user;",$conn);
+        $query="DELETE FROM checklist_record where id_user = $id_user;";
+        $delete=mysqli_query($conn,$query);
         echo "<script>alert('Data Berhasil Dihapus')
             location.replace('tabel_user.php')</script>";
     }else{

@@ -10,7 +10,7 @@
         $query="SELECT * FROM user WHERE `id_user` LIKE '%$cari%' OR `nama_user` LIKE '%$cari%' OR 'username' LIKE '%$cari%' OR 'password' LIKE '%$cari%' OR 'nia' LIKE '%$cari%' OR 'posisi' LIKE '%$cari%';";
     }
     
-    $result=mysqli_query($query,$conn);
+    $result=mysqli_query($conn,$query);
 
 ?>
 <html>

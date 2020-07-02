@@ -10,7 +10,7 @@
         $query="SELECT * FROM peminjaman_masuk WHERE `id_peminjaman_masuk` LIKE '%$cari%' OR `nama_instansi` LIKE '%$cari%' OR 'email_peminjam' LIKE '%$cari%',OR 'nama_kegiatan' LIKE '%$cari%'OR 'no_wa' LIKE '%$cari%';";
     }
     
-    $result=mysqli_query($query,$conn);
+    $result=mysqli_query($conn,$query);
 
 ?>
 <html>

@@ -10,7 +10,7 @@
         $query="SELECT * FROM detail_peminjaman WHERE `id_detail` LIKE '%$cari%' OR `id_kat` LIKE '%$cari%' OR 'id_alat' LIKE '%$cari%',OR 'jumlah_permintaan' LIKE '%$cari%'OR 'status' LIKE '%$cari%';";
     }
     
-    $result=mysqli_query($query,$conn);
+    $result=mysqli_query($conn,$query);
 
 ?>
 <html>

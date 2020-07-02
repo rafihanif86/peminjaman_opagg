@@ -3,7 +3,7 @@
 
     $cari;
     $query="SELECT * FROM peminjaman_masuk ORDER BY tgl_ambil ASC;"; //query vendor
-    $result=mysqli_query($query,$conn);
+    $result=mysqli_query($conn,$query);
 
     if(isset($_POST["submit"])){
         $cari=$_POST["search"];
@@ -13,7 +13,7 @@
         
     }
 
-    $result=mysqli_query($query,$conn);
+    $result=mysqli_query($conn,$query);
 ?>
 
             <div class="col-md-12">

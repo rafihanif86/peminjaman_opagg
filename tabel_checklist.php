@@ -10,7 +10,7 @@
         $query="SELECT * FROM checklist_record WHERE `id_check` LIKE '%$cari%' OR `tgl_checklist` LIKE '%$cari%' OR 'id_alat' LIKE '%$cari%',OR 'id_user' LIKE '%$cari%';";
     }
     
-    $result=mysqli_query($query,$conn);
+    $result=mysqli_query($conn,$query);
 
 ?>
 <html>

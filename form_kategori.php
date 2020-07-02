@@ -50,16 +50,16 @@
 
         if($edit != true){
             if(($id_kat and $status and $name_kat) != null){
-                $query1="INSERT INTO kategori (id_kat,name_kat) VALUES ('".$id_kat."','".$name_kat."');";
-                $sql_insert1 = mysqli_query($query1,$conn);
+                $query="INSERT INTO kategori (id_kat,name_kat) VALUES ('".$id_kat."','".$name_kat."');";
+                $sql_insert1 = mysqli_query($conn,$query);
                 echo "<script>alert('Data Berhasil Ditambahkan')
                 location.replace('index.php')</script>";
             }else{
                 echo "<script>alert('Ada data yang kosong')</script>";
             }
         }else{
-            $query1="UPDATE kategori set id_kat = '$id_kat', name_kat = '$name_kat'where id_kat = $id_kat;";
-            $sql_insert1 = mysqli_query($query1,$conn);
+            $query="UPDATE kategori set id_kat = '$id_kat', name_kat = '$name_kat'where id_kat = $id_kat;";
+            $sql_insert1 = mysqli_query($conn,$query);
             echo "<script>alert('Data Berhasil Diubah')
                 location.replace('index.php')</script>";
         }

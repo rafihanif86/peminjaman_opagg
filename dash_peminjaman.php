@@ -57,7 +57,7 @@
 
             if(($nama_instansi and $nama_kegiatan and $email_peminjam and $nama_kegiatan and $tgl_ambil and $tgl_kembali and $no_wa and $status) != null){
                 $query1="INSERT INTO peminjaman_masuk (nama_instansi,nama_kegiatan,email_peminjam,tgl_ambil,tgl_kembali,no_wa,status) VALUES ('".$nama_instansi."','".$nama_kegiatan."','".$email_peminjam."','".$tgl_ambil."','".$tgl_kembali."','".$no_wa."','".$status."');";
-                $sql_insert1 = mysqli_query($query1,$conn);
+                $sql_insert1 = mysqli_query($conn,$query1);
                 echo "<script>alert('Data Berhasil Ditambahkan')
                 location.replace('index.php')</script>";
             }else{

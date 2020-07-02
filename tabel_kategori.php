@@ -10,7 +10,7 @@
         $query="SELECT * FROM kategori WHERE `id_kat` LIKE '%$cari%' OR `name_kat` LIKE '%$cari%';";
     }
     
-    $result=mysqli_query($query,$conn);
+    $result=mysqli_query($conn,$query);
 
 ?>
 <html>

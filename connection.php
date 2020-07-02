@@ -1,5 +1,9 @@
-<?php 
+<?php
+$conn = mysqli_connect("localhost","root","","inventorygg");
 
-    $conn = mysqli_connect("localhost", "root", "") or die ("koneksi database gagal");
-    mysqli_select_db("inventorygg") or die ("database tidak ada");
+// Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
 ?>

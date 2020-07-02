@@ -10,7 +10,7 @@
         $query="SELECT * FROM alat WHERE `id_alat` LIKE '%$cari%' OR `merk` LIKE '%$cari%' OR 'type' LIKE '%$cari%';";
     }
     
-    $result=mysqli_query($query,$conn);
+    $result=mysqli_query($conn,$query);
 
 ?>
 <html>
