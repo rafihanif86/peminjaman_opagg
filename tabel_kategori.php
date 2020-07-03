@@ -128,6 +128,10 @@
             echo "<script type='text/javascript'> window.onload = function(){  alert('File gambar memiliki ukuran terlalu besar '); } </script>";
         }else if($_GET['status'] == "filetype"){
             echo "<script type='text/javascript'> window.onload = function(){  alert('File gambar memiliki tipe file tidak diijinkan'); } </script>";
+        }else if($_GET['status'] == "berhasildihapus"){
+            echo "<script type='text/javascript'> window.onload = function(){  alert('Lampiran berhasil dihapus'); } </script>";
+        }else if($_GET['status'] == "gagaldihapus"){
+            echo "<script type='text/javascript'> window.onload = function(){  alert('Lampiran gagal dihapus'); } </script>";
         }
     }
 ?>

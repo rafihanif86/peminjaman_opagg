@@ -12,7 +12,7 @@
             $id_check_keluar = $row6["id_check_keluar"];
         }
 
-        $query1="DELETE FROM checklist_record where id_check = $id_id_check_keluar;";
+        $query1="DELETE FROM checklist_record where id_check = $id_check_keluar;";
         $delete1=mysqli_query($conn,$query1);
         
         $delete = false;

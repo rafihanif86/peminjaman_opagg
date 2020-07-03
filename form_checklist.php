@@ -5,7 +5,7 @@
     include 'tgl_indo.php';
 
     $id_check = $tgl_checklist = $kondisi = $id_alat = $keterangan = $id_user = $petugas = $dipinjam = $peminjaman = $id_detail_masuk = $foto_alat = $id_peminjaman_masuk =  $edit  = $id_detail = $disAlatPinjam = $nama_user= $disIdAlat = "";
-    $id_check_last = $tgl_checklist_last = $status = $deskripsi = $id_alat_last = $status_peminjaman =  $kondisi_last = $keterangan_last = $capture_true = $foto_alat_check_last = $nama_user_last = $dipinjam_last = $id_peminjaman_masuk_last = $tgl_terbaru_last = $id_checklist_group = "";   
+    $id_check_last = $tgl_checklist_last = $status = $deskripsi = $id_alat_last = $status_peminjaman =  $kondisi_last = $id_checklist_group_item= $keterangan_last = $capture_true = $foto_alat_check_last = $nama_user_last = $dipinjam_last = $id_peminjaman_masuk_last = $tgl_terbaru_last = $id_checklist_group = "";   
     $dateNow= date("Y-m-d");
     $header_check = "Checklist Alat ";
     $disAlatPinjam = $disIdAlat = "hidden";
@@ -26,6 +26,11 @@
 
     if(isset($_GET['status'])){
         $status = $_GET['status'];
+    }
+    
+    if(isset($_GET['id_checklist_group'])){
+        $id_checklist_group = $_GET['id_checklist_group'];
+        $id_checklist_group_item = $_GET['id_checklist_group_item'];
     }
 
     if(isset($_GET['id_alat']) and isset($_GET['delete'])){
@@ -64,6 +69,7 @@
         $id_detail_masuk = $_POST["id_detail_masuk"];
         $id_peminjaman_masuk = $_POST["id_peminjaman_masuk"];
         $id_checklist_group = $_POST["id_checklist_group"];
+        $id_checklist_group_item = $_POST["id_checklist_group_item"];
         $status = $_POST["status"];
 
         if($id_check == "" || empty($id_check)){
@@ -102,6 +108,18 @@
                     $id_check_max = $row6["id_check_max"];
                 }
 
+                if($id_checklist_group != "" && $id_checklist_group_item != "" ){
+                    $q_keluar="UPDATE checklist_group_item set id_check = '$id_check_max' where id_checklist_group_item = '$id_checklist_group_item';";
+                    $hasil = mysqli_query($conn,$q_keluar);
+                    if($hasil){
+                        echo "<script>
+                            location.replace('form_checklist_onprocess.php?status=berhasil')</script>";
+                    }else{
+                        echo "<script>
+                                location.replace('form_checklist_onprocess.php?status=gagal')</script>";
+                    }
+                }
+
                 if($status == "baru"){
                     $q_keluar="UPDATE alat set checklist_masuk = '$id_check_max' where id_alat = '$id_alat';";
                     $hasil = mysqli_query($conn,$q_keluar);
@@ -109,7 +127,7 @@
                         echo "<script>
                             location.replace('tampil_alat.php?id_alat=$id_alat&status=berhasil')</script>";
                     }else{
-                        echo "<script>\
+                        echo "<script>
                                 location.replace('form_checklist.php?id_alat=$id_alat&status=baru')</script>";
                     }
                 }else if($status == "diputihkan"){
@@ -169,9 +187,9 @@
                 }else{
                     echo "<script> location.replace('tampil_alat.php?id_alat=$id_alat&status=gagal')</script>";
                 }
+
             }else{
-                echo "<script>alert('Gagal Menambahkan Data Checklist. Ada Data yang tidak ditemukan.')
-                        location.replace('form_checklist.php?id_alat=$id_alat&id_peminjaman_masuk=$id_peminjaman_masuk&id_checklist_group=$id_checklist_group&id_detail_masuk=$id_detail_masuk&status_peminjaman=$status_peminjaman')</script>";
+                echo "<script>alert('Gagal Menambahkan Data Checklist. Ada Data yang tidak ditemukan.')</script>";
             }
         }else{
 
@@ -436,17 +454,17 @@
                                                     while ($row1=mysqli_fetch_array($res2)){
                                                         echo $row1["nama_user"];
                                                     }
-                                                    echo " NIA.".$nama_user_last."-GG";
+                                                    echo " <small class='text-secondary'>NIA.".$nama_user_last."-GG</small>";
                                                 ?></div>
                                             </div>
-                                            <div class="row form-group">
+                                            <div class="row form-group" <?php if($dipinjam_last == ""){echo "hidden";}?>>
                                                 <div class="col col-md-3"><label for="text-input"
                                                         class=" form-control-label">Status Peminjaman</label></div>
                                                 <div class="col-12 col-md-9">
                                                     <?php echo ": "; if($dipinjam_last != ""){echo "$dipinjam_last";}else{echo "-";} ?>
                                                 </div>
                                             </div>
-                                            <div class="row form-group">
+                                            <div class="row form-group" <?php if($id_peminjaman_masuk_last == ""){echo "hidden";}?>>
                                                 <div class="col col-md-3"><label for="text-input"
                                                         class=" form-control-label">Nomor Peminjaman</label></div>
                                                 <div class="col-12 col-md-9">
@@ -651,21 +669,10 @@
                                                     Peminjaman</small>
                                             </div>
                                         </div>
-                                        <div class="row form-group"
-                                            <?php if($id_checklist_group == "" || empty($id_checklist_group)){echo "hidden";}?>>
-                                            <div class="col col-md-3">
-                                                <label for="text-input" class="form-control-label">Id Checklist
-                                                    Group</label>
-                                            </div>
-                                            <div class="col-12 col-md-9">
-                                                <input type="text" placeholder="Id Checklist Group" class="form-control"
-                                                    value="<?php echo $id_checklist_group; ?>" disabled>
-                                                <input type="hidden" name="id_checklist_group"
+                                        <input type="hidden" name="id_checklist_group"
                                                     value="<?php echo $id_checklist_group; ?>">
-                                                <small class="form-text text-muted">Masukkan Nomor
-                                                    Peminjaman</small>
-                                            </div>
-                                        </div>
+                                        <input type="hidden" name="id_checklist_group_item"
+                                                    value="<?php echo $id_checklist_group_item; ?>">
                                         <input type="hidden" name="id_detail_masuk"
                                             value="<?php echo $id_detail_masuk; ?>">
                                         <input type="hidden" name="status" value="<?php echo $status; ?>">

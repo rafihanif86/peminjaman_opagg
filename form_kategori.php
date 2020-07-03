@@ -28,17 +28,19 @@
                         $tmp_name = $_FILES['gambar']['tmp_name'][$i];
                         $file_size = $_FILES['gambar']['size'][$i];
                         $jenis_gambar = $_FILES['gambar']['type'][$i];
-                        if($file_size <= 1048576){
-                            if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png"|| $jenis_gambar=="image/png"){
-                                move_uploaded_file($tmp_name, "images/".$file_name);
+                        if($file_name != ""){
+                            if($file_size <= 1048576){
+                                if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png"|| $jenis_gambar=="image/png"){
+                                    move_uploaded_file($tmp_name, "images/".$file_name);
+                                }else{
+                                    $file_name =  "";
+                                    $status = "filetype";
+                                }
+                                
                             }else{
                                 $file_name =  "";
-                                $status = "filetype";
+                                $status = "bigsize";
                             }
-                            
-                        }else{
-                            $file_name =  "";
-                            $status = "bigsize";
                         }
                     }
                 }
@@ -156,9 +158,11 @@
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <input type="file" name="gambar[]" placeholder="Choose file"
-                                            class="form-control" value="" accept="image/jpg,image/jpeg,image/png" capture="camera" id="camera">
+                                            class="form-control" value="" accept="image/jpg,image/jpeg,image/png"
+                                            capture="camera" id="camera">
                                         <img id="frame">
-                                        <small class="help-block form-text">Tambahkan gambar kategori. Pilih gambar untuk mengubah</small>
+                                        <small class="help-block form-text">Tambahkan gambar kategori. Pilih gambar
+                                            untuk mengubah</small>
                                     </div>
                                 </div>
                             </div>
@@ -195,5 +199,4 @@ camera.addEventListener('change', function(e) {
 function reset() {
     frame.src = "";
 }
-
 </script>
