@@ -42,7 +42,10 @@
                     <?php
                         }
                     ?>
-                    <li class="<?php if($halaman == "tracking"){echo 'active';}?>" 
+                    <li class="<?php if($halaman == "tracking"){echo 'active';}?>" >
+                        <a href="tampil_peminjaman.php"><i class="menu-icon fa fa-search"></i>Tracking Peminjaman</a>
+                    </li>
+                    <li class="<?php if($halaman == "peminjaman_anggota"){echo 'active';}?>" 
                         <?php
                             $tampilkan = false;
                             $result=mysqli_query($conn, "SELECT * FROM peminjaman_masuk WHERE nik = '$nia';");
@@ -58,9 +61,6 @@
                                 echo "hidden";
                             }
                         ?>>
-                        <a href="tampil_peminjaman.php"><i class="menu-icon fa fa-search"></i>Tracking Peminjaman</a>
-                    </li>
-                    <li class="<?php if($halaman == "peminjaman_anggota"){echo 'active';}?>">
                         <a href="form_peminjaman_anggota.php"><i class="menu-icon fa fa-house-user"></i>Peminjaman Anggota</a>
                     </li>
                     <li class="menu-item-has-children dropdown <?php if($halaman == 'peminjaman'){echo 'active';}?>"

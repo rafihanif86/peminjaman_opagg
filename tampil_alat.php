@@ -208,34 +208,33 @@ function printContent(el) {
                                                                                     echo "no_image.png";
                                                                                 } ?>" data-toggle="modal"
                                                             data-target="#myModal" class="card-img" id="myImg"
-                                                            alt="Snow"
-                                                            style="max-height: 20rem; float:none;">
+                                                            alt="Snow" style="max-height: 20rem; float:none;">
                                                     </div>
                                                     <div class="col-md-10 ">
                                                         <div class="card-body">
                                                             <div class="float-md-left border-left">
-                                                                    <div class="container">
-                                                                        <small
-                                                                            class="text-secondary"><?php echo tgl_indo($row2["tgl_checklist"]); ?></small><br />
-                                                                        <b>Petugas : </b>
-                                                                        <?php
+                                                                <div class="container">
+                                                                    <small
+                                                                        class="text-secondary"><?php echo tgl_indo($row2["tgl_checklist"]); ?></small><br />
+                                                                    <b>Petugas : </b>
+                                                                    <?php
                                                                             $petugas =  $row2["petugas"];
                                                                             $res2 = mysqli_query($conn, "SELECT nama_user FROM user WHERE nia = '$petugas';");
                                                                             while ($row1 = mysqli_fetch_array($res2)) {
                                                                                 echo $row1["nama_user"];
                                                                             }
                                                                             ?><br />
-                                                                        <?php if ($row2["id_peminjaman_masuk"] != "") { ?>
-                                                                        <b>Peminjaman : </b>
-                                                                        <a class="text-dark"
-                                                                            href="tampil_peminjaman.php?id_peminjaman_alat=<?php echo $row2["id_peminjaman_masuk"]; ?>"><?php echo $row2["id_peminjaman_masuk"]; ?></a>
-                                                                        <?php } ?>
-                                                                    </div>
+                                                                    <?php if ($row2["id_peminjaman_masuk"] != "") { ?>
+                                                                    <b>Peminjaman : </b>
+                                                                    <a class="text-dark"
+                                                                        href="tampil_peminjaman.php?id_peminjaman_alat=<?php echo $row2["id_peminjaman_masuk"]; ?>"><?php echo $row2["id_peminjaman_masuk"]; ?></a>
+                                                                    <?php } ?>
                                                                 </div>
-                                                                <div class="float-md-left border-left">
-                                        <div class="container">
-                                                                        <b>Kondisi : </b><br />
-                                                                        <?php
+                                                            </div>
+                                                            <div class="float-md-left border-left">
+                                                                <div class="container">
+                                                                    <b>Kondisi : </b><br />
+                                                                    <?php
                                                                             if ($row2["status_peminjaman"] != "") {
                                                                                 echo "Alat ini " . $row2["status_peminjaman"] . " pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=" . $row2["id_peminjaman_masuk"] . "'> " . $row2["id_peminjaman_masuk"] . "</a>. ";
                                                                             }
@@ -243,8 +242,8 @@ function printContent(el) {
                                                                                 echo "Alat ini memiliki kondisi " . $row2["kondisi"] . ", " . $row2["keterangan"] . ".";
                                                                             }
                                                                             ?>
-                                                                    </div>
                                                                 </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -288,6 +287,7 @@ function printContent(el) {
             </div>
         </div>
 
+        <?php if($_SESSION['status'] == "admin"){ ?>
         <div class="row">
             <div class="col-md-12 ">
                 <div class="row">
@@ -321,6 +321,7 @@ function printContent(el) {
                 </div>
             </div>
         </div>
+        <?php } ?>
         <hr />
 
     </div><!-- .animated -->

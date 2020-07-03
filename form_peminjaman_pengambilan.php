@@ -79,57 +79,57 @@
                                         <div class="row no-gutters">
                                             <div class="col-md-3">
                                                 <img src="images/<?php if($row2["foto_jenis_alat"] != "" || !empty($row2["foto_jenis_alat"]) || $row2["foto_jenis_alat"] != null ){echo $row2["foto_jenis_alat"];}else{echo "no_image.png";}?>"
-                                                    style="max-width: 120px; max-height: 120px; margin: 15px;"
-                                                    class="card-img-top" alt="...">
+                                                    style="max-height: 20rem;" class="card-img-top" alt="...">
                                             </div>
-                                            <div class="col-md-8">
+                                            <div class="col-md-9">
                                                 <div class="card-body">
-                                                    <div class="col-md-11 border-left">
-                                                        <div class="card-title">
+                                                    <div class="float-md-left border-left">
+                                                        <div class="container">
                                                             <h6><?php echo $row2["nama_jenis_alat"]; ?></h6>
-                                                        </div>
-                                                        <div class="card-text text-secondary">
-                                                            <small>
-                                                                <b>Permintaan : </b>
-                                                                <?php echo $row2["jumlah"]; ?><br />
-                                                                <b>Disetujui : </b>
-                                                                <?php echo $row2["jumlah_dikeluarkan"]; ?><br />
-                                                                <b>Disetujui : </b>
-                                                                <?php
-                                                                    $id_detail_masuk = $row2["id_detail_masuk"];
+                                                            <div class="text-secondary">
+                                                                <small>
+                                                                    <b>Permintaan : </b>
+                                                                    <?php echo $row2["jumlah"]; ?><br />
+                                                                    <b>Disetujui : </b>
+                                                                    <?php echo $row2["jumlah_dikeluarkan"]; ?><br />
+                                                                    <b>Dikeluarkan : </b>
+                                                                    <?php
+                                                                    $id_detail_masuk1 = $row2["id_detail_masuk"];
                                                                     $jum_kel="";
-                                                                    $queryKel="SELECT COUNT(*) AS jum_keluar FROM detail_peminjaman_diterima WHERE id_detail_masuk = '$id_detail_masuk'; ";
+                                                                    $queryKel="SELECT COUNT(*) AS jum_keluar FROM detail_peminjaman_diterima WHERE id_detail_masuk = '$id_detail_masuk1'; ";
                                                                     $resultKel=mysqli_query($conn,$queryKel) ;
                                                                     while ($row6=mysqli_fetch_array($resultKel)){
                                                                         $jum_kel = $row6["jum_keluar"];
                                                                     }
                                                                     echo $jum_kel;
                                                                 ?>
-                                                            </small>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="float-md-right">
+                                                        <div class="container">
+                                                            <?php
+                                                            if($row2["jumlah_dikeluarkan"] > $jum_kel){
+                                                        ?>
+                                                            <form
+                                                                action="form_peminjaman_pengambilan.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"
+                                                                method="post" name="frm" enctype="multipart/form-data"
+                                                                class="form-horizontal">
+                                                                <input type="hidden" name="id_detail_masuk"
+                                                                    value="<?php echo $row2["id_detail_masuk"]; ?>">
+                                                                <button type="submit" class="btn btn-primary btn-sm "
+                                                                    name="data_alat">
+                                                                    <i class="fa fa-book-open fa-1x"></i>
+                                                                </button>
+                                                            </form>
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-1">
-                                                <div class="card-body">
-                                                    <?php
-                                                            if($row2["jumlah_dikeluarkan"] > $jum_kel){
-                                                        ?>
-                                                    <form
-                                                        action="form_peminjaman_list_alat.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"
-                                                        method="post" name="frm" enctype="multipart/form-data"
-                                                        class="form-horizontal">
-                                                        <input type="hidden" name="id_detail_masuk"
-                                                            value="<?php echo $row2["id_detail_masuk"]; ?>">
-                                                        <button type="submit" class="btn btn-primary btn-sm float-right"
-                                                            name="data_alat">
-                                                            <i class="fa fa-book-open fa-1x"></i>
-                                                        </button>
-                                                    </form>
-                                                    <?php } ?>
-                                                </div>
-                                            </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <?php if($i==2){ $i = 0; echo '</div><div class="row">';} } ?>
@@ -165,7 +165,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                                $i = 0;
+
                                                 $query="SELECT a.`deskripsi`, a.`id_alat`, a.`merk`, a.`type`, a.`foto_alat`, k.`nama_jenis_alat` FROM alat A, `detail_peminjaman_masuk` M, `jenis_alat` k WHERE a.`id_jenis_alat` = k.`id_jenis_alat` and m.`id_jenis_alat` = a.`id_jenis_alat` AND m.`id_detail_masuk` = '$id_detail_masuk';";
                                                 $result=mysqli_query($conn,$query) ;
                                                 while ($row2=mysqli_fetch_array($result)){
@@ -192,27 +192,29 @@
                                                             <div class="col-md-3">
                                                                 <img src="images/<?php if($row2["foto_alat"] != "" || !empty($row2["foto_alat"]) || $row2["foto_alat"] != null ){echo $row2["foto_alat"];}else{echo "no_image.png";}?>"
                                                                     class="card-img" alt="..."
-                                                                    style="max-height: 120px; max-width: 120px; margin:20px; float:none;">
+                                                                    style="max-height: 20rem;">
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="col col-md-5 border-left">
-                                                                            <div class="card-title">
+                                                                    <div class="float-md-left border-left">
+                                                                        <div class="container">
+                                                                            <a class="text-dark"
+                                                                                href="tampil_alat.php?id_alat=<?php echo $row2["id_alat"];?>"
+                                                                                target="blank">
                                                                                 <h6><?php echo $row2["id_alat"]; ?></h6>
                                                                                 <h5><?php echo $row2["merk"]." ".$row2["type"]; ?>
                                                                                 </h5>
-                                                                                <small
-                                                                                    class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
-                                                                            </div>
+                                                                            </a>
+                                                                            <small
+                                                                                class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
                                                                         </div>
-                                                                        <div class="col col-md-6 border-left">
-                                                                            <div class="card-text">
-                                                                                <b>Ciri : </b><br />
-                                                                                <?php echo $row2["deskripsi"]; ?><br />
-                                                                                <b>Kondisi : </b><br />
-                                                                                <?php echo $kondisi.", ".$keterangan; if($tgl_checklist != "0000-00-00" || $tgl_checklist != "" || $tgl_checklist != null){ echo " <small class='text-secondary'>(".$tgl_checklist.") </small>";} ?><br />
-                                                                            </div>
+                                                                    </div>
+                                                                    <div class="float-md-left border-left">
+                                                                        <div class="container">
+                                                                            <b>Ciri : </b><br />
+                                                                            <?php echo $row2["deskripsi"]; ?><br />
+                                                                            <b>Kondisi : </b><br />
+                                                                            <?php echo $kondisi.", ".$keterangan; if($tgl_checklist != "0000-00-00" || $tgl_checklist != "" || $tgl_checklist != null){ echo " <small class='text-secondary'>(".$tgl_checklist.") </small>";} ?><br />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -264,28 +266,37 @@
                                         <div class="row no-gutters">
                                             <div class="col-md-3">
                                                 <img src="images/<?php if($row2["foto_alat"] != "" || !empty($row2["foto_alat"]) || $row2["foto_alat"] != null ){echo $row2["foto_alat"];}else{echo "no_image.png";}?>"
-                                                    class="card-img" alt="..."
-                                                    style="max-height: 120px; max-width: 120px; margin:20px; float:none;">
+                                                    class="card-img" alt="..." style="max-height: 15rem;">
                                             </div>
                                             <div class="col-md-9">
                                                 <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col col-md-6 border-left">
-                                                            <div class="card-title">
+                                                    <div class="float-md-left border-left">
+                                                        <div class="container">
+                                                            <a class="text-dark"
+                                                                href="tampil_alat.php?id_alat=<?php echo $row2["id_alat"];?>" target="blank">
                                                                 <h6><?php echo $row2["id_alat"]; ?></h6>
                                                                 <h5><?php echo $row2["merk"]." ".$row2["type"]; ?>
                                                                 </h5>
-                                                                <small
-                                                                    class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
-                                                            </div>
+                                                            </a>
+                                                            <small
+                                                                class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
                                                         </div>
-                                                        <div class="col col-md-6 border-left">
-                                                            <div class="card-text">
-                                                                <b>Ciri : </b><br />
-                                                                <?php echo $row2["deskripsi"]; ?><br />
-                                                                <b>Kondisi : </b><br />
-                                                                <?php echo $row2["kondisi"].", ".$row2["keterangan"]." <small class='text-secondary'>(".tgl_indo($row2["tgl_checklist"]).") </small>"; ?><br />
-                                                            </div>
+                                                    </div>
+                                                    <div class="float-md-left border-left">
+                                                        <div class="container">
+                                                            <b>Ciri : </b><br />
+                                                            <?php echo $row2["deskripsi"]; ?><br />
+                                                            <b>Kondisi : </b><br />
+                                                            <?php echo $row2["kondisi"].", ".$row2["keterangan"]." <small class='text-secondary'>(".tgl_indo($row2["tgl_checklist"]).") </small>"; ?><br />
+                                                        </div>
+                                                    </div>
+                                                    <div class="float-md-right ">
+                                                        <div class="container">
+                                                            <a href="delete_item_diserahkan.php?id_detail=<?php echo $row2["id_detail"];?>&id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"
+                                                                class="btn btn-danger btn-sm "
+                                                                onClick="return confirm('Hapus item ini??')">
+                                                                <i class='fa fa-trash-o fa-1x'> </i>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -319,4 +330,18 @@
 </div><!-- .content -->
 
 <div class="clearfix"></div>
-<?php include 'footer_admin.php'; ?>
+<?php 
+    include 'footer_admin.php'; 
+
+    if(isset($_GET['status'])){
+        if($_GET['status'] == "berhasil"){
+            echo "<script type='text/javascript'> window.onload = function(){ alert('Berhasil ditambahkan'); } </script>";
+        }else if($_GET['status'] == "gagal"){
+            echo "<script type='text/javascript'> window.onload = function(){ alert('Gagal ditambahkan'); } </script>";
+        }else if($_GET['status'] == "berhasildihapus"){
+            echo "<script type='text/javascript'> window.onload = function(){  alert('Lampiran berhasil dihapus'); } </script>";
+        }else if($_GET['status'] == "gagaldihapus"){
+            echo "<script type='text/javascript'> window.onload = function(){  alert('Lampiran gagal dihapus'); } </script>";
+        }
+    }
+?>

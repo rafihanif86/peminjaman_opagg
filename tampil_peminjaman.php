@@ -322,8 +322,8 @@
                                                 <div class="row no-gutters">
                                                     <div class="col-md-4">
                                                         <img src="images/<?php if($row2["foto_jenis_alat"] != "" || !empty($row2["foto_jenis_alat"]) || $row2["foto_jenis_alat"] != null ){echo $row2["foto_jenis_alat"];}else{echo "no_image.png";}?>"
-                                                            style="max-height: 20rem; float:none;"
-                                                            class="card-img-top" alt="...">
+                                                            style="max-height: 20rem; float:none;" class="card-img-top"
+                                                            alt="...">
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
@@ -369,7 +369,7 @@
                                     <hr />
                                     <div class="row">
                                         <?php   
-                                                $query1="SELECT d.*, a.`merk`, a.`type`, a.id_alat, a.foto_alat, a.ciri, k.`nama_jenis_alat`, c.`kondisi`, c.`keterangan` FROM detail_peminjaman_diterima D, `detail_peminjaman_masuk` M, alat A, jenis_alat K, `checklist_record` C WHERE d.`id_detail_masuk` = m.`id_detail_masuk` AND m.id_peminjaman_masuk = '$id_peminjaman_masuk' AND d.`id_check_keluar` = c.`id_check` AND d.`id_alat` = a.`id_alat` AND a.`id_jenis_alat` = k.`id_jenis_alat`;";
+                                                $query1="SELECT d.*, a.`merk`, a.`type`, a.id_alat, a.foto_alat, a.deskripsi, k.`nama_jenis_alat`, c.`kondisi`, c.`keterangan`, c.tgl_checklist FROM detail_peminjaman_diterima D, `detail_peminjaman_masuk` M, alat A, jenis_alat K, `checklist_record` C WHERE d.`id_detail_masuk` = m.`id_detail_masuk` AND m.id_peminjaman_masuk = '$id_peminjaman_masuk' AND d.`id_check_keluar` = c.`id_check` AND d.`id_alat` = a.`id_alat` AND a.`id_jenis_alat` = k.`id_jenis_alat`;";
                                                 $result1=mysqli_query($conn,$query1);
                                                 $i = 0;
                                                 while ($row2=mysqli_fetch_array($result1)){
@@ -388,17 +388,27 @@
                                                             <div class="row">
                                                                 <div class="col col-md-12 border-left">
                                                                     <div class="card-title">
-                                                                        <h6><?php echo $row2["id_alat"]; ?></h6>
-                                                                        <h5> <?php echo $row2["merk"]." ".$row2["type"]; ?>
-                                                                        </h5>
+                                                                        <a class="text-dark"
+                                                                            href="tampil_alat.php?id_alat=<?php echo $row2["id_alat"];?>"
+                                                                            target="blank">
+                                                                            <h6><?php echo $row2["id_alat"]; ?></h6>
+                                                                            <h5> <?php echo $row2["merk"]." ".$row2["type"]; ?>
+                                                                            </h5>
+                                                                        </a>
                                                                         <small
                                                                             class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
                                                                     </div>
                                                                     <div class="card-text ">
                                                                         <b>Ciri:
-                                                                        </b><?php echo $row2["ciri"]; ?><br />
+                                                                        </b><?php echo $row2["deskripsi"]; ?><br />
                                                                         <b>Kondisi: </b>
-                                                                        <?php echo $row2["kondisi"].", ".$row2["keterangan"]; ?><br />
+                                                                        <?php 
+                                                                                $id_detail = $row2["id_detail"];
+                                                                                $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_keluar` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
+                                                                                while ($row1=mysqli_fetch_array($res1)){
+                                                                                echo $row2["kondisi"].", ".$row2["keterangan"]." <small class='text-secondary'>(".tgl_indo($row2["tgl_checklist"]).")</small> ";
+                                                                                } 
+                                                                            ?>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -435,39 +445,43 @@
                                                     </div>
                                                     <div class="col-md-10 ">
                                                         <div class="card-body">
-                                                                <div class="float-md-left border-left">
-                                                                    <div class="container">
+                                                            <div class="float-md-left border-left">
+                                                                <div class="container">
+                                                                    <a class="text-dark"
+                                                                        href="tampil_alat.php?id_alat=<?php echo $row2["id_alat"];?>"
+                                                                        target="blank">
                                                                         <h6><?php echo $row2["id_alat"]; ?></h6>
                                                                         <h5> <?php echo $row2["merk"]." ".$row2["type"]; ?>
                                                                         </h5>
-                                                                        <small
-                                                                            class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
-                                                                        <br/>
-                                                                        <b>Deskripsi : </b>
-                                                                        <?php echo $row2["deskripsi"]; ?>
-                                                                    </div>
+                                                                    </a>
+                                                                    <small
+                                                                        class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
+                                                                    <br />
+                                                                    <b>Deskripsi : </b>
+                                                                    <?php echo $row2["deskripsi"]; ?>
                                                                 </div>
-                                                                <div class="float-md-left border-left">
-                                                                    <div class="container">
-                                                                        <b>Kondisi Penyerahan: </b><br />
-                                                                        <?php 
+                                                            </div>
+                                                            <div class="float-md-left border-left">
+                                                                <div class="container">
+                                                                    <b>Kondisi Penyerahan: </b><br />
+                                                                    <?php 
                                                                                 $id_detail = $row2["id_detail"];
                                                                                 $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_keluar` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
                                                                                 while ($row1=mysqli_fetch_array($res1)){
                                                                                 echo $row1["kondisi"].", ".$row1["keterangan"]." <small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).")</small> ";
                                                                                 } 
                                                                             ?>
-                                                                            <br/>
-                                                                        <b>Kondisi Pengembalian: </b><br />
-                                                                        <?php 
+                                                                    <br />
+                                                                    <b>Kondisi Pengembalian: </b><br />
+                                                                    <?php 
                                                                                 $id_detail = $row2["id_detail"];
                                                                                 $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_masuk` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
                                                                                 while ($row1=mysqli_fetch_array($res1)){
                                                                                 echo $row1["kondisi"].", ".$row1["keterangan"]." <small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).") </small>";
                                                                                 } 
                                                                             ?>
-                                                                    </div>
                                                                 </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

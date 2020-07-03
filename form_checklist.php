@@ -137,10 +137,10 @@
                             $hasil = mysqli_query($conn,$q_keluar);
                             if($hasil){
                                 echo "<script>alert('Berhasil Menambahkan Data Checklist Pengambilan Peminjaman')
-                                    location.replace('form_peminjaman_list_alat.php?id_peminjaman_masuk=$id_peminjaman_masuk')</script>";
+                                    location.replace('form_peminjaman_pengambilan.php?id_peminjaman_masuk=$id_peminjaman_masuk')</script>";
                             }else{
                                 echo "<script>alert('Gagal Menambahkan Data Checklist Pengambilan Peminjaman')
-                                        location.replace('form_peminjaman_list_alat.php?id_peminjaman_masuk=$id_peminjaman_masuk')</script>";
+                                        location.replace('form_peminjaman_pengambilan.php?id_peminjaman_masuk=$id_peminjaman_masuk')</script>";
                             }
                         }else if($status_peminjaman == 'dikembalikan'){
                             $q_keluar="UPDATE detail_peminjaman_diterima set id_check_masuk = '$id_check_max' where id_detail_masuk = '$id_detail_masuk' and id_alat = '$id_alat';";
@@ -157,7 +157,7 @@
                         
                     }else{
                         echo "<script>alert('Gagal Menambahkan Data Checklist peminjaman')
-                                location.replace('form_peminjaman_list_alat.php?id_peminjaman_masuk=$id_peminjaman_masuk')</script>";
+                                location.replace('form_peminjaman_pengambilan.php?id_peminjaman_masuk=$id_peminjaman_masuk')</script>";
                     }
                     
                 }else if($sql_insert1){
@@ -222,7 +222,7 @@
             if($sql_insert1){
                 if($id_peminjaman_masuk != ""){
                     echo "<script>alert('Berhasil Mengubah Data Checklist')
-                            location.replace('form_peminjaman_list_alat.php?id_peminjaman_masuk=$id_peminjaman_masuk')</script>";
+                            location.replace('form_peminjaman_pengambilan.php?id_peminjaman_masuk=$id_peminjaman_masuk')</script>";
                 }else{
                     if($status == ""){
                         echo "<script> location.replace('tampil_alat.php?id_alat=$id_alat&status=berhasil')</script>";
@@ -731,7 +731,7 @@
 
         <?php if($id_peminjaman_masuk != "") { ?>
         <div class="float-left">
-            <a href="<?php if($status_peminjaman == 'diambil'){echo 'form_peminjaman_list_alat.php?id_peminjaman_masuk='.$id_peminjaman_masuk;}
+            <a href="<?php if($status_peminjaman == 'diambil'){echo 'form_peminjaman_pengambilan.php?id_peminjaman_masuk='.$id_peminjaman_masuk;}
                             else if($status_peminjaman == 'dikembalikan'){echo 'form_peminjaman_pengembalian.php?id_peminjaman_masuk='.$id_peminjaman_masuk;}?>"
                 class="btn btn-secondary btn-md active float-left" role="button" aria-pressed="true">
                 <i class="fas fa-chevron-left "></i> Kembali</a>

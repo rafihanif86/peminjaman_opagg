@@ -81,41 +81,40 @@
                                                             <div class="col-md-3">
                                                                 <img src="images/<?php if($row2["foto_alat"] != "" || !empty($row2["foto_alat"]) || $row2["foto_alat"] != null ){echo $row2["foto_alat"];}else{echo "no_image.png";}?>"
                                                                     class="card-img" alt="..."
-                                                                    style="max-height: 120px; max-width: 120px; margin:20px; float:none;">
+                                                                    style="max-height: 20ren;">
                                                             </div>
                                                             <div class="col-md-9">
                                                                 <div class="card-body">
-
-                                                                    <div class="row">
-                                                                        <div class="col col-md-5 border-left">
-                                                                            <div class="card-title">
-                                                                                <h6><?php echo $row2["id_alat"]; ?></h6>
-                                                                                <h5><?php echo $row2["merk"]." ".$row2["type"]; ?>
-                                                                                </h5>
-                                                                                <small
-                                                                                    class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
-                                                                            </div>
+                                                                    <div class="float-md-left border-left">
+                                                                        <div class="container">
+                                                                            <h6><?php echo $row2["id_alat"]; ?></h6>
+                                                                            <h5><?php echo $row2["merk"]." ".$row2["type"]; ?>
+                                                                            </h5>
+                                                                            <small
+                                                                                class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
                                                                         </div>
-                                                                        <div class="col col-md-6 border-left">
-                                                                            <div class="card-text">
-                                                                                <b>Deskripsi : </b><br />
-                                                                                <?php echo $row2["deskripsi"]; ?><br />
-                                                                                <b>Kondisi : </b><br />
-                                                                                <?php echo $row2["kondisi"].", ".$row2["keterangan"]." <small class='text-secondary'>(".tgl_indo($row2["tgl_checklist"]).") </small>"; ?><br />
-                                                                            </div>
+                                                                    </div>
+                                                                    <div class="float-md-left border-left">
+                                                                        <div class="container">
+                                                                            <b>Deskripsi : </b><br />
+                                                                            <?php echo $row2["deskripsi"]; ?><br />
+                                                                            <b>Kondisi : </b><br />
+                                                                            <?php echo $row2["kondisi"].", ".$row2["keterangan"]." <small class='text-secondary'>(".tgl_indo($row2["tgl_checklist"]).") </small>"; ?><br />
                                                                         </div>
-                                                                        <div class="col col-md-1 ">
+                                                                    </div>
+                                                                    <div class="float-md-right">
+                                                                        <div class="container">
                                                                             <?php
-                                                                            $tombol_check = false;
-                                                                            $id_detail = $row2["id_detail"];
-                                                                            $res1=mysqli_query($conn,"SELECT id_check_masuk FROM `detail_peminjaman_diterima` WHERE `id_detail` = '$id_detail'") ;
-                                                                            while ($row1=mysqli_fetch_array($res1)){
-                                                                                if($row1["id_check_masuk"] == "" || $row1["id_check_masuk"] == "(NULL)" || $row1["id_check_masuk"] == null){
-                                                                                    $tombol_check = true;
+                                                                                $tombol_check = false;
+                                                                                $id_detail = $row2["id_detail"];
+                                                                                $res1=mysqli_query($conn,"SELECT id_check_masuk FROM `detail_peminjaman_diterima` WHERE `id_detail` = '$id_detail'") ;
+                                                                                while ($row1=mysqli_fetch_array($res1)){
+                                                                                    if($row1["id_check_masuk"] == "" || $row1["id_check_masuk"] == "(NULL)" || $row1["id_check_masuk"] == null){
+                                                                                        $tombol_check = true;
+                                                                                    }
                                                                                 }
-                                                                            }
-                                                                            if($tombol_check){
-                                                                        ?>
+                                                                                if($tombol_check){
+                                                                            ?>
                                                                             <a href="form_checklist.php?status_peminjaman=dikembalikan&id_alat=<?php echo $row2["id_alat"];?>&id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>&id_detail_masuk=<?php echo $row2["id_detail_masuk"];?>"
                                                                                 class="btn btn-primary btn-md float-right">
                                                                                 <i
@@ -124,16 +123,13 @@
                                                                             <?php } ?>
                                                                         </div>
                                                                     </div>
-
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            <?php
-                                                        }
-                                                    ?>
+                                            <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -167,54 +163,47 @@
                                         <div class="row no-gutters">
                                             <div class="col-md-2">
                                                 <img src="images/<?php if($row2["foto_alat"] != "" || !empty($row2["foto_alat"]) || $row2["foto_alat"] != null ){echo $row2["foto_alat"];}else{echo "no_image.png";}?>"
-                                                    class="card-img" alt="..."
-                                                    style="max-height: 120px; max-width: 120px; margin: 15px; float:none;">
+                                                    class="card-img" alt="..." style="max-height: 20rem; ">
                                             </div>
                                             <div class="col-md-10 ">
                                                 <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col col-md-5 border-left">
-                                                            <div class="card-title">
-                                                                <h6><?php echo $row2["id_alat"]; ?></h6>
-                                                                <h5> <?php echo $row2["merk"]." ".$row2["type"]; ?>
-                                                                </h5>
-                                                                <small
-                                                                    class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
-                                                            </div>
-                                                            <div class="card-text">
-                                                                <b>Deskripsi : </b> <?php echo $row2["deskripsi"]; ?><br />
-                                                            </div>
+                                                    <div class="float-md-left border-left">
+                                                        <div class="container">
+                                                            <h6><?php echo $row2["id_alat"]; ?></h6>
+                                                            <h5> <?php echo $row2["merk"]." ".$row2["type"]; ?>
+                                                            </h5>
+                                                            <small
+                                                                class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
                                                         </div>
-                                                        <div class="col col-md-7 border-left">
-                                                            <div class="card-text">
-                                                                <b>Kondisi Penyerahan: </b><br />
-                                                                <?php 
+                                                        <div class="card-text">
+                                                            <b>Deskripsi : </b> <?php echo $row2["deskripsi"]; ?><br />
+                                                        </div>
+                                                    </div>
+                                                    <div class="float-md-left border-left">
+                                                        <div class="container">
+                                                            <b>Kondisi Penyerahan: </b><br />
+                                                            <?php 
                                                                     $id_detail = $row2["id_detail"];
                                                                     $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_keluar` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
                                                                     while ($row1=mysqli_fetch_array($res1)){
                                                                     echo $row1["kondisi"].", ".$row1["keterangan"]." <small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).")</small> ";
                                                                     } 
-                                                                ?>
-                                                            </div>
-                                                            <div class="card-text">
-                                                                <b>Kondisi Pengembalian: </b><br />
-                                                                <?php 
+                                                                ?><br />
+                                                            <b>Kondisi Pengembalian: </b><br />
+                                                            <?php 
                                                                     $id_detail = $row2["id_detail"];
                                                                     $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_masuk` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
                                                                     while ($row1=mysqli_fetch_array($res1)){
                                                                     echo $row1["kondisi"].", ".$row1["keterangan"]." <small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).") </small>";
                                                                     } 
                                                                 ?>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <?php
-                                        }}
-                                    ?>
+                                    <?php }} ?>
                                     </table>
                                 </div>
                             </div>

@@ -10,7 +10,7 @@
         $result=mysqli_query($conn,"SELECT * FROM peminjaman_masuk WHERE id_peminjaman_masuk = '$id_peminjaman_masuk' ");
         while ($row1=mysqli_fetch_array($result)){
             $foto_jaminan     =   $row1["foto_jaminan"];
-            $status_peminjaman = $row1["status_peminjaman"];
+            $status_peminjaman = $row1["status"];
         }
     }
  ?>
@@ -44,61 +44,8 @@
 
 <div class="content">
     <div class="animated fadeIn">
-
-        <div class="row" <?php if($foto_jaminan != ""){echo "hidden";}?>>
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <strong> <?php if($status_peminjaman == "disetujui"){echo "Data Pengambilan Peminjaman ";}else if($status_peminjaman == "diambil"){} echo $id_peminjaman_masuk ?></strong>
-                    </div>
-                    <form action="form_peminjaman_jaminan.php" method="post" name="frm" enctype="multipart/form-data"
-                        class="form-horizontal">
-                        <div class="card-body card-block">
-                            <div class="container">
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="text-input" class=" form-control-label">Lampirkan Foto
-                                            Jaminan</label>
-                                    </div>
-                                    <div class="col col-md-9">
-                                        <input type="file" name="gambar[]" placeholder="Choose file"
-                                            class="form-control" value="" accept="image/*" capture="camera" id="camera">
-                                        <img id="frame">
-                                        <small class="help-block form-text">Lampirkan foto jaminan untuk syarat
-                                            pengeluaran peminjaman</small>
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col col-md-3">
-                                        <label for="text-input" class=" form-control-label">Lampirkan alat seluruh diserahkan</label>
-                                    </div>
-                                    <div class="col col-md-9">
-                                        <input type="file" name="gambar1[]" placeholder="Choose file"
-                                            class="form-control" value="" accept="image/*" capture="camera" id="camera">
-                                        <img id="frame">
-                                        <small class="help-block form-text">Lampirkan foto seluruh alat untuk syarat
-                                            pengeluaran peminjaman</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- HIDDEN INPUT -->
-                        <input type="text" id="email-input" name="id_peminjaman_masuk" class="form-control"
-                            value="<?php echo $id_peminjaman_masuk; ?>" hidden="hidden">
-                        <div class="card-footer">
-                            <button type="submit" class="btn btn-primary btn-sm" name="submit">
-                                <i class="fa fa-dot-circle-o"></i> Submit
-                            </button>
-                            <button type="reset" class="btn btn-danger btn-sm" name="reset" onclick="reset()">
-                                <i class="fa fa-ban"></i> Reset
-                            </button>
-                        </div>
-                </div>
-                </form>
-            </div>
-        </div>
         
-        <div class="row" <?php if($foto_jaminan != ""){echo "hidden";}?>>
+        <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
@@ -154,7 +101,7 @@
                             value="<?php echo $id_peminjaman_masuk; ?>" >
                         <input type="hidden" name="status" class="form-control"
                             value="<?php echo $status_peminjaman; ?>" >
-                        <div class="card-footer">
+                        <div class="card-footer" <?php if(isset($_GET['status'])){ if($_GET['status'] == "berhasil"){echo "hidden";}}?>>
                             <button type="submit" class="btn btn-primary btn-sm" name="submit">
                                 <i class="fa fa-dot-circle-o"></i> Submit
                             </button>
@@ -348,18 +295,18 @@
             </a>
             <?php
                 } 
-                if($status == "diambil" ){  
+                if($status == "dikembalikan" ){  
                     $email = "";
                     $nama = "";
-                    $nia_dept = ""; 
-                    $res2=mysqli_query($conn,"SELECT * FROM USER WHERE `status_anggota` = 'Departemen Rumah Tangga';");
+                    $status_dept = ""; 
+                    $res2=mysqli_query($conn,"SELECT * FROM USER WHERE nia = '$nia';");
                     while ($row1=mysqli_fetch_array($res2)){
                         $email = $row1["email"];
                         $nama = $row1["nama_user"];
-                        $nia_dept = $row1["nia"];
+                        $status_dept = $row1["status_anggota"];
                     }
                     
-                    if($nia_dept != $nia ){ 
+                    if($status_dept != "Departemen Rumah Tangga" ){ 
             ?> 
                 <form id="contact-form" action="sent_email.php" method="get" role="form">
                     <input type="hidden" name="email" value="<?php echo  $email; ?>">
@@ -411,7 +358,7 @@
             $foto_alat_pengambilan = "";
             $foto_alat_pengaembalian = "";
 
-            $result=mysqli_query($conn, "SELECT * FROM peminjaman_masuk WHERE id_peminjaman_masuk = $id_peminjaman_masuk");
+            $result=mysqli_query($conn, "SELECT * FROM peminjaman_masuk WHERE id_peminjaman_masuk = '$id_peminjaman_masuk'");
             while ($row1=mysqli_fetch_array($result)){
                 $foto_jaminan            =   $row1["foto_jaminan"];
                 $foto_alat_pengambilan   =   $row1["foto_alat_pengambilan"];
@@ -464,10 +411,10 @@
                 }
 
                 for ($i=0; $i < $jumlah2; $i++) { 
-                    $file_name2 = $_FILES['gambar1']['name'][$i];
-                    $tmp_name2 = $_FILES['gambar1']['tmp_name'][$i];
-                    $file_size2 = $_FILES['gambar1']['size'][$i];
-                    $jenis_gambar2 = $_FILES['gambar1']['type'][$i];
+                    $file_name2 = $_FILES['gambar2']['name'][$i];
+                    $tmp_name2 = $_FILES['gambar2']['tmp_name'][$i];
+                    $file_size2 = $_FILES['gambar2']['size'][$i];
+                    $jenis_gambar2 = $_FILES['gambar2']['type'][$i];
                     if($file_size2 <= 1048576){
                         if($jenis_gambar2 =="image/jpeg" || $jenis_gambar2 =="image/jpg" || $jenis_gambar2 =="image/gif" || $jenis_gambar2 =="image/x-png"){
                             move_uploaded_file($tmp_name2, "images/".$file_name2);
@@ -494,13 +441,13 @@
                 }
 
                 for ($i=0; $i < $jumlah3; $i++) { 
-                    $file_name3 = $_FILES['gambar1']['name'][$i];
-                    $tmp_name3 = $_FILES['gambar1']['tmp_name'][$i];
-                    $file_size3 = $_FILES['gambar1']['size'][$i];
-                    $jenis_gambar3 = $_FILES['gambar1']['type'][$i];
+                    $file_name3 = $_FILES['gambar3']['name'][$i];
+                    $tmp_name3 = $_FILES['gambar3']['tmp_name'][$i];
+                    $file_size3 = $_FILES['gambar3']['size'][$i];
+                    $jenis_gambar3 = $_FILES['gambar3']['type'][$i];
                     if($file_size3 <= 1048576){
                         if($jenis_gambar3 =="image/jpeg" || $jenis_gambar3 =="image/jpg" || $jenis_gambar3 =="image/gif" || $jenis_gambar3 =="image/x-png"){
-                            move_uploaded_file($tmp_name2, "images/".$file_name2);
+                            move_uploaded_file($tmp_name3, "images/".$file_name3);
                         }else{
                             $file_name3=  $foto_alat_pengembalian;
                             $status = "filetype";
@@ -526,6 +473,22 @@
             }
         }else{
             echo "<script>location.replace('form_peminjaman_jaminan.php?id_peminjaman_masuk=$id_peminjaman_masuk&status=gagal')</script>";
+        }
+    }
+
+    if(isset($_GET['status'])){
+        if($_GET['status'] == "berhasil"){
+            echo "<script type='text/javascript'> window.onload = function(){ alert('Berhasil ditambahkan'); } </script>";
+        }else if($_GET['status'] == "gagal"){
+            echo "<script type='text/javascript'> window.onload = function(){ alert('Gagal ditambahkan'); } </script>";
+        }else if($_GET['status'] == "bigsize"){
+            echo "<script type='text/javascript'> window.onload = function(){  alert('File gambar memiliki ukuran terlalu besar '); } </script>";
+        }else if($_GET['status'] == "filetype"){
+            echo "<script type='text/javascript'> window.onload = function(){  alert('File gambar memiliki tipe file tidak diijinkan'); } </script>";
+        }else if($_GET['status'] == "berhasildihapus"){
+            echo "<script type='text/javascript'> window.onload = function(){  alert('Lampiran berhasil dihapus'); } </script>";
+        }else if($_GET['status'] == "gagaldihapus"){
+            echo "<script type='text/javascript'> window.onload = function(){  alert('Lampiran gagal dihapus'); } </script>";
         }
     }
 
@@ -564,7 +527,7 @@ function reset() {
     frame3.src = "";
 }
 
-var _validFileExtensions = [".pdf"];
+var _validFileExtensions = [".jpeg",".png",".jpg"];
 
 function validate(file) {
     if (file.type == "file") {

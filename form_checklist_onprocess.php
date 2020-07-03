@@ -62,11 +62,11 @@
                             <div class="col col-md-6">
                                 <small
                                     class="text-secondary"><?php echo tgl_indo($tgl_checklist_group); ?></small><br />
-                                <b>Koordinator:</b>
+                                <b>Petugas Pengecekan:</b>
                                 <?php
                                     $nama_user = "";
                                     $status_anggota = "";
-                                    $sql1=mysqli_query($conn,"SELECT * FROM user WHERE nia = '$koordinator';");
+                                    $sql1=mysqli_query($conn,"SELECT * FROM user WHERE nia = '$nia';");
                                     while ($row=mysqli_fetch_array($sql1)) {
                                         $nama_user =  $row['nama_user'];
                                         $status_anggota =  $row['status_anggota'];
@@ -77,30 +77,7 @@
                                 <h6><?php echo $status_anggota;?></h6>
                             </div>
                             <div class="col col-md-6 border-left">
-
-                                <form action="form_checklist_group.php" method="post" name="frm"
-                                    enctype="multipart/form-data">
-                                    <div class="row">
-                                        <div class="col col-md-8">
-                                            <h2> <?php if($status == "waiting"){ echo "Mulai";}else{echo"Hentikan";}?>
-                                                Checklist Grup</h2>
-                                            <input type="hidden" name="id_checklist_group"
-                                                value="<?php echo $id_checklist_group; ?>">
-                                        </div>
-                                        <div class="col col-md-4">
-                                            <?php if($status == "waiting"){ ?>
-                                            <button type="submit" class="btn btn-success btn-md btn-block" name="mulai">
-                                                <i class="fa fa-calendar-check"></i> Mulai </button>
-                                            <?php } else if($status == "onprocess"){?>
-                                            <button type="submit" class="btn btn-danger btn-md btn-block"
-                                                name="selesai">
-                                                <i class="fa fa-calendar-check"></i> Selesai </button>
-                                            <?php } ?>
-                                        </div>
-                                    </div>
-                                </form>
-                                <hr />
-                                <div class="container" style="width: 40%; float: left;">
+                                <div class="container" style="float: left;">
                                     <div class="row">
                                         <div class="col col-md-8">
                                             Jumlah alat
@@ -114,7 +91,7 @@
                                         </div>
                                     </div>
                                     <?php
-                                        if($status == "onprogres"){
+                                        if($status == "onprocess"){
                                         $sql3=mysqli_query($conn,"SELECT * FROM `checklist_group_item` WHERE `id_checklist_group` = '$id_checklist_group' AND `id_check` = '';");
                                         $jumlah_belum = mysqli_num_rows($sql3);
                                         $jumlah_telah = $jumlah_alat_gg - $jumlah_belum;
@@ -145,73 +122,7 @@
             </div>
         </div>
 
-        <?php
-            if($status == "waiting"){
-            $result1=mysqli_query($conn,"SELECT *  FROM user WHERE login_status = 'login' and nia != '$nia'") ;
-            $jumlah_login = mysqli_num_rows($result1);
-        ?>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <strong>Anggota Yang Login</strong>
-                        <div class="float-right text-secondary"><?php echo "Telah Login : ".$jumlah_login;?></div>
-                    </div>
-                    <div class="card-body card-block">
-                        <table class="table border-0">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <?php
-                                        $i = 0;
-                                        $jumlah = 0;
-                                        while ($row2=mysqli_fetch_array($result1)){
-                                    ?>
-                                    <td>
-                                        <div class="row" style="margin: auto;">
-                                            <div class="col-md-12">
-                                                <div class="card" style="max-width: 15rem; max-height: 30rem">
-                                                    <img src="images/<?php if($row2["foto_anggota"] != "" || !empty($row2["foto_anggota"]) || $row2["foto_anggota"] != null ){echo $row2["foto_anggota"];}else{echo "user-icon.png";}?>"
-                                                        class="card-img-top" alt="..." style="max-height: 15rem">
-                                                    <div class="card-body">
-                                                        <h6 class="card-title">NIA.<?php echo $row2["nia"]; ?>-GG</h6>
-                                                        <h5> <?php echo $row2["nama_user"]; ?></h5>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <?php
-                                            $i++;
-                                            $jumlah++;
-                                            if($i >= 4){
-                                                $i = 0;
-                                                echo '</tr><tr>';
-                                            }
-                                            if($jumlah == $jumlah_login){
-                                                $kurang = 4 - ($jumlah_login % 4);
-                                                for($a = 0; $a < $kurang; $a++){
-                                                    echo "<td></td>";
-                                                }
-                                            }
-                                        } 
-                                    ?>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <?php }
+        <?php 
             if($status == "onprocess"){
             $query1="SELECT c.*, a.`foto_alat`, a.`merk`, a.`type`, j.`nama_jenis_alat`, u.`nama_user` FROM `checklist_group_item` C, `alat` A, `user` U, `jenis_alat` J WHERE c.`id_checklist_group` = '$id_checklist_group' AND c.`id_check` = '' AND a.`id_jenis_alat` = j.`id_jenis_alat` AND a.`id_alat` = c.`id_alat` AND c.`petugas_check` = u.`nia`;";
             $result1=mysqli_query($conn,$query1);

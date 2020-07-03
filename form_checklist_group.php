@@ -75,6 +75,7 @@
                             <h6><?php echo $status_anggota;?></h6>
                         </div>
                         <div class="float-md-right border-left">
+                            <div class="container">
                             <form action="form_checklist_group.php" method="post" name="frm"
                                 enctype="multipart/form-data">
                                 <div class="row">
@@ -134,7 +135,7 @@
                                 <?php } ?>
                             </div>
                         </div>
-                        <br />
+                        </div>
                     </div>
                 </div>
             </div>

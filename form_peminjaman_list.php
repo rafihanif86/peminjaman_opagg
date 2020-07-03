@@ -346,8 +346,7 @@
                                 <div class="col-12 col-md-9">
                                     <input type="number" name="jumlah2"
                                         placeholder="Masukkan jumlah alat yang disetujui" class="form-control"
-                                        value="<?php echo $jumlah2; ?>" min="1"
-                                        max="<?php echo $jumlah;?>">
+                                        value="<?php echo $jumlah2; ?>" min="1" max="<?php echo $jumlah;?>">
                                     <small class="help-block form-text">Masukkan jumlah yang akan disetujui</small>
                                 </div>
                             </div>
@@ -411,23 +410,26 @@
                                                 <div class="col-md-12 ">
                                                     <div class="card-body">
                                                         <div class="row">
-                                                            <div class="col col-md-5 ">
-                                                                <div class="card-title">
-                                                                    <small class="text-secondary"><?php echo $row2["tgl_ambil"]." s/d ".$row2["tgl_kembali"]; ?></small>
-                                                                    <br/>
+                                                            <div class="float-md-left border-left">
+                                                                <div class="container">
+                                                                    <small
+                                                                        class="text-secondary"><?php echo $row2["tgl_ambil"]." s/d ".$row2["tgl_kembali"]; ?></small>
+                                                                    <br />
                                                                     <a class="text-dark" target="blank"
                                                                         href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $row2["id_peminjaman_masuk"];?>">
                                                                         <h6><?php echo $row2["id_peminjaman_masuk"]; ?>
                                                                         </h6>
-                                                                        <h5> <?php echo $row2["nama"]; ?> <small class="text-secondary">(<?php echo $row2["instansi"];?>)</small></h5>
-                                                                        
+                                                                        <h5> <?php echo $row2["nama"]; ?> <small
+                                                                                class="text-secondary">(<?php echo $row2["instansi"];?>)</small>
+                                                                        </h5>
+
                                                                     </a>
-                                                                    <br/>
-                                                                    <?php echo $row2["nama_kegiatan"];?><br/>
+                                                                    <br />
+                                                                    <?php echo $row2["nama_kegiatan"];?><br />
                                                                 </div>
                                                             </div>
-                                                            <div class="col col-md-7 border-left">
-                                                                <div class="card-text">
+                                                            <div class="float-md-left border-left">
+                                                                <div class="container">
                                                                     <b>Alat yang akan dipinjam : </b><br />
                                                                     <?php 
                                                                         $id = $row2["id_peminjaman_masuk"];
@@ -454,7 +456,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
                                     </td>
                                 </tr>
                                 <?php }} ?> </tbody>
@@ -468,7 +469,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Alat Yang Dimiliki Oleh Ganendra Giri Berdasarkan jenis_alat Alat</strong>
+                        <strong>Alat Yang Dimiliki Oleh Ganendra Giri Berdasarkan Jenis Alat</strong>
                         <small class="float-right text-secondary">Alat Tersedia :
                             <?php echo mysqli_num_rows($res); ?></small>
                     </div>
@@ -485,8 +486,7 @@
                                         <div class="row no-gutters">
                                             <div class="col-md-4">
                                                 <img src="images/<?php if($row2["foto_alat"] != "" || !empty($row2["foto_alat"]) || $row2["foto_alat"] != null ){echo $row2["foto_alat"];}else{echo "no_image.png";}?>"
-                                                    style="max-width: 120px; max-height: 120px; margin: 15px;"
-                                                    class="card-img-top" alt="...">
+                                                    style="max-height: 20rem; " class="card-img-top" alt="...">
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="card-body">
@@ -523,7 +523,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong>Permintaan Peminjaman Baru <?php echo $id_peminjaman_masuk; ?></strong>
+                        <strong>List Alat Yang Akan dipinjam <?php echo $id_peminjaman_masuk; ?></strong>
                         <?php if($status == "baru" || $status == "disetujui"){?>
                         <a class="btn btn-success float-right btn-sm"
                             href="form_peminjaman_list.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>&tambah=true"
@@ -543,40 +543,39 @@
                                         <div class="row no-gutters">
                                             <div class="col-md-3">
                                                 <img src="images/<?php if($row2["foto_jenis_alat"] != "" || !empty($row2["foto_jenis_alat"]) || $row2["foto_jenis_alat"] != null ){echo $row2["foto_jenis_alat"];}else{echo "no_image.png";}?>"
-                                                    style="max-width: 120px; max-height: 120px; margin: 15px;"
-                                                    class="card-img-top" alt="...">
+                                                    style="max-height: 20rem;" class="card-img-top" alt="...">
                                             </div>
-                                            <div class="col-md-8">
+                                            <div class="col-md-9">
                                                 <div class="card-body">
-                                                    <div class="col-md-11 border-left">
-                                                        <div class="card-title">
+                                                    <div class="float-md-left border-left">
+                                                        <div class="container">
                                                             <h6><?php echo $row2["nama_jenis_alat"]; ?></h6>
-                                                        </div>
-                                                        <div class="card-text text-secondary">
-                                                            <small>
-                                                                <b>Permintaan : </b>
-                                                                <?php echo $row2["jumlah"]; ?><br />
-                                                                <?php if($status == "disetujui"){?>
-                                                                <b>Disetujui : </b>
-                                                                <?php echo $row2["jumlah_dikeluarkan"]; }?>
-                                                            </small>
+                                                            <div class=" text-secondary">
+                                                                <small>
+                                                                    <b>Permintaan : </b>
+                                                                    <?php echo $row2["jumlah"]; ?><br />
+                                                                    <?php if($status == "disetujui"){?>
+                                                                    <b>Disetujui : </b>
+                                                                    <?php echo $row2["jumlah_dikeluarkan"]; }?>
+                                                                </small>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <div class="card-body" style="margin: auto;">
-                                                    <?php if($status == "baru" || $status == "disetujui"){?>
-                                                    <a href="form_peminjaman_list.php?edit=true&id_peminjaman_masuk=<?php echo $row2["id_peminjaman_masuk"];?>&id_detail_masuk=<?php echo $row2["id_detail_masuk"];?>"
-                                                        class="btn btn-outline-primary btn-sm float-right">
-                                                        <i class='fa fa-pencil fa-1x'> </i>
-                                                    </a><br />
-                                                    <a href="delete_detail_peminjaman.php?id_detail_masuk=<?php echo $row2["id_detail_masuk"];?>&id_peminjaman_masuk=<?php echo $row2["id_peminjaman_masuk"];?>&user=admin"
-                                                        class="btn btn-outline-danger btn-sm float-right"
-                                                        onClick="return confirm('Hapus item ini??')">
-                                                        <i class='fa fa-trash-o fa-1x'> </i>
-                                                    </a>
-                                                    <?php } ?>
+                                                    <div class="float-md-right ">
+                                                        <div class="container">
+                                                            <?php if($status == "baru" || $status == "disetujui"){?>
+                                                            <a href="form_peminjaman_list.php?edit=true&id_peminjaman_masuk=<?php echo $row2["id_peminjaman_masuk"];?>&id_detail_masuk=<?php echo $row2["id_detail_masuk"];?>"
+                                                                class="btn btn-outline-primary btn-sm ">
+                                                                <i class='fa fa-pencil fa-1x'> </i>
+                                                            </a>
+                                                            <a href="delete_detail_peminjaman.php?id_detail_masuk=<?php echo $row2["id_detail_masuk"];?>&id_peminjaman_masuk=<?php echo $row2["id_peminjaman_masuk"];?>&user=admin"
+                                                                class="btn btn-outline-danger btn-sm "
+                                                                onClick="return confirm('Hapus item ini??')">
+                                                                <i class='fa fa-trash-o fa-1x'> </i>
+                                                            </a>
+                                                            <?php } ?>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -651,13 +650,14 @@
                 <input type="hidden" name="subject" value="Peminjaman Peralatan OPA Ganendra Giri">
                 <input type="hidden" name="message"
                     value="Selamat anda telah berhasil mengisi formulir peminjaman peralatan OPA Ganendra Giri dengan nomor peminjaman <?php echo  $id_peminjaman_masuk; ?>. Saat ini peminjaman anda berstatus pending untuk disetujui oleh admin kami. Tunggu informasi lebih selanjutnya untuk perkembangan peminjaman alat anda. Jika ada pertanyaan lain bisa menghubungi Departemen Rumah Tangga OPA Ganendra Giri. Terima Kasih. ">
-                <input type="hidden" name="link" value="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>">
+                <input type="hidden" name="link"
+                    value="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>">
                 <button type="submit" class="btn btn-primary btn-md active float-right">
                     Selesai <i class="fas fa-chevron-right "></i>
                 </button>
             </form>
             <?php } else {?>
-                <a href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"
+            <a href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"
                 class="btn btn-primary btn-md active" role="button" aria-pressed="true">
                 Selesai <i class="fas fa-chevron-right "></i>
             </a>
