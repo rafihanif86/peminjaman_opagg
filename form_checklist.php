@@ -278,7 +278,7 @@
                 <div class="page-header float-right">
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
-                            <li><a href="alat.php">Data Alat Checklist</a></li>
+                            <li><a href="tabel_checklist.php" class="text-dark">Data Checklist Alat</a></li>
                             <li class="active">Form Checklist</li>
                         </ol>
                     </div>
@@ -301,53 +301,59 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col ">
-                                    <div class="row form-group">
-                                        <div class="col col-md-12">
-                                            <img src="images/<?php if($foto_alat != "" || !empty($foto_alat) || $foto_alat != null ){echo $foto_alat;}else{echo "no_image.png";}?>"
-                                                class="rounded mx-auto d-block" alt="..." style="width: 75%;">
+                                    <div class="float-md-left">
+                                        <div class="container">
+                                            <div class="row form-group">
+                                                <div class="col col-md-12">
+                                                    <img src="images/<?php if($foto_alat != "" || !empty($foto_alat) || $foto_alat != null ){echo $foto_alat;}else{echo "no_image.png";}?>"
+                                                        class="rounded mx-auto d-block" alt="..."
+                                                        style="max-height: 20rem;">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col ">
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Nomor Inventaris</label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $id_alat; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Kategori</label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $nama_jenis_alat; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Merk</label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $merk; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Tipe</label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $type; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Deskripsi</label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $deskripsi; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <?php 
-                                            if($checklist_masuk != ""){ 
-                                                $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` C, `user` U WHERE c.`id_check` = '$checklist_masuk' and c.`petugas` = u.`nia`;") ;
-                                                while ($row3=mysqli_fetch_array($result1)){
-                                        ?>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <small
-                                                            class="text-secondary float-right"><?php echo tgl_indo($row3["tgl_checklist"]);?></small>
-                                                        <h5 class="card-title">Pengecekan Awal</h5>
-                                                        <?php 
+                                    <div class="float-md-left ">
+                                        <div class="container">
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Nomor Inventaris</label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $id_alat; ?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Kategori</label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $nama_jenis_alat; ?>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Merk</label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $merk; ?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Tipe</label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $type; ?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Deskripsi</label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $deskripsi; ?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <?php 
+                                                    if($checklist_masuk != ""){ 
+                                                        $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` C, `user` U WHERE c.`id_check` = '$checklist_masuk' and c.`petugas` = u.`nia`;") ;
+                                                        while ($row3=mysqli_fetch_array($result1)){
+                                                ?>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <small
+                                                                    class="text-secondary float-right"><?php echo tgl_indo($row3["tgl_checklist"]);?></small>
+                                                                <h5 class="card-title">Pengecekan Awal</h5>
+                                                                <?php 
                                                             if($row3["status_peminjaman"] != ""){
                                                                 echo "Alat ini ".$row3["status_peminjaman"]." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$row3["id_peminjaman_masuk"]."'> ".$row3["id_peminjaman_masuk"]."</a>. ";
                                                             } 
@@ -355,25 +361,26 @@
                                                                 echo "Alat ini memiliki kondisi ".$row3["kondisi"].", ".$row3["keterangan"].". <br/><small class='text-secondary'>(".$row3["nama_user"].", NIA.".$row3["petugas"]."-GG ) </small>";
                                                             } 
                                                         ?>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <?php 
-                                            } }
-                                        
-                                            if($checklist_keluar != ""){ 
-                                                $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` C, `user` U WHERE c.`id_check` = '$checklist_keluar' and c.`petugas` = u.`nia`;") ;
-                                                while ($row3=mysqli_fetch_array($result1)){
-                                        ?>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <small
-                                                            class="text-secondary float-right"><?php echo tgl_indo($row3["tgl_checklist"]);?></small>
-                                                        <h5 class="card-title">Pengecekan Pemutihan</h5>
-                                                        <?php 
+                                                <?php 
+                                                        } 
+                                                    }
+                                                
+                                                    if($checklist_keluar != ""){ 
+                                                        $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` C, `user` U WHERE c.`id_check` = '$checklist_keluar' and c.`petugas` = u.`nia`;") ;
+                                                        while ($row3=mysqli_fetch_array($result1)){
+                                                ?>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <small
+                                                                    class="text-secondary float-right"><?php echo tgl_indo($row3["tgl_checklist"]);?></small>
+                                                                <h5 class="card-title">Pengecekan Pemutihan</h5>
+                                                                <?php 
                                                             if($row3["status_peminjaman"] != ""){
                                                                 echo "Alat ini ".$row3["status_peminjaman"]." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$row3["id_peminjaman_masuk"]."'> ".$row3["id_peminjaman_masuk"]."</a>. ";
                                                             } 
@@ -381,14 +388,17 @@
                                                                 echo "Alat ini memiliki kondisi ".$row3["kondisi"].", ".$row3["keterangan"].". <br/><small class='text-secondary'>(".$row3["nama_user"].", NIA.".$row3["petugas"]."-GG ) </small>";
                                                             } 
                                                         ?>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <?php } }?>
                                             </div>
                                         </div>
-                                        <?php } }?>
                                     </div>
                                 </div>
                             </div>
+
                             <?php $jumlah = mysqli_num_rows($res); if($jumlah != 0 || $id_check == ""){?>
                             <div class="row">
                                 <div class="col">
@@ -398,56 +408,68 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Tanggal</label></div>
-                                        <div class="col-12 col-md-9">
-                                            <?php echo ": "; echo tgl_indo($tgl_checklist_last); ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Kondisi</label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $kondisi_last ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Keterangan</label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $keterangan_last ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Petugas</label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; 
-                                            $res2=mysqli_query($conn,"SELECT * FROM USER WHERE nia = '$nama_user_last';");
-                                            while ($row1=mysqli_fetch_array($res2)){
-                                                echo $row1["nama_user"];
-                                            }
-                                            echo " NIA.".$nama_user_last."-GG";
-                                        ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Status Peminjaman</label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; if($dipinjam_last != ""){echo "$dipinjam_last";}else{echo "-";} ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label">Nomor Peminjaman</label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; if($id_peminjaman_masuk_last != ""){echo "$id_peminjaman_masuk_last";}else{echo "-";}?>
-                                        </div>
-                                    </div>
+                                    <div class="float-md-left ">
+                                        <div class="container">
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Tanggal</label></div>
+                                                <div class="col-12 col-md-9">
+                                                    <?php echo ": "; echo tgl_indo($tgl_checklist_last); ?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Kondisi</label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $kondisi_last ?>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Keterangan</label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $keterangan_last ?>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Petugas</label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; 
+                                                    $res2=mysqli_query($conn,"SELECT * FROM USER WHERE nia = '$nama_user_last';");
+                                                    while ($row1=mysqli_fetch_array($res2)){
+                                                        echo $row1["nama_user"];
+                                                    }
+                                                    echo " NIA.".$nama_user_last."-GG";
+                                                ?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Status Peminjaman</label></div>
+                                                <div class="col-12 col-md-9">
+                                                    <?php echo ": "; if($dipinjam_last != ""){echo "$dipinjam_last";}else{echo "-";} ?>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label">Nomor Peminjaman</label></div>
+                                                <div class="col-12 col-md-9">
+                                                    <?php echo ": "; if($id_peminjaman_masuk_last != ""){echo "$id_peminjaman_masuk_last";}else{echo "-";}?>
+                                                </div>
+                                            </div>
 
-                                </div>
-                                <div class="col ">
-                                    <div class="row form-group">
-                                        <div class="col col-md-12">
-                                            <img src="images/<?php if($foto_alat_check_last != "" || !empty($foto_alat_check_last) || $foto_alat_check_last != null ){echo $foto_alat_check_last;}else{echo "no_image.png";}?>"
-                                                class="rounded mx-auto d-block" alt="..." style="width: 75%;">
                                         </div>
                                     </div>
+                                    <div class="float-md-left ">
+                                        <div class="container">
+                                            <div class="row form-group">
+                                                <div class="col col-md-12">
+                                                    <img src="images/<?php if($foto_alat_check_last != "" || !empty($foto_alat_check_last) || $foto_alat_check_last != null ){echo $foto_alat_check_last;}else{echo "no_image.png";}?>"
+                                                        class="rounded mx-auto d-block" alt="..."
+                                                        style="max-height:20rem;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php } ?>
                                 </div>
                             </div>
-                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -468,7 +490,8 @@
                                     <div class="col">
                                         <div class="row form-group" <?php if($id_check == ""){echo 'hidden';}?>>
                                             <div class="col col-md-3">
-                                                <label for="text-input" class=" form-control-label">Id Checklist</label>
+                                                <label for="text-input" class=" form-control-label">Id
+                                                    Checklist</label>
                                             </div>
                                             <div class="col-12 col-md-9">
                                                 <input type="text" placeholder="Id Checklist" class="form-control"
@@ -508,7 +531,8 @@
                                                 <input type="hidden" id="text-input" name="petugas"
                                                     placeholder="Username" class="form-control"
                                                     value="<?php echo $nia; ?>">
-                                                <small class="form-text text-muted">Petugas Checklist akan terisi
+                                                <small class="form-text text-muted">Petugas Checklist akan
+                                                    terisi
                                                     otomatis</small>
                                             </div>
                                         </div>
@@ -521,13 +545,15 @@
                                                 <input type="date" id="date-input" name="tgl_checklist"
                                                     placeholder="Tanggal Checklist" class="form-control"
                                                     value="<?php echo $tgl_checklist; ?>">
-                                                <small class="form-text text-muted">Masukkan Tanggal Checklist</small>
+                                                <small class="form-text text-muted">Masukkan Tanggal
+                                                    Checklist</small>
                                             </div>
                                         </div>
 
                                         <div class="row form-group">
                                             <div class="col col-md-3">
-                                                <label for="text-input" class=" form-control-label">Masukkan Kondisi
+                                                <label for="text-input" class=" form-control-label">Masukkan
+                                                    Kondisi
                                                     Alat</label>
                                             </div>
                                             <div class="col-12 col-md-9">
@@ -543,25 +569,29 @@
                                                     <option <?php if($kon == 'diputihkan'){echo 'selected';}?>
                                                         value="diputihkan">Diputihkan</option>
                                                 </select>
-                                                <small class="form-text text-muted">Masukkan Kondisi Alat</small>
+                                                <small class="form-text text-muted">Masukkan Kondisi
+                                                    Alat</small>
                                             </div>
                                         </div>
                                         <div class="row form-group">
                                             <div class="col col-md-3">
-                                                <label for="text-input" class=" form-control-label">Keterangan Kondisi
+                                                <label for="text-input" class=" form-control-label">Keterangan
+                                                    Kondisi
                                                     Alat</label>
                                             </div>
                                             <div class="col-12 col-md-9">
                                                 <input type="text" id="text-input" name="keterangan"
                                                     placeholder="Keterangan" class="form-control"
                                                     value="<?php echo $keterangan; ?>">
-                                                <small class="form-text text-muted">Berikan keterangan kondisi alat
+                                                <small class="form-text text-muted">Berikan keterangan kondisi
+                                                    alat
                                                     secara rinci</small>
                                             </div>
                                         </div>
                                         <div class="row form-group">
                                             <div class="col col-md-3">
-                                                <label for="text-input" class=" form-control-label">Lampirkan Foto
+                                                <label for="text-input" class=" form-control-label">Lampirkan
+                                                    Foto
                                                     Alat</label>
                                             </div>
                                             <div class="col-12 col-md-9">
@@ -574,9 +604,7 @@
                                                         $result1=mysqli_query($conn,"SELECT * FROM checklist_record WHERE id_check = '$id_check' ");
                                                         while ($row2=mysqli_fetch_array($result1)){
                                                 ?>
-                                                <div class="btn btn-outline-primary btn-sm">
-                                                    <?php echo $row2["foto_alat_check"];?>
-                                                </div>
+                                                <?php echo $row2["foto_alat_check"];?>
                                                 <?php
                                                             }
                                                         }
@@ -586,13 +614,13 @@
                                             </div>
                                         </div>
                                         <div class="row form-group"
-                                        <?php if($peminjaman == "" || empty($peminjaman)){echo "hidden";}?>>
+                                            <?php if($peminjaman == "" || empty($peminjaman)){echo "hidden";}?>>
                                             <div class="col col-md-3">
                                                 <label for="text-input" class=" form-control-label">Status
                                                     Peminjaman</label>
                                             </div>
                                             <div class="col-12 col-md-9">
-                                                <select class="browser-default custom-select" name="status_peminjaman" >
+                                                <select class="browser-default custom-select" name="status_peminjaman">
                                                     <option
                                                         <?php if($status_peminjaman == 'diambil'){echo 'selected';}?>
                                                         value="diambil">Diambil</option>
@@ -602,7 +630,8 @@
                                                     <option <?php if($status_peminjaman == ''){echo 'selected';}?>
                                                         value="">Tidak Dipinjam</option>
                                                 </select>
-                                                <small class="form-text text-muted">Pilih Status Peminjaman</small>
+                                                <small class="form-text text-muted">Pilih Status
+                                                    Peminjaman</small>
                                             </div>
                                         </div>
                                         <div class="row form-group"
@@ -618,7 +647,8 @@
                                                 <input type="hidden" name="id_peminjaman_masuk"
                                                     placeholder="Id Peminjaman Masuk" class="form-control"
                                                     value="<?php echo $id_peminjaman_masuk; ?>">
-                                                <small class="form-text text-muted">Masukkan Nomor Peminjaman</small>
+                                                <small class="form-text text-muted">Masukkan Nomor
+                                                    Peminjaman</small>
                                             </div>
                                         </div>
                                         <div class="row form-group"
@@ -632,7 +662,8 @@
                                                     value="<?php echo $id_checklist_group; ?>" disabled>
                                                 <input type="hidden" name="id_checklist_group"
                                                     value="<?php echo $id_checklist_group; ?>">
-                                                <small class="form-text text-muted">Masukkan Nomor Peminjaman</small>
+                                                <small class="form-text text-muted">Masukkan Nomor
+                                                    Peminjaman</small>
                                             </div>
                                         </div>
                                         <input type="hidden" name="id_detail_masuk"

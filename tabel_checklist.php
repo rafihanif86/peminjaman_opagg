@@ -57,33 +57,31 @@
                                             <div class="row no-gutters">
                                                 <div class="col-md-10 ">
                                                     <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col col-md-5 border-right">
-                                                                <div class="card-title">
-                                                                    <a class="text-dark"
-                                                                        href="tampil_alat.php?id_alat=<?php echo $row1["id_alat"];?>">
-                                                                        <h6><?php echo $row1["id_alat"]; ?></h6>
-                                                                        <h5> <?php echo  $row1["merk"]." ". $row1["type"];; ?>
-                                                                        </h5>
-                                                                    </a>
-                                                                    <small
-                                                                        class="text-secondary"><?php echo  $row1["nama_jenis_alat"]; ?></small>
-                                                                </div>
+                                                        <div class="float-md-left border-left">
+                                                            <div class="container">
+                                                                <a class="text-dark"
+                                                                    href="tampil_alat.php?id_alat=<?php echo $row1["id_alat"];?>">
+                                                                    <h6><?php echo $row1["id_alat"]; ?></h6>
+                                                                    <h5> <?php echo  $row1["merk"]." ". $row1["type"];; ?>
+                                                                    </h5>
+                                                                </a>
+                                                                <small
+                                                                    class="text-secondary"><?php echo  $row1["nama_jenis_alat"]; ?></small>
                                                             </div>
-                                                            <div class="col col-md-7 ">
-                                                                <div class="card-text">
-                                                                    <b>Kondisi : </b><br />
-                                                                    <?php if($row1["status_peminjaman"] != ""){echo "Alat ini ".$row1["status_peminjaman"]." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$row1["id_peminjaman_masuk"]."'> ".$row1["id_peminjaman_masuk"]."</a>. ";} 
+                                                        </div>
+                                                        <div class="float-md-left border-left">
+                                                            <div class="container">
+                                                                <b>Kondisi : </b><br />
+                                                                <?php if($row1["status_peminjaman"] != ""){echo "Alat ini ".$row1["status_peminjaman"]." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$row1["id_peminjaman_masuk"]."'> ".$row1["id_peminjaman_masuk"]."</a>. ";} 
                                                                     if($row1["kondisi"] != ""){echo "Alat ini memiliki kondisi ".$row1["kondisi"].", ".$row1["keterangan"].". <br/><small class='text-secondary'>(".tgl_indo($row1['tgl_checklist']).", ".$row1["nama_user"].") </small>";} ?>
-                                                                    <br/>
-                                                                    <a href="form_checklist.php?edit=true&id_check=<?php echo $row1["id_check"];?>"
-                                                                        class="btn btn-primary btn-sm">
-                                                                        <i class='fa fa-pencil fa-1x'> </i> </a>
-                                                                    <a href="delete_checklist.php?id_check=<?php echo $row1["id_check"];?>"
-                                                                        class="btn btn-danger btn-sm ">
-                                                                        <i class='fa fa-trash-o fa-1x'> </i>
-                                                                    </a>
-                                                                </div>
+                                                                <br />
+                                                                <a href="form_checklist.php?edit=true&id_check=<?php echo $row1["id_check"];?>"
+                                                                    class="btn btn-primary btn-sm">
+                                                                    <i class='fa fa-pencil fa-1x'> </i> </a>
+                                                                <a href="delete_checklist.php?id_check=<?php echo $row1["id_check"];?>"
+                                                                    class="btn btn-danger btn-sm ">
+                                                                    <i class='fa fa-trash-o fa-1x'> </i>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -91,7 +89,7 @@
                                                 <div class="col-md-2">
                                                     <img src="images/<?php if($row1["foto_alat_check"] != "" || !empty($row1["foto_alat_check"]) || $row1["foto_alat_check"] != null ){echo $row1["foto_alat_check"];}else{echo "no_image.png";}?>"
                                                         class="card-img" alt="..."
-                                                        style="max-height: 120px; max-width: 120px; margin: 15px; float:none;">
+                                                        style="max-height: 20rem; float:none;">
                                                 </div>
                                             </div>
                                         </div>

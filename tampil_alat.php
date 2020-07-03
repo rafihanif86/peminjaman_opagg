@@ -79,62 +79,67 @@ function printContent(el) {
                         <div class="container">
                             <div class="row">
                                 <div class="col ">
-                                    <div class="row form-group">
-                                        <div class="col col-md-12">
-                                            <img src="images/<?php if ($foto_alat != "" || !empty($foto_alat) || $foto_alat != null) {
+                                    <div class="float-md-left">
+                                        <div class="container">
+                                            <div class="row form-group">
+                                                <div class="col col-md-12">
+                                                    <img src="images/<?php if ($foto_alat != "" || !empty($foto_alat) || $foto_alat != null) {
                                                                     echo $foto_alat;
                                                                 } else {
                                                                     echo "no_image.png";
                                                                 } ?>" class="rounded mx-auto d-block" alt="..."
-                                                style="width: 75%;">
+                                                        style="max-height: 20rem;">
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col ">
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label"><b>Nomor Inventaris</b></label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": ";
+                                    <div class="float-md-left border-left">
+                                        <div class="container">
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label"><b>Nomor Inventaris</b></label>
+                                                </div>
+                                                <div class="col-12 col-md-9"><?php echo ": ";
                                                                         echo $id_alat; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label"><b>Kategori</b></label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": ";
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label"><b>Kategori</b></label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": ";
                                                                         echo $nama_jenis_alat; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label"><b>Merk</b></label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": ";
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label"><b>Merk</b></label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": ";
                                                                         echo $merk; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label"><b>Tipe</b></label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": ";
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label"><b>Tipe</b></label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": ";
                                                                         echo $type; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label"><b>Deskripsi</b></label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": ";
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label"><b>Deskripsi</b></label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": ";
                                                                         echo $deskripsi; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <?php
+                                            </div>
+                                            <div class="row form-group">
+                                                <?php
                                         if ($checklist_masuk != "") {
                                             $result1 = mysqli_query($conn, "SELECT c.*, u.`nama_user` FROM `checklist_record` C, `user` U WHERE c.`id_check` = '$checklist_masuk' and c.`petugas` = u.`nia`;");
                                             while ($row3 = mysqli_fetch_array($result1)) {
                                         ?>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <small
-                                                            class="text-secondary float-right"><?php echo tgl_indo($row3["tgl_checklist"]); ?></small>
-                                                        <h5 class="card-title">Pengecekan Awal</h5>
-                                                        <?php
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <small
+                                                                    class="text-secondary float-right"><?php echo tgl_indo($row3["tgl_checklist"]); ?></small>
+                                                                <h5 class="card-title">Pengecekan Awal</h5>
+                                                                <?php
                                                                 if ($row3["status_peminjaman"] != "") {
                                                                     echo "Alat ini " . $row3["status_peminjaman"] . " pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=" . $row3["id_peminjaman_masuk"] . "'> " . $row3["id_peminjaman_masuk"] . "</a>. ";
                                                                 }
@@ -142,11 +147,11 @@ function printContent(el) {
                                                                     echo "Alat ini memiliki kondisi " . $row3["kondisi"] . ", " . $row3["keterangan"] . ". <br/><small class='text-secondary'>(" . $row3["nama_user"] . ", NIA." . $row3["petugas"] . "-GG ) </small>";
                                                                 }
                                                                 ?>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <?php
+                                                <?php
                                             }
                                         }
 
@@ -154,14 +159,14 @@ function printContent(el) {
                                             $result1 = mysqli_query($conn, "SELECT c.*, u.`nama_user` FROM `checklist_record` C, `user` U WHERE c.`id_check` = '$checklist_keluar' and c.`petugas` = u.`nia`;");
                                             while ($row3 = mysqli_fetch_array($result1)) {
                                             ?>
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <small
-                                                            class="text-secondary float-right"><?php echo tgl_indo($row3["tgl_checklist"]); ?></small>
-                                                        <h5 class="card-title">Pengecekan Pemutihan</h5>
-                                                        <?php
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="card">
+                                                            <div class="card-body">
+                                                                <small
+                                                                    class="text-secondary float-right"><?php echo tgl_indo($row3["tgl_checklist"]); ?></small>
+                                                                <h5 class="card-title">Pengecekan Pemutihan</h5>
+                                                                <?php
                                                                 if ($row3["status_peminjaman"] != "") {
                                                                     echo "Alat ini " . $row3["status_peminjaman"] . " pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=" . $row3["id_peminjaman_masuk"] . "'> " . $row3["id_peminjaman_masuk"] . "</a>. ";
                                                                 }
@@ -169,12 +174,14 @@ function printContent(el) {
                                                                     echo "Alat ini memiliki kondisi " . $row3["kondisi"] . ", " . $row3["keterangan"] . ". <br/><small class='text-secondary'>(" . $row3["nama_user"] . ", NIA." . $row3["petugas"] . "-GG ) </small>";
                                                                 }
                                                                 ?>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <?php }
+                                        } ?>
                                             </div>
                                         </div>
-                                        <?php }
-                                        } ?>
                                     </div>
                                 </div>
                             </div>
@@ -202,13 +209,12 @@ function printContent(el) {
                                                                                 } ?>" data-toggle="modal"
                                                             data-target="#myModal" class="card-img" id="myImg"
                                                             alt="Snow"
-                                                            style="width: 100%; max-height: 120px; max-width: 120px; margin: 15px; float:none;">
+                                                            style="max-height: 20rem; float:none;">
                                                     </div>
                                                     <div class="col-md-10 ">
                                                         <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col col-md-5 border-left">
-                                                                    <div class="card-text">
+                                                            <div class="float-md-left border-left">
+                                                                    <div class="container">
                                                                         <small
                                                                             class="text-secondary"><?php echo tgl_indo($row2["tgl_checklist"]); ?></small><br />
                                                                         <b>Petugas : </b>
@@ -226,8 +232,8 @@ function printContent(el) {
                                                                         <?php } ?>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col col-md-7 border-left">
-                                                                    <div class="card-text">
+                                                                <div class="float-md-left border-left">
+                                        <div class="container">
                                                                         <b>Kondisi : </b><br />
                                                                         <?php
                                                                             if ($row2["status_peminjaman"] != "") {
@@ -239,7 +245,6 @@ function printContent(el) {
                                                                             ?>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -266,7 +271,9 @@ function printContent(el) {
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <img class="modal-content" src="images/<?php if ($row2["foto_alat_check"] != "" || !empty($row2["foto_alat_check"]) || $row2["foto_alat_check"] != null) {echo $row2["foto_alat_check"];} else {echo "no_image.png";} ?>" id="img01">
+                                                    <img class="modal-content"
+                                                        src="images/<?php if ($row2["foto_alat_check"] != "" || !empty($row2["foto_alat_check"]) || $row2["foto_alat_check"] != null) {echo $row2["foto_alat_check"];} else {echo "no_image.png";} ?>"
+                                                        id="img01">
                                                 </div>
                                             </div>
                                         </div>

@@ -4,7 +4,7 @@
     include "header_admin.php";
 
     $hidden_button = "";
-    $res=mysqli_query($conn,"SELECT * FROM `checklist_group` WHERE `status` = 'waiting' || `status` = 'onprogress';") ;
+    $res=mysqli_query($conn,"SELECT * FROM `checklist_group` WHERE `status` = 'waiting' || `status` = 'onprocess';") ;
     $jumlah_berjalan = mysqli_num_rows($res);
     if($jumlah_berjalan > 0){
         while ($row=mysqli_fetch_array($res)) {
@@ -13,7 +13,7 @@
         if($nia == $koordinator){
             echo "<script> location.replace('form_checklist_group.php')</script>";
         }else{
-            echo "<script> location.replace('form_checklist_mengikuti.php')</script>";
+            echo "<script> location.replace('form_checklist_onprocess.php')</script>";
         }
         $hidden_button = "hidden";
     }

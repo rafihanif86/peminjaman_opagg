@@ -61,39 +61,35 @@
                                                 <div class="col-md-2">
                                                     <img src="images/<?php if($row1["foto_anggota"] != "" || !empty($row1["foto_anggota"]) || $row1["foto_anggota"] != null ){echo $row1["foto_anggota"];}else{echo "user-icon.png";}?>"
                                                         class="card-img" alt="..."
-                                                        style="max-height: 120px; max-width: 120px; margin: 15px; float:none;">
+                                                        style="max-height: 20rem; float:none;">
                                                 </div>
                                                 <div class="col-md-10 ">
                                                     <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col col-md-5 border-left">
-                                                                <div class="card-title">
-                                                                    <a class="text-dark"
-                                                                        href="tampil_anggota.php?nia=<?php echo $row1["nia"];?>">
-                                                                        <h6>NIA.<?php echo $row1["nia"]; ?>-GG</h6>
-                                                                        <h5> <?php echo $row1["nama_user"]; ?></h5>
-                                                                    </a>
-                                                                    <?php echo $row1["status_anggota"]; ?><br />
-                                                                    <?php if($row1["login_status"] == "login"){$pesan =  "Online";$style = "text-warning";}else if($row1["login_status"] == "logout"){$pesan = "Offline"; $style = "text-secondary";} ?>
-                                                                    <small
-                                                                        class="<?php echo $style; ?>"><?php echo $pesan; ?></small>
-                                                                </div>
+                                                        <div class="float-md-left">
+                                                            <div class="container">
+                                                                <a class="text-dark"
+                                                                    href="tampil_anggota.php?nia=<?php echo $row1["nia"];?>">
+                                                                    <h6>NIA.<?php echo $row1["nia"]; ?>-GG</h6>
+                                                                    <h5> <?php echo $row1["nama_user"]; ?></h5>
+                                                                </a>
+                                                                <?php echo $row1["status_anggota"]; ?><br />
+                                                                <?php if($row1["login_status"] == "login"){$pesan =  "Online";$style = "text-warning";}else if($row1["login_status"] == "logout"){$pesan = "Offline"; $style = "text-secondary";} ?>
+                                                                <small
+                                                                    class="<?php echo $style; ?>"><?php echo $pesan; ?></small>
                                                             </div>
-                                                            <div class="col col-md-7 border-left">
-                                                                <div class="card-text">
-                                                                    <b>Email : </b>
-                                                                    <?php echo $row1["email"]; ?><br />
-                                                                </div>
-                                                                <div class="card-text">
-                                                                    <b>Telepon : </b>
-                                                                    <?php if($row1["no_telp"] != ""){
+                                                        </div>
+                                                        <div class="float-md-left border-left">
+                                                            <div class="container">
+                                                                <b>Email : </b>
+                                                                <?php echo $row1["email"]; ?><br />
+                                                                <b>Telepon : </b>
+                                                                <?php if($row1["no_telp"] != ""){
                                                                         $noPottong = substr($row1["no_telp"],1);?>
-                                                                    <a href="https://api.whatsapp.com/send?phone=<?php echo "+62" .$noPottong; ?>&text=Halo"
-                                                                        target="_blank" class="text-dark">
-                                                                        <?php echo $row1["no_telp"]; ?>
-                                                                    </a>
-                                                                    <?php } ?>
-                                                                </div>
+                                                                <a href="https://api.whatsapp.com/send?phone=<?php echo "+62" .$noPottong; ?>&text=Halo"
+                                                                    target="_blank" class="text-dark">
+                                                                    <?php echo $row1["no_telp"]; ?>
+                                                                </a>
+                                                                <?php } ?>
                                                             </div>
                                                         </div>
                                                     </div>

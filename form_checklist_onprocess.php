@@ -58,10 +58,12 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body card-block">
-                        <div class="float-md-left ">
-                            <small class="text-secondary"><?php echo tgl_indo($tgl_checklist_group); ?></small><br />
-                            <b>Koordinator:</b>
-                            <?php
+                        <div class="row">
+                            <div class="col col-md-6">
+                                <small
+                                    class="text-secondary"><?php echo tgl_indo($tgl_checklist_group); ?></small><br />
+                                <b>Koordinator:</b>
+                                <?php
                                     $nama_user = "";
                                     $status_anggota = "";
                                     $sql1=mysqli_query($conn,"SELECT * FROM user WHERE nia = '$koordinator';");
@@ -70,71 +72,74 @@
                                         $status_anggota =  $row['status_anggota'];
                                     }
                                 ?>
-                            <h3><?php echo $nama_user;?></h3>
-                            <small><?php echo "NIA. ".$koordinator."-GG";?></small>
-                            <h6><?php echo $status_anggota;?></h6>
-                        </div>
-                        <div class="float-md-right border-left">
-                            <form action="form_checklist_group.php" method="post" name="frm"
-                                enctype="multipart/form-data">
-                                <div class="row">
-                                    <div class="col col-md-8">
-                                        <h2> <?php if($status == "waiting"){ echo "Mulai";}else{echo"Hentikan";}?>
-                                            Checklist Grup</h2>
-                                        <input type="hidden" name="id_checklist_group"
-                                            value="<?php echo $id_checklist_group; ?>">
+                                <h3><?php echo $nama_user;?></h3>
+                                <small><?php echo "NIA. ".$koordinator."-GG";?></small>
+                                <h6><?php echo $status_anggota;?></h6>
+                            </div>
+                            <div class="col col-md-6 border-left">
+
+                                <form action="form_checklist_group.php" method="post" name="frm"
+                                    enctype="multipart/form-data">
+                                    <div class="row">
+                                        <div class="col col-md-8">
+                                            <h2> <?php if($status == "waiting"){ echo "Mulai";}else{echo"Hentikan";}?>
+                                                Checklist Grup</h2>
+                                            <input type="hidden" name="id_checklist_group"
+                                                value="<?php echo $id_checklist_group; ?>">
+                                        </div>
+                                        <div class="col col-md-4">
+                                            <?php if($status == "waiting"){ ?>
+                                            <button type="submit" class="btn btn-success btn-md btn-block" name="mulai">
+                                                <i class="fa fa-calendar-check"></i> Mulai </button>
+                                            <?php } else if($status == "onprocess"){?>
+                                            <button type="submit" class="btn btn-danger btn-md btn-block"
+                                                name="selesai">
+                                                <i class="fa fa-calendar-check"></i> Selesai </button>
+                                            <?php } ?>
+                                        </div>
                                     </div>
-                                    <div class="col col-md-4">
-                                        <?php if($status == "waiting"){ ?>
-                                        <button type="submit" class="btn btn-success btn-md btn-block" name="mulai">
-                                            <i class="fa fa-calendar-check"></i> Mulai </button>
-                                        <?php } else if($status == "onprocess"){?>
-                                        <button type="submit" class="btn btn-danger btn-md btn-block" name="selesai">
-                                            <i class="fa fa-calendar-check"></i> Selesai </button>
-                                        <?php } ?>
-                                    </div>
-                                </div>
-                            </form>
-                            <hr />
-                            <div class="container" style=" float: left;">
-                                <div class="row">
-                                    <div class="col col-md-8">
-                                        Jumlah alat
-                                    </div>
-                                    <div class="col col-md-4">
-                                        <?php
+                                </form>
+                                <hr />
+                                <div class="container" style="width: 40%; float: left;">
+                                    <div class="row">
+                                        <div class="col col-md-8">
+                                            Jumlah alat
+                                        </div>
+                                        <div class="col col-md-4">
+                                            <?php
                                                 $sql2=mysqli_query($conn,"SELECT MAX(tgl_checklist) AS tgl_check, id_alat FROM `checklist_record` WHERE kondisi != 'diputihkan' OR `status_peminjaman` != 'diambil' GROUP BY `id_alat`;");
                                                 $jumlah_alat_gg = mysqli_num_rows($sql2);
                                                 echo ": ".$jumlah_alat_gg;
                                             ?>
+                                        </div>
                                     </div>
-                                </div>
-                                <?php
-                                        if($status == "onprocess"){
+                                    <?php
+                                        if($status == "onprogres"){
                                         $sql3=mysqli_query($conn,"SELECT * FROM `checklist_group_item` WHERE `id_checklist_group` = '$id_checklist_group' AND `id_check` = '';");
                                         $jumlah_belum = mysqli_num_rows($sql3);
                                         $jumlah_telah = $jumlah_alat_gg - $jumlah_belum;
                                     ?>
-                                <div class="row">
-                                    <div class="col col-md-8">
-                                        Telah dichecklist
+                                    <div class="row">
+                                        <div class="col col-md-8">
+                                            Telah dichecklist
+                                        </div>
+                                        <div class="col col-md-4">
+                                            <?php echo ": ".$jumlah_telah; ?>
+                                        </div>
                                     </div>
-                                    <div class="col col-md-4">
-                                        <?php echo ": ".$jumlah_telah; ?>
+                                    <div class="row">
+                                        <div class="col col-md-8">
+                                            Belum dichecklist
+                                        </div>
+                                        <div class="col col-md-4">
+                                            <?php echo ": ".$jumlah_belum; ?>
+                                        </div>
                                     </div>
+                                    <?php } ?>
                                 </div>
-                                <div class="row">
-                                    <div class="col col-md-8">
-                                        Belum dichecklist
-                                    </div>
-                                    <div class="col col-md-4">
-                                        <?php echo ": ".$jumlah_belum; ?>
-                                    </div>
-                                </div>
-                                <?php } ?>
+
                             </div>
                         </div>
-                        <br />
                     </div>
                 </div>
             </div>
@@ -231,22 +236,16 @@
                                     <div class="row no-gutters">
                                         <div class="col-md-4">
                                             <img src="images/<?php if($row2["foto_alat"] != "" || !empty($row2["foto_alat"]) || $row2["foto_alat"] != null ){echo $row2["foto_alat"];}else{echo "no_image.png";}?>"
-                                                style="max-height: 20rem; " class="card-img" alt="...">
+                                                style="max-width: 120px; max-height: 120px; margin: 15px;"
+                                                class="card-img-top" alt="...">
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
                                                 <div class="col col-md-12 border-left">
                                                     <div class="card-title">
                                                         <h6><?php echo $row2["id_alat"]; ?></h6>
-                                                        <h5> <?php echo $row2["merk"]." ".$row2["type"]; ?>
-                                                        </h5>
-                                                        <small
-                                                            class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
-                                                        <hr />
-                                                        Petugas Pengecekan: <br />
-                                                        <?php echo $row2["nama_user"]; ?>
-                                                        <small
-                                                            class="text-secondary"><?php echo "NIA. ".$row2["petugas_check"]."-GG"; ?></small>
+                                                        <h5> <?php echo $row2["merk"]." ".$row2["type"]; ?> </h5>
+                                                        <small class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
                                                     </div>
                                                 </div>
                                             </div>
@@ -294,30 +293,32 @@
                                                 <div class="col-md-2">
                                                     <img src="images/<?php if($row1["foto_alat"] != "" || !empty($row1["foto_alat"]) || $row1["foto_alat"] != null ){echo $row1["foto_alat"];}else{echo "no_image.png";}?>"
                                                         class="card-img" alt="..."
-                                                        style="max-height: 15rem; float:none;">
+                                                        style="max-height: 120px; max-width: 120px; margin: 15px; float:none;">
                                                 </div>
                                                 <div class="col-md-8 ">
                                                     <div class="card-body">
-                                                        <div class="float-md-left">
-                                                            <div class="container">
-                                                                <a class="text-dark"
-                                                                    href="tampil_alat.php?id_alat=<?php echo $row1["id_alat"];?>">
-                                                                    <h6><?php echo $row1["id_alat"]; ?></h6>
-                                                                    <h5> <?php echo $row1["merk"]." ".$row1["type"]; ?>
-                                                                    </h5>
-                                                                </a>
-                                                                <small
-                                                                    class="text-secondary"><?php echo $row1["nama_jenis_alat"]." | ".$row1["nama_kat"]; ?></small>
+                                                        <div class="row">
+                                                            <div class="col col-md-5 border-left">
+                                                                <div class="card-title">
+                                                                    <a class="text-dark"
+                                                                        href="tampil_alat.php?id_alat=<?php echo $row1["id_alat"];?>">
+                                                                        <h6><?php echo $row1["id_alat"]; ?></h6>
+                                                                        <h5> <?php echo $row1["merk"]." ".$row1["type"]; ?>
+                                                                        </h5>
+                                                                    </a>
+                                                                    <small
+                                                                        class="text-secondary"><?php echo $row1["nama_jenis_alat"]." | ".$row1["nama_kat"]; ?></small>
+                                                                </div>
+                                                                <div class="card-text">
+                                                                    <b>Deskripsi : </b><br />
+                                                                    <?php echo $row1["deskripsi"]; ?><br />
+                                                                </div>
                                                             </div>
-                                                            <div class="card-text">
-                                                                <b>Deskripsi : </b><br />
-                                                                <?php echo $row1["deskripsi"]; ?><br />
-                                                            </div>
-                                                        </div>
-                                                        <div class="float-md-left">
-                                                            <div class="container">
-                                                                <b>Kondisi : </b><br />
-                                                                <?php if($status_peminjaman != ""){echo "Alat ini ".$status_peminjaman." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$id_peminjaman_masuk."'> ".$id_peminjaman_masuk."</a>. ";} if($kondisi != ""){echo "Alat ini memiliki kondisi ".$kondisi.", ".$keterangan.". <br/><small class='text-secondary'>(".tgl_indo($tgl_checklist).", ".$nama_petugas.") </small>";} ?>
+                                                            <div class="col col-md-7 border-left">
+                                                                <div class="card-text">
+                                                                    <b>Kondisi : </b><br />
+                                                                    <?php if($status_peminjaman != ""){echo "Alat ini ".$status_peminjaman." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$id_peminjaman_masuk."'> ".$id_peminjaman_masuk."</a>. ";} if($kondisi != ""){echo "Alat ini memiliki kondisi ".$kondisi.", ".$keterangan.". <br/><small class='text-secondary'>(".tgl_indo($tgl_checklist).", ".$nama_petugas.") </small>";} ?>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -325,7 +326,7 @@
                                                 <div class="col-md-2">
                                                     <img src="images/<?php if($row1["foto_alat_check"] != "" || !empty($row1["foto_alat_check"]) || $row1["foto_alat_check"] != null ){echo $row1["foto_alat_check"];}else{echo "no_image.png";}?>"
                                                         class="card-img" alt="..."
-                                                        style="max-height: 10rem; float:none;">
+                                                        style="max-height: 120px; max-width: 120px; margin: 15px; float:none;">
                                                 </div>
                                             </div>
                                         </div>
@@ -347,50 +348,4 @@
 <div class="clearfix"></div>
 <?php 
     include 'footer_admin.php'; 
-
-    if(isset($_POST["mulai"])){
-        $id_checklist_group    =   $_POST["id_checklist_group"];
-        $jumlah_user = "";
-        $id_alat_arr = "";
-        $id_user_arr = "";
-
-        $query3="SELECT * FROM USER WHERE login_status = 'login' AND nia != '$nia';";
-        $sql3=mysqli_query($conn,$query3);
-        $jumlah_user = mysqli_num_rows($sql3);        
-        while ($row=mysqli_fetch_array($sql3)) {
-            $id_user_arr .= $row['nia'].",";
-        }
-
-        $query1="SELECT MAX(tgl_checklist) AS tgl_check, id_alat FROM `checklist_record` WHERE kondisi != 'diputihkan' OR `status_peminjaman` != 'diambil' GROUP BY `id_alat`;";
-        $sql1=mysqli_query($conn,$query1);
-        $jumlah_alat = mysqli_num_rows($sql1);        
-        while ($row=mysqli_fetch_array($sql1)) {
-            $id_alat_arr .= $row['id_alat'].",";
-        }
-        
-        $dibagi = floor($jumlah_alat / $jumlah_user);
-        $sisa = $jumlah_alat % $jumlah_user;
-
-        $alat_arr = explode( ",", substr($id_alat_arr,0,-1) );
-        $user_arr = explode( ",", substr($id_user_arr,0,-1) );
-
-        $u = 0;
-        for($a = 0; $a < count($alat_arr); $a++){
-            $sql1=mysqli_query($conn,"INSERT INTO checklist_group_item set id_checklist_group = '$id_checklist_group', petugas_check = '$user_arr[$u]', id_alat = '$alat_arr[$a]', id_check = '';");
-            $u++;
-            if($a!=0){
-                if($a%count($user_arr) == 0 ){
-                    $u = 0;
-                }
-            }
-        }
-
-        $sql_insert1 = mysqli_query($conn,"UPDATE checklist_group set status = 'onprocess' where id_checklist_group = '$id_checklist_group';");
-        echo "<script> location.replace('form_checklist_group.php')</script>";
-            
-    }
-    
-    if(isset($_POST["selesai"])){
-        $sql_insert1 = mysqli_query($conn,"UPDATE checklist_group set status = 'done'where id_checklist = '$id_checklist_group';");
-    }
 ?>

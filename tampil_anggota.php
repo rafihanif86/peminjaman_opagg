@@ -77,42 +77,51 @@ function printContent(el) {
                         <div class="container">
                             <div class="row">
                                 <div class="col ">
-                                    <div class="row form-group">
-                                        <div class="col col-md-12">
-                                            <img src="images/<?php if($foto_anggota != "" || !empty($foto_anggota) || $foto_anggota != null ){echo $foto_anggota;}else{echo "user-icon.png";}?>"
-                                                class="rounded mx-auto d-block" alt="..." style="width: 80%;">
+                                    <div class="float-md-left">
+                                        <div class="container">
+                                            <div class="row form-group">
+                                                <div class="col col-md-12">
+                                                    <img src="images/<?php if($foto_anggota != "" || !empty($foto_anggota) || $foto_anggota != null ){echo $foto_anggota;}else{echo "user-icon.png";}?>"
+                                                        class="rounded mx-auto d-block" alt="..."
+                                                        style="max-height: 20rem;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="float-md-left border-left">
+                                        <div class="container">
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label"><b>Nomor Induk Anggota</b></label>
+                                                </div>
+                                                <div class="col-12 col-md-9"><?php echo ": NIA. ".$nia_anggota."-GG"; ?>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label"><b>Nama</b></label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $nama; ?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label"><b>Email</b></label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $email; ?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label"><b>Telepon</b></label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $telepon; ?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-3"><label for="text-input"
+                                                        class=" form-control-label"><b>Status Anggota</b></label></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $status_anggota; ?>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col ">
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label"><b>Nomor Induk Anggota</b></label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": NIA. ".$nia_anggota."-GG"; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label"><b>Nama</b></label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $nama; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label"><b>Email</b></label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $email; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label"><b>Telepon</b></label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $telepon; ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-3"><label for="text-input"
-                                                class=" form-control-label"><b>Status Anggota</b></label></div>
-                                        <div class="col-12 col-md-9"><?php echo ": "; echo $status_anggota; ?></div>
-                                    </div>
-                                </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -142,8 +151,7 @@ function printContent(el) {
                                 <a class="dropdown-item" href="form_anggota.php?nia=<?php echo $nia_anggota;?>"><i
                                         class='fa fa-pencil fa-1x'></i>Ubah</a>
                                 <?php if($_SESSION['status'] == "admin"){ ?>
-                                <a class="dropdown-item"
-                                    href="delete_anggota.php?nia=<?php echo $nia_anggota;?>" >
+                                <a class="dropdown-item" href="delete_anggota.php?nia=<?php echo $nia_anggota;?>">
                                     <i class='fa fa-trash-o fa-1x'> </i>Hapus</a>
                                 <?php } ?>
                             </div>
@@ -183,15 +191,16 @@ function printContent(el) {
                                             <div class="row no-gutters">
                                                 <div class="col-md-12 ">
                                                     <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col col-md-6 ">
-                                                                <div class="card-title">
-                                                                    <small
-                                                                        class="text-secondary"><?php echo $row1["tgl_ambil"]." s/d ".$row1["tgl_kembali"]; ?></small>
-                                                                    <br />
-                                                                    <a class="text-dark" href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $row1["id_peminjaman_masuk"];?>">
-                                                                        <h5><?php echo $row1["id_peminjaman_masuk"]; ?></h5> 
-                                                                        <?php
+                                                        <div class="float-md-left">
+                                                            <div class="container">
+                                                                <small
+                                                                    class="text-secondary"><?php echo $row1["tgl_ambil"]." s/d ".$row1["tgl_kembali"]; ?></small>
+                                                                <br />
+                                                                <a class="text-dark"
+                                                                    href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $row1["id_peminjaman_masuk"];?>">
+                                                                    <h5><?php echo $row1["id_peminjaman_masuk"]; ?>
+                                                                    </h5>
+                                                                    <?php
                                                                             $nama_instansi      =   "";
                                                                             $nama_peminjam      =   "";
                                                                             $nik_potong = substr($row1["nik"],0,3);
@@ -210,24 +219,26 @@ function printContent(el) {
                                                                                 }
                                                                             }
                                                                         ?>
-                                                                        <h3> <?php echo $nama_peminjam; ?> <small
-                                                                                class="text-secondary">(<?php echo $nama_instansi;?>)</small>
-                                                                        </h3>
-                                                                    </a>
-                                                                    <div class="row">
-                                                                        <div class="col col-md-3 ">
-                                                                            Kegitatan
-                                                                        </div>
-                                                                        <div class="col col-md-9 ">
-                                                                            : <?php echo $row1["nama_kegiatan"];?>
-                                                                        </div>
+                                                                    <h3> <?php echo $nama_peminjam; ?>
+                                                                        <small
+                                                                            class="text-secondary">(<?php echo $nama_instansi;?>)</small>
+                                                                    </h3>
+                                                                </a>
+                                                                <div class="row">
+                                                                    <div class="col col-md-3 ">
+                                                                        Kegitatan
                                                                     </div>
-                                                                    <div class="row">
-                                                                        <div class="col col-md-3 ">
-                                                                            Status
-                                                                        </div>
-                                                                        <div class="col col-md-9 ">:
-                                                                            <?php
+                                                                    <div class="col col-md-9 ">
+                                                                        :
+                                                                        <?php echo $row1["nama_kegiatan"];?>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col col-md-3 ">
+                                                                        Status
+                                                                    </div>
+                                                                    <div class="col col-md-9 ">:
+                                                                        <?php
                                                                                 $query2 = ""; 
                                                                                 if($status == "baru"){
                                                                                     echo '<i class="fa fa-spinner"></i>';
@@ -250,30 +261,32 @@ function printContent(el) {
                                                                                     }
                                                                                 }
                                                                             ?>
-                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col col-md-6 border-left">
-                                                                <div class="card-text">
-                                                                    <b>List Alat : </b><br />
-                                                                    <table class="table table-sm">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th scope="col" width="55%">Jenis Alat
-                                                                                </th>
-                                                                                <th scope="col" width="15%">Permintaan
-                                                                                </th>
-                                                                                <th scope="col" width="15%"
-                                                                                    <?php if($status == "baru"){echo "hidden";}?>>
-                                                                                    Disetujui</th>
-                                                                                <th scope="col" width="15%"
-                                                                                    <?php if($status == "baru" || $status == "disetujui"){echo "hidden";}?>>
-                                                                                    Dikeluarkan</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <?php 
+                                                        </div>
+                                                        <div class="float-md-left border-left">
+                                                            <div class="container">
+                                                                <h5>List Alat : </h5><br />
+                                                                <table class="table table-sm">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col" width="55%">
+                                                                                Jenis Alat
+                                                                            </th>
+                                                                            <th scope="col" width="15%">
+                                                                                Permintaan
+                                                                            </th>
+                                                                            <th scope="col" width="15%"
+                                                                                <?php if($status == "baru"){echo "hidden";}?>>
+                                                                                Disetujui</th>
+                                                                            <th scope="col" width="15%"
+                                                                                <?php if($status == "baru" || $status == "disetujui"){echo "hidden";}?>>
+                                                                                Dikeluarkan</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php 
                                                                                 $id = $row1["id_peminjaman_masuk"];
                                                                                 $que11 = "SELECT d.*, k.`nama_jenis_alat` FROM `detail_peminjaman_masuk` D, `jenis_alat` K WHERE d.`id_jenis_alat` = k.`id_jenis_alat` AND d.`id_peminjaman_masuk` ='$id';";
                                                                                 $res11=mysqli_query($conn,$que11) ;
@@ -281,14 +294,18 @@ function printContent(el) {
                                                                                 while ($row1=mysqli_fetch_array($res11)){
                                                                                     $i++;
                                                                             ?>
-                                                                            <tr>
-                                                                                <td><?php echo $row1["nama_jenis_alat"]; ?>
-                                                                                </td>
-                                                                                <td><?php echo $row1["jumlah"]; ?></td>
-                                                                                <td <?php if($status == "baru"){echo "hidden";}?>><?php echo $row1["jumlah_dikeluarkan"]; ?>
-                                                                                </td>
-                                                                                <td <?php if($status == "baru" || $status == "disetujui"){echo "hidden";}?>>
-                                                                                    <?php
+                                                                        <tr>
+                                                                            <td><?php echo $row1["nama_jenis_alat"]; ?>
+                                                                            </td>
+                                                                            <td><?php echo $row1["jumlah"]; ?>
+                                                                            </td>
+                                                                            <td
+                                                                                <?php if($status == "baru"){echo "hidden";}?>>
+                                                                                <?php echo $row1["jumlah_dikeluarkan"]; ?>
+                                                                            </td>
+                                                                            <td
+                                                                                <?php if($status == "baru" || $status == "disetujui"){echo "hidden";}?>>
+                                                                                <?php
                                                                                         $id_detail_masuk = $row1["id_detail_masuk"];
                                                                                         $jum_kel="";
                                                                                         $queryKel="SELECT COUNT(*) AS jum_keluar FROM detail_peminjaman_diterima WHERE id_detail_masuk = '$id_detail_masuk'; ";
@@ -298,12 +315,11 @@ function printContent(el) {
                                                                                         }
                                                                                         if($jum_kel != "0" || $hidden_dikeluarkan != "hidden"){echo $jum_kel;}
                                                                                     ?>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <?php } ?>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php } ?>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -320,7 +336,8 @@ function printContent(el) {
                     </div>
                     <div class="card-footer">
                         <i class="fa fa-spinner"></i> Pending | <i class="fa fa-check"></i> Telah Disetujui | <i
-                            class="fa fa-people-carry"></i> Telah Diambil | <i class="fa fa-warehouse"></i> Telah
+                            class="fa fa-people-carry"></i> Telah Diambil | <i class="fa fa-warehouse"></i>
+                        Telah
                         Dikembalikan
                     </div>
                 </div>

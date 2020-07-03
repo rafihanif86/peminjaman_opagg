@@ -115,29 +115,28 @@
                                                 <div class="col-md-2">
                                                     <img src="images/<?php if($row1["foto_alat"] != "" || !empty($row1["foto_alat"]) || $row1["foto_alat"] != null ){echo $row1["foto_alat"];}else{echo "no_image.png";}?>"
                                                         class="card-img" alt="..."
-                                                        style="max-height: 120px; max-width: 120px; margin: 15px; float:none;">
+                                                        style="max-height: 20rem; float:none;">
                                                 </div>
                                                 <div class="col-md-10 ">
                                                     <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col col-md-5 border-left">
-                                                                <div class="card-title">
-                                                                    <a class="text-dark" href="tampil_alat.php?id_alat=<?php echo $row1["id_alat"];?>">
-                                                                        <h6><?php echo $row1["id_alat"]; ?></h6>
-                                                                        <h5> <?php echo $row1["merk"]." ".$row1["type"]; ?></h5>
-                                                                    </a>
-                                                                    <small class="text-secondary"><?php echo $row1["nama_jenis_alat"]." | ".$row1["nama_kat"]; ?></small>
-                                                                </div>
+                                                        <div class="float-md-left border-left">
+                                                            <div class="container">
+                                                                <a class="text-dark"
+                                                                    href="tampil_alat.php?id_alat=<?php echo $row1["id_alat"];?>">
+                                                                    <h6><?php echo $row1["id_alat"]; ?></h6>
+                                                                    <h5> <?php echo $row1["merk"]." ".$row1["type"]; ?>
+                                                                    </h5>
+                                                                </a>
+                                                                <small
+                                                                    class="text-secondary"><?php echo $row1["nama_jenis_alat"]." | ".$row1["nama_kat"]; ?></small>
                                                             </div>
-                                                            <div class="col col-md-7 border-left">
-                                                                <div class="card-text">
-                                                                    <b>Deskripsi : </b><br />
-                                                                    <?php echo $row1["deskripsi"]; ?><br />
-                                                                </div>
-                                                                <div class="card-text">
-                                                                    <b>Kondisi : </b><br />
-                                                                    <?php if($status_peminjaman != ""){echo "Alat ini ".$status_peminjaman." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$id_peminjaman_masuk."'> ".$id_peminjaman_masuk."</a>. ";} if($kondisi != ""){echo "Alat ini memiliki kondisi ".$kondisi.", ".$keterangan.". <br/><small class='text-secondary'>(".tgl_indo($tgl_checklist).", ".$nama_petugas.") </small>";} ?>
-                                                                </div>
+                                                        </div>
+                                                        <div class="float-md-left border-left">
+                                                            <div class="container">
+                                                                <b>Deskripsi : </b><br />
+                                                                <?php echo $row1["deskripsi"]; ?><br />
+                                                                <b>Kondisi : </b><br />
+                                                                <?php if($status_peminjaman != ""){echo "Alat ini ".$status_peminjaman." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$id_peminjaman_masuk."'> ".$id_peminjaman_masuk."</a>. ";} if($kondisi != ""){echo "Alat ini memiliki kondisi ".$kondisi.", ".$keterangan.". <br/><small class='text-secondary'>(".tgl_indo($tgl_checklist).", ".$nama_petugas.") </small>";} ?>
                                                             </div>
                                                         </div>
                                                     </div>

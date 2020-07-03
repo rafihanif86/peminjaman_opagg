@@ -188,109 +188,120 @@
                         <h3>Data Peminjaman <?php echo $id_peminjaman_masuk; ?></h3>
                         <hr />
                         <div class="container">
-                            <div class="row ">
-                                <div class="col-6">
-                                    <div class="row form-group">
-                                        <div class="col col-md-4"><label for="email-input"
-                                                class=" form-control-label">Nama
-                                                Peminjam</label></div>
-                                        <div class="col-12 col-md-8">: <?php echo $nama_peminjam;?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-4"><label for="email-input"
-                                                class=" form-control-label"><?php if($nik_potong == "910"){echo "NIA";}else{echo "NIK";}?></label>
-                                        </div>
-                                        <div class="col-12 col-md-8">: <?php echo $nik;?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-4"><label for="email-input"
-                                                class=" form-control-label">Email</label></div>
-                                        <div class="col-12 col-md-8">: <?php echo $email_peminjam;?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-4"><label for="text-input"
-                                                class=" form-control-label">No. Telepon</label></div>
-                                        <div class="col-12 col-md-8">:
-                                            <?php $noPottong = substr($no_wa,1);?>
-                                            <a href="https://api.whatsapp.com/send?phone=<?php echo "+62" .$noPottong; ?>&text=Halo"
-                                                target="_blank" class="text-dark">
-                                                <?php echo $no_wa; ?>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-4"><label for="text-input"
-                                                class=" form-control-label">Instansi</label></div>
-                                        <div class="col-12 col-md-8">: <?php echo $nama_instansi; ?></div>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="row form-group">
-                                        <div class="col col-md-4"><label for="text-input"
-                                                class=" form-control-label">Kegiatan</label></div>
-                                        <div class="col-12 col-md-8">: <?php echo $nama_kegiatan ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-4"><label for="text-input"
-                                                class=" form-control-label">Tanggal Peminjaman</label></div>
-                                        <div class="col-12 col-md-8">:
-                                            <?php echo tgl_indo($tgl_ambil)." s/d ".tgl_indo($tgl_kembali); ?></div>
-                                    </div>
-                                    <div class="row form-group">
-                                        <div class="col col-md-4"><label for="text-input"
-                                                class=" form-control-label">Status</label></div>
-                                        <div class="col-12 col-md-8">:
-                                            <?php echo $status_print; ?></div>
-                                    </div>
-                                    <small class="text-secondary">
-                                        <div class="row form-group" <?php if($status == "baru"){echo "hidden";}?>>
-                                            <div class="col col-md-4">
-                                                <label for="text-input" class=" form-control-label">Disetujui
-                                                </label>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="float-md-left">
+                                        <div class="container">
+                                            <div class="row form-group">
+                                                <div class="col col-md-4"><label for="email-input"
+                                                        class=" form-control-label">Nama
+                                                        Peminjam</label></div>
+                                                <div class="col col-md-8">: <?php echo $nama_peminjam;?></div>
                                             </div>
-                                            <div class="col-12 col-md-8">:
-                                                <?php 
+                                            <div class="row form-group">
+                                                <div class="col col-md-4"><label for="email-input"
+                                                        class=" form-control-label"><?php if($nik_potong == "910"){echo "NIA";}else{echo "NIK";}?></label>
+                                                </div>
+                                                <div class="col col-md-8">: <?php echo $nik;?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-4"><label for="email-input"
+                                                        class=" form-control-label">Email</label></div>
+                                                <div class="col col-md-8">: <?php echo $email_peminjam;?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-4"><label for="text-input"
+                                                        class=" form-control-label">No.
+                                                        Telepon</label></div>
+                                                <div class="col col-md-8">:
+                                                    <?php $noPottong = substr($no_wa,1);?>
+                                                    <a href="https://api.whatsapp.com/send?phone=<?php echo "+62" .$noPottong; ?>&text=Halo"
+                                                        target="_blank" class="text-dark">
+                                                        <?php echo $no_wa; ?>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-4"><label for="text-input"
+                                                        class=" form-control-label">Instansi</label></div>
+                                                <div class="col col-md-8">: <?php echo $nama_instansi; ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="float-md-left border-left">
+                                        <div class="container">
+                                            <div class="row form-group">
+                                                <div class="col col-md-4"><label for="text-input"
+                                                        class=" form-control-label">Kegiatan</label></div>
+                                                <div class="col col-md-8">: <?php echo $nama_kegiatan ?></div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-4"><label for="text-input"
+                                                        class=" form-control-label">Tanggal Peminjaman</label></div>
+                                                <div class="col col-md-8">:
+                                                    <?php echo tgl_indo($tgl_ambil)." s/d ".tgl_indo($tgl_kembali); ?>
+                                                </div>
+                                            </div>
+                                            <div class="row form-group">
+                                                <div class="col col-md-4"><label for="text-input"
+                                                        class=" form-control-label">Status</label></div>
+                                                <div class="col col-md-8">:
+                                                    <?php echo $status_print; ?></div>
+                                            </div>
+                                            <small class="text-secondary">
+                                                <div class="row form-group"
+                                                    <?php if($status == "baru"){echo "hidden";}?>>
+                                                    <div class="col col-md-4">
+                                                        <label for="text-input" class=" form-control-label">Disetujui
+                                                        </label>
+                                                    </div>
+                                                    <div class="col col-md-8">:
+                                                        <?php 
                                                     $query1 = "SELECT * FROM user WHERE nia = '$petugas_menyetujui';";
                                                     $result1=mysqli_query($conn,$query1);
                                                     while ($row1=mysqli_fetch_array($result1)){
                                                         echo $row1["nama_user"];
                                                     }
                                                 ?>
-                                            </div>
-                                        </div>
-                                        <div class="row form-group"
-                                            <?php if($status == "baru" || $status == "disetujui"){echo "hidden";}?>>
-                                            <div class="col col-md-4">
-                                                <label for="text-input" class=" form-control-label">Petugas
-                                                    Penyerahan</label>
-                                            </div>
-                                            <div class="col-12 col-md-8">:
-                                                <?php 
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group"
+                                                    <?php if($status == "baru" || $status == "disetujui"){echo "hidden";}?>>
+                                                    <div class="col col-md-4">
+                                                        <label for="text-input" class=" form-control-label">Petugas
+                                                            Penyerahan</label>
+                                                    </div>
+                                                    <div class="col col-md-8">:
+                                                        <?php 
                                                     $query1 = "SELECT * FROM user WHERE nia = '$petugas_pengambilan';";
                                                     $result1=mysqli_query($conn,$query1);
                                                     while ($row1=mysqli_fetch_array($result1)){
                                                         echo $row1["nama_user"];
                                                     }
                                                 ?>
-                                            </div>
-                                        </div>
-                                        <div class="row form-group"
-                                            <?php if($status == "baru" || $status == "disetujui" || $status == "diambil"){echo "hidden";}?>>
-                                            <div class="col col-md-4">
-                                                <label for="text-input" class=" form-control-label">Penerima
-                                                    Pengembalian</label>
-                                            </div>
-                                            <div class="col-12 col-md-8">:
-                                                <?php 
+                                                    </div>
+                                                </div>
+                                                <div class="row form-group"
+                                                    <?php if($status == "baru" || $status == "disetujui" || $status == "diambil"){echo "hidden";}?>>
+                                                    <div class="col col-md-4">
+                                                        <label for="text-input" class=" form-control-label">Penerima
+                                                            Pengembalian</label>
+                                                    </div>
+                                                    <div class="col col-md-8">:
+                                                        <?php 
                                                     $query1 = "SELECT * FROM user WHERE nia = '$petugas_pengembalian';";
                                                     $result1=mysqli_query($conn,$query1);
                                                     while ($row1=mysqli_fetch_array($result1)){
                                                         echo $row1["nama_user"];
                                                     }
                                                 ?>
-                                            </div>
+                                                    </div>
+                                                </div>
+                                            </small>
                                         </div>
-                                    </small>
+
+                                    </div>
                                 </div>
                             </div>
 
@@ -311,7 +322,7 @@
                                                 <div class="row no-gutters">
                                                     <div class="col-md-4">
                                                         <img src="images/<?php if($row2["foto_jenis_alat"] != "" || !empty($row2["foto_jenis_alat"]) || $row2["foto_jenis_alat"] != null ){echo $row2["foto_jenis_alat"];}else{echo "no_image.png";}?>"
-                                                            style="max-width: 120px; max-height: 120px; margin: 15px;"
+                                                            style="max-height: 20rem; float:none;"
                                                             class="card-img-top" alt="...">
                                                     </div>
                                                     <div class="col-md-8">
@@ -370,7 +381,7 @@
                                                     <div class="col-md-4">
                                                         <img src="images/<?php if($row2["foto_alat"] != "" || !empty($row2["foto_alat"]) || $row2["foto_alat"] != null ){echo $row2["foto_alat"];}else{echo "no_image.png";}?>"
                                                             class="card-img" alt="..."
-                                                            style="max-width: 120px; max-height: 120px; margin:15px;">
+                                                            style="max-height:15rem;float:none;">
                                                     </div>
                                                     <div class="col-md-8">
                                                         <div class="card-body">
@@ -420,26 +431,24 @@
                                                     <div class="col-md-2">
                                                         <img src="images/<?php if($row2["foto_alat"] != "" || !empty($row2["foto_alat"]) || $row2["foto_alat"] != null ){echo $row2["foto_alat"];}else{echo "no_image.png";}?>"
                                                             class="card-img" alt="..."
-                                                            style="max-height: 120px; max-width: 120px; margin: 15px; float:none;">
+                                                            style="max-height: 20rem; float:none;">
                                                     </div>
                                                     <div class="col-md-10 ">
                                                         <div class="card-body">
-                                                            <div class="row">
-                                                                <div class="col col-md-5 border-left">
-                                                                    <div class="card-title">
+                                                                <div class="float-md-left border-left">
+                                                                    <div class="container">
                                                                         <h6><?php echo $row2["id_alat"]; ?></h6>
                                                                         <h5> <?php echo $row2["merk"]." ".$row2["type"]; ?>
                                                                         </h5>
                                                                         <small
                                                                             class="text-secondary"><?php echo $row2["nama_jenis_alat"]; ?></small>
-                                                                    </div>
-                                                                    <div class="card-text">
+                                                                        <br/>
                                                                         <b>Deskripsi : </b>
-                                                                        <?php echo $row2["deskripsi"]; ?><br />
+                                                                        <?php echo $row2["deskripsi"]; ?>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col col-md-7 border-left">
-                                                                    <div class="card-text">
+                                                                <div class="float-md-left border-left">
+                                                                    <div class="container">
                                                                         <b>Kondisi Penyerahan: </b><br />
                                                                         <?php 
                                                                                 $id_detail = $row2["id_detail"];
@@ -448,8 +457,7 @@
                                                                                 echo $row1["kondisi"].", ".$row1["keterangan"]." <small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).")</small> ";
                                                                                 } 
                                                                             ?>
-                                                                    </div>
-                                                                    <div class="card-text">
+                                                                            <br/>
                                                                         <b>Kondisi Pengembalian: </b><br />
                                                                         <?php 
                                                                                 $id_detail = $row2["id_detail"];
@@ -460,7 +468,6 @@
                                                                             ?>
                                                                     </div>
                                                                 </div>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -606,8 +613,8 @@
                                         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    <img src="images/<?php echo $foto_alat_pengambilan;?>" class="d-block w-100"
-                                                        alt="">
+                                                    <img src="images/<?php echo $foto_alat_pengambilan;?>"
+                                                        class="d-block w-100" alt="">
                                                     <div class="carousel-caption d-none d-md-block">
                                                         <p>File name : <?php echo $foto_alat_pengambilan;?></p>
                                                     </div>
@@ -636,8 +643,8 @@
                                         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
                                             <div class="carousel-inner">
                                                 <div class="carousel-item active">
-                                                    <img src="images/<?php echo $foto_alat_pengembalian;?>" class="d-block w-100"
-                                                        alt="">
+                                                    <img src="images/<?php echo $foto_alat_pengembalian;?>"
+                                                        class="d-block w-100" alt="">
                                                     <div class="carousel-caption d-none d-md-block">
                                                         <p>File name : <?php echo $foto_alat_pengembalian;?></p>
                                                     </div>

@@ -85,118 +85,115 @@
                                 ?>
                                 <tr>
                                     <td>
-                                        <div class="card mb-12">
-                                            <div class="row no-gutters">
-                                                <div class="col-md-12 ">
-                                                    <div class="card-body">
-                                                        <div class="row">
-                                                            <div class="col col-md-5 ">
-                                                                <div class="card-title">
-                                                                    <small
-                                                                        class="text-secondary"><?php echo $row1["tgl_ambil"]." s/d ".$row1["tgl_kembali"]; ?></small>
-                                                                    <div class="btn-group float-right">
-                                                                        <button type="button"
-                                                                            class="btn btn-outline-danger btn-sm dropdown-toggle dropdown-toggle-split"
-                                                                            data-toggle="dropdown" aria-haspopup="true"
-                                                                            aria-expanded="false">
-                                                                            <span class="sr-only">Toggle Dropdown</span>
-                                                                        </button>
-                                                                        <div class="dropdown-menu">
-                                                                            <a class="dropdown-item"
-                                                                                href="delete_peminjaman.php?id_peminjaman_masuk=<?php echo $row1["id_peminjaman_masuk"];?>"
-                                                                                onClick="return confirm('Hapus peminjaman ini?')">
-                                                                                <i class='fa fa-trash-o fa-1x'> </i>
-                                                                                Hapus</a>
-                                                                        </div>
-                                                                    </div>
-                                                                    <a class="text-dark"
-                                                                        href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $row1["id_peminjaman_masuk"];?>">
-                                                                        <h5><?php echo $row1["id_peminjaman_masuk"]; ?>
-                                                                        </h5>
-
-                                                                        <?php
-                                                                            $nama_instansi      =   "";
-                                                                            $nama_peminjam      =   "";
-                                                                            $nik_potong = substr($row1["nik"],0,3);
-                                                                            $nik = $row1["nik"];
-                                                                            if($nik_potong == "910"){
-                                                                                $result2=mysqli_query($conn,"SELECT * FROM user  WHERE nia = '$nik';");
-                                                                                while ($row2=mysqli_fetch_array($result2)){
-                                                                                    $nama_instansi      =   "OPA Ganendra Giri";
-                                                                                    $nama_peminjam      =   $row2["nama_user"];
-                                                                                }
-                                                                            }else{
-                                                                                $result2=mysqli_query($conn,"SELECT * FROM peminjam  WHERE nik = '$nik';");
-                                                                                while ($row2=mysqli_fetch_array($result2)){
-                                                                                    $nama_instansi      =   $row2["instansi"];
-                                                                                    $nama_peminjam      =   $row2["nama"];
-                                                                                }
-                                                                            }
-                                                                        ?>
-                                                                        <h3> <?php echo $nama_peminjam; ?> <small
-                                                                                class="text-secondary">(<?php echo $nama_instansi;?>)</small>
-                                                                        </h3>
-                                                                    </a>
-                                                                    <div class="row">
-                                                                        <div class="col col-md-3 ">
-                                                                            Kegitatan
-                                                                        </div>
-                                                                        <div class="col col-md-9 ">
-                                                                            : <?php echo $row1["nama_kegiatan"];?>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row">
-                                                                        <div class="col col-md-3 ">
-                                                                            Status
-                                                                        </div>
-                                                                        <div class="col col-md-9 ">:
-                                                                            <?php
-                                                                                $query2 = ""; 
-                                                                                if($status == "baru"){
-                                                                                    echo '<i class="fa fa-spinner"></i>';
-                                                                                    $query2="";
-                                                                                }else if($status == "disetujui"){
-                                                                                    echo '<i class="fa fa-check"></i>';
-                                                                                    $query2="SELECT * FROM user U WHERE U.`nia` =  ". $row1["petugas_menyetujui"];
-                                                                                }else if($status == "diambil"){
-                                                                                    echo '<i class="fa fa-people-carry"></i>';
-                                                                                    $query2="SELECT * FROM user U WHERE U.`nia` =  ". $row1["petugas_pengambilan"];
-                                                                                }else if($status == "dikembalikan"){
-                                                                                    echo '<i class="fa fa-warehouse"></i>';
-                                                                                    $query2="SELECT * FROM user U WHERE U.`nia` =  ". $row1["petugas_pengambilan"];
-                                                                                }
-                                                                                
-                                                                                if($query2 != ""){
-                                                                                    $result2=mysqli_query($conn,$query2);
-                                                                                    while ($row2=mysqli_fetch_array($result2)){
-                                                                                        echo " | ".$row2["nama_user"];
-                                                                                    }
-                                                                                }
-                                                                            ?>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                        <div class="card">
+                                            <div class="card-body card-block">
+                                                <div class="float-md-left">
+                                                    <div class="container">
+                                                        <small
+                                                            class="text-secondary"><?php echo $row1["tgl_ambil"]." s/d ".$row1["tgl_kembali"]; ?></small>
+                                                        <div class="btn-group float-right">
+                                                            <button type="button"
+                                                                class="btn btn-outline-danger btn-sm dropdown-toggle dropdown-toggle-split"
+                                                                data-toggle="dropdown" aria-haspopup="true"
+                                                                aria-expanded="false">
+                                                                <span class="sr-only">Toggle Dropdown</span>
+                                                            </button>
+                                                            <div class="dropdown-menu">
+                                                                <a class="dropdown-item"
+                                                                    href="delete_peminjaman.php?id_peminjaman_masuk=<?php echo $row1["id_peminjaman_masuk"];?>"
+                                                                    onClick="return confirm('Hapus peminjaman ini?')">
+                                                                    <i class='fa fa-trash-o fa-1x'> </i>
+                                                                    Hapus</a>
                                                             </div>
-                                                            <div class="col col-md-7 border-left">
-                                                                <div class="card-text">
-                                                                    <b>List Alat : </b><br />
-                                                                    <table class="table table-sm">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th scope="col" width="55%">Jenis Alat
-                                                                                </th>
-                                                                                <th scope="col" width="15%">Permintaan
-                                                                                </th>
-                                                                                <th scope="col" width="15%"
-                                                                                    <?php if($status == "baru"){echo "hidden";}?>>
-                                                                                    Disetujui</th>
-                                                                                <th scope="col" width="15%"
-                                                                                    <?php if($status == "baru" || $status == "disetujui"){echo "hidden";}?>>
-                                                                                    Dikeluarkan</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <?php 
+                                                        </div>
+                                                        <a class="text-dark"
+                                                            href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $row1["id_peminjaman_masuk"];?>">
+                                                            <h5><?php echo $row1["id_peminjaman_masuk"]; ?>
+                                                            </h5>
+
+                                                            <?php
+                                                            $nama_instansi      =   "";
+                                                            $nama_peminjam      =   "";
+                                                            $nik_potong = substr($row1["nik"],0,3);
+                                                            $nik = $row1["nik"];
+                                                            if($nik_potong == "910"){
+                                                                $result2=mysqli_query($conn,"SELECT * FROM user  WHERE nia = '$nik';");
+                                                                while ($row2=mysqli_fetch_array($result2)){
+                                                                    $nama_instansi      =   "OPA Ganendra Giri";
+                                                                    $nama_peminjam      =   $row2["nama_user"];
+                                                                }
+                                                            }else{
+                                                                $result2=mysqli_query($conn,"SELECT * FROM peminjam  WHERE nik = '$nik';");
+                                                                while ($row2=mysqli_fetch_array($result2)){
+                                                                    $nama_instansi      =   $row2["instansi"];
+                                                                    $nama_peminjam      =   $row2["nama"];
+                                                                }
+                                                            }
+                                                        ?>
+                                                            <h3> <?php echo $nama_peminjam; ?> <small
+                                                                    class="text-secondary">(<?php echo $nama_instansi;?>)</small>
+                                                            </h3>
+                                                        </a>
+                                                        <table class="table">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Status</td>
+                                                                    <td>: <?php echo $row1["nama_kegiatan"];?></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td> Kegitatan</td>
+                                                                    <td>:
+                                                                        <?php
+                                                                        $query2 = ""; 
+                                                                        if($status == "baru"){
+                                                                            echo '<i class="fa fa-spinner"></i>';
+                                                                            $query2="";
+                                                                        }else if($status == "disetujui"){
+                                                                            echo '<i class="fa fa-check"></i>';
+                                                                            $query2="SELECT * FROM user U WHERE U.`nia` =  ". $row1["petugas_menyetujui"];
+                                                                        }else if($status == "diambil"){
+                                                                            echo '<i class="fa fa-people-carry"></i>';
+                                                                            $query2="SELECT * FROM user U WHERE U.`nia` =  ". $row1["petugas_pengambilan"];
+                                                                        }else if($status == "dikembalikan"){
+                                                                            echo '<i class="fa fa-warehouse"></i>';
+                                                                            $query2="SELECT * FROM user U WHERE U.`nia` =  ". $row1["petugas_pengambilan"];
+                                                                        }
+                                                                        
+                                                                        if($query2 != ""){
+                                                                            $result2=mysqli_query($conn,$query2);
+                                                                            while ($row2=mysqli_fetch_array($result2)){
+                                                                                echo " | ".$row2["nama_user"];
+                                                                            }
+                                                                        }
+                                                                    ?>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="float-md-left border-left">
+                                                    <div class="container">
+                                                        <h5>List Alat : </h5><br />
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col" width="55%">Jenis
+                                                                        Alat
+                                                                    </th>
+                                                                    <th scope="col" width="15%">
+                                                                        Permintaan
+                                                                    </th>
+                                                                    <th scope="col" width="15%"
+                                                                        <?php if($status == "baru"){echo "hidden";}?>>
+                                                                        Disetujui</th>
+                                                                    <th scope="col" width="15%"
+                                                                        <?php if($status == "baru" || $status == "disetujui"){echo "hidden";}?>>
+                                                                        Dikeluarkan</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php 
                                                                                 $id = $row1["id_peminjaman_masuk"];
                                                                                 $que11 = "SELECT d.*, k.`nama_jenis_alat` FROM `detail_peminjaman_masuk` D, `jenis_alat` K WHERE d.`id_jenis_alat` = k.`id_jenis_alat` AND d.`id_peminjaman_masuk` ='$id';";
                                                                                 $res11=mysqli_query($conn,$que11) ;
@@ -204,37 +201,35 @@
                                                                                 while ($row1=mysqli_fetch_array($res11)){
                                                                                     $i++;
                                                                             ?>
-                                                                            <tr>
-                                                                                <td><?php echo $row1["nama_jenis_alat"]; ?>
-                                                                                </td>
-                                                                                <td><?php echo $row1["jumlah"]; ?></td>
-                                                                                <td
-                                                                                    <?php if($status == "baru"){echo "hidden";}?>>
-                                                                                    <?php echo $row1["jumlah_dikeluarkan"]; ?>
-                                                                                </td>
-                                                                                <td
-                                                                                    <?php if($status == "baru" || $status == "disetujui"){echo "hidden";}?>>
-                                                                                    <?php
-                                                                                        $id_detail_masuk = $row1["id_detail_masuk"];
-                                                                                        $jum_kel="";
-                                                                                        $queryKel="SELECT COUNT(*) AS jum_keluar FROM detail_peminjaman_diterima WHERE id_detail_masuk = '$id_detail_masuk'; ";
-                                                                                        $resultKel=mysqli_query($conn,$queryKel) ;
-                                                                                        while ($row6=mysqli_fetch_array($resultKel)){
-                                                                                            $jum_kel = $row6["jum_keluar"];
-                                                                                        }
-                                                                                        if($jum_kel != "0" || $hidden_dikeluarkan != "hidden"){echo $jum_kel;}
-                                                                                    ?>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <?php } ?>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                                <tr>
+                                                                    <td><?php echo $row1["nama_jenis_alat"]; ?>
+                                                                    </td>
+                                                                    <td><?php echo $row1["jumlah"]; ?>
+                                                                    </td>
+                                                                    <td <?php if($status == "baru"){echo "hidden";}?>>
+                                                                        <?php echo $row1["jumlah_dikeluarkan"]; ?>
+                                                                    </td>
+                                                                    <td
+                                                                        <?php if($status == "baru" || $status == "disetujui"){echo "hidden";}?>>
+                                                                        <?php
+                                                                        $id_detail_masuk = $row1["id_detail_masuk"];
+                                                                        $jum_kel="";
+                                                                        $queryKel="SELECT COUNT(*) AS jum_keluar FROM detail_peminjaman_diterima WHERE id_detail_masuk = '$id_detail_masuk'; ";
+                                                                        $resultKel=mysqli_query($conn,$queryKel) ;
+                                                                        while ($row6=mysqli_fetch_array($resultKel)){
+                                                                            $jum_kel = $row6["jum_keluar"];
+                                                                        }
+                                                                        if($jum_kel != "0" || $hidden_dikeluarkan != "hidden"){echo $jum_kel;}
+                                                                    ?>
+                                                                    </td>
+                                                                </tr>
+                                                                <?php } ?>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </td>
                                 </tr>

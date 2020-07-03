@@ -22,18 +22,18 @@
                     <li class="<?php if($halaman == "dashboard"){echo 'active';}?>">
                         <a href="dashboard_admin.php"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-                    <?php 
+                    <?php
+                        $link = ""; 
                         $res=mysqli_query($conn,"SELECT * FROM `checklist_group` WHERE `status` = 'waiting' || `status` = 'onprocess';") ;
                         $jumlah_berjalan = mysqli_num_rows($res);
                         if($jumlah_berjalan > 0){
                             while ($row=mysqli_fetch_array($res)) {
                                 $koordinator =  $row['koordinator'];
-                            }
-                            $link = "";
+                            } 
                             if($nia == $koordinator){
                                 $link = "form_checklist_group.php";
                             }else{
-                                $link = "form_checklist_mengikuti.php";
+                                $link = "form_checklist_onprocess.php";
                             }
                     ?>
                     <li class="<?php if($halaman == "checklist bulanan"){echo 'active';}?>">
@@ -99,7 +99,7 @@
                             <i class="menu-icon fa fa-clipboard-list"></i>Checklist</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-list"></i><a href="tabel_checklist.php">Terbaru</a></li>
-                            <li><i class="fa fa-users"></i><a href="tabel_checklist_group.php">Checklist Group</a></li>
+                            <li><i class="fa fa-users"></i><a href=<?php echo $link;?>>Checklist Group</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown <?php if($halaman == 'lain'){echo 'active';}?>"
