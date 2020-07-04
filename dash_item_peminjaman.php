@@ -303,7 +303,7 @@ function scrolltoform() {
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h5 class="modal-title" id="myModalLabel">
-                                                            Edit Daftar Surat Masuk
+                                                            Tambah List Alat
                                                         </h5>
                                                         <button type="button" class="close" data-dismiss="modal">
                                                             <span aria-hidden="true">×</span>
