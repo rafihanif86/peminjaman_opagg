@@ -9,14 +9,22 @@ $pesan_replace = $_GET['pesan_replace'];
 
 // Import PHPMailer classes into the global namespace
 // These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
 
 //Load composer's autoloader
-require 'autoload.php';
+// require 'autoload.php';
 
-$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
-try {
+// $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+// try {
+
+    error_reporting(E_ALL);
+    require 'PHPMailer/src/PHPMailer.php' ;
+    require 'PHPMailer/src/SMTP.php';
+    require 'PHPMailer/src/Exception.php';
+    
+    $mail =  new PHPMailer\PHPMailer\PHPMailer();
+
     //Server settings
     $mail->SMTPDebug = 2;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
@@ -38,15 +46,20 @@ try {
     $mail->Body    = $messege;
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-    $mail->send();
-    
+    if($mail->Send()){
         echo "<script>alert('$pesan_replace')
                 location.replace('$link')</script>"; 
-    
-    
-} catch (Exception $e) {
-    // echo 'Message could not be sent.';
-    // echo 'Mailer Error: ' . $mail->ErrorInfo;
-    echo "<script>alert('Maaf ada sebuah kesalahan pada sistem kami.')
+       }else{
+        echo "<script>alert('Gagal Mengirim Email')
                 location.replace('$link')</script>";
-}
+       }
+    
+        
+    
+    
+// } catch (Exception $e) {
+//     // echo 'Message could not be sent.';
+//     // echo 'Mailer Error: ' . $mail->ErrorInfo;
+//     echo "<script>alert('Maaf ada sebuah kesalahan pada sistem kami.')
+//                 location.replace('$link')</script>";
+// }
