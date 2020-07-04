@@ -16,15 +16,15 @@ $pesan_replace = $_GET['pesan_replace'];
 // require 'autoload.php';
 
 // $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
-// try {
+
 
     error_reporting(E_ALL);
     require 'PHPMailer/src/PHPMailer.php' ;
     require 'PHPMailer/src/SMTP.php';
     require 'PHPMailer/src/Exception.php';
-    
-    $mail =  new PHPMailer\PHPMailer\PHPMailer();
 
+    $mail =  new PHPMailer\PHPMailer\PHPMailer();
+try {
     //Server settings
     $mail->SMTPDebug = 2;                                 // Enable verbose debug output
     $mail->isSMTP();                                      // Set mailer to use SMTP
@@ -57,9 +57,9 @@ $pesan_replace = $_GET['pesan_replace'];
         
     
     
-// } catch (Exception $e) {
-//     // echo 'Message could not be sent.';
-//     // echo 'Mailer Error: ' . $mail->ErrorInfo;
-//     echo "<script>alert('Maaf ada sebuah kesalahan pada sistem kami.')
-//                 location.replace('$link')</script>";
-// }
+} catch (Exception $e) {
+    // echo 'Message could not be sent.';
+    // echo 'Mailer Error: ' . $mail->ErrorInfo;
+    echo "<script>alert('Maaf ada sebuah kesalahan pada sistem kami.')
+                location.replace('$link')</script>";
+}
