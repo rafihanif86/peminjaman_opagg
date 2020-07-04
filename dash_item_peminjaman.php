@@ -333,17 +333,12 @@ function scrolltoform() {
                                                                                 value="<?php echo $row10['id_jenis_alat']; ?>">
                                                                                 <?php echo $row10['nama_jenis_alat']; ?>
                                                                             </option>
-                                                                            <?php
-                                                                                                        } else {
-                                                                                                        ?>
+                                                                            <?php } else { ?>
                                                                             <option
                                                                                 value="<?php echo $row10['id_jenis_alat']; ?>">
                                                                                 <?php echo $row10['nama_jenis_alat']; ?>
                                                                             </option>
-                                                                            <?php
-                                                                                                        }
-                                                                                                    }
-                                                                                                    ?>
+                                                                            <?php  }  } ?>
                                                                         </select>
                                                                         <small class="form-text text-muted">pilih
                                                                             jenis alat</small>

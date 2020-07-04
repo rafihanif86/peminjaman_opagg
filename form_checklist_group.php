@@ -188,10 +188,8 @@
                                                     <img src="images/<?php if($row2["foto_anggota"] != "" || !empty($row2["foto_anggota"]) || $row2["foto_anggota"] != null ){echo $row2["foto_anggota"];}else{echo "user-icon.png";}?>"
                                                         class="card-img-top" alt="..." style="max-height: 15rem">
                                                     <div class="card-body">
-                                                        <h6 class="card-title">NIA.<?php echo $row2["nia"]; ?>-GG
-                                                        </h6>
+                                                        <h6 >NIA.<?php echo $row2["nia"]; ?>-GG </h6>
                                                         <h5> <?php echo $row2["nama_user"]; ?></h5>
-
                                                     </div>
                                                 </div>
                                             </div>
@@ -334,7 +332,7 @@
                                                         <div class="float-md-left border-left">
                                                             <div class="container">
                                                                 <b>Kondisi : </b><br />
-                                                                <?php if($row1["kondisi"] != ""){echo "Alat ini memiliki kondisi ".$row1["kondisi"].", ".$row1["keterangan"].". <br/><small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).", ".$row1["petugas"].") </small>";} ?>
+                                                                <?php if($row1["kondisi"] != ""){echo "Alat ini memiliki kondisi ".$row1["kondisi"].", ".$row1["keterangan"].". <br/><small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).", ".$row1["nama_user"].") </small>";} ?>
                                                                 <br />
                                                             </div>
                                                         </div>
@@ -363,7 +361,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalCenterTitle">Rangkuman Checklist</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -376,8 +374,9 @@
                             <label for="text-input" class=" form-control-label">Ringkasan</label>
                         </div>
                         <div class="col-12 col-md-9">
-                            <input type="text" id="text-input" name="resume" placeholder="Resume" class="form-control"
-                                value="">
+                            <textarea class="form-control" rows="5" id="text-input" name="resume"
+                                class="form-control"></textarea>
+
                             <small class="form-text text-muted">Masukkan Ringkasan kegiatan checklist bulanan</small>
                         </div>
                     </div>
