@@ -456,6 +456,7 @@
     if(isset($_POST["selesai"])){
         $id_checklist_group    =   $_POST["id_checklist_group"];
         $resume    =   $_POST["resume"];
+
         $jumlah = count($_FILES['gambar']['name']);
         $file_name ="";
         if ($jumlah > 0) {
@@ -480,16 +481,18 @@
                 }
             }
         }
-        $sql_insert1 = mysqli_query($conn,"UPDATE checklist_group set status = 'done', resume = '$resume', dokumentasi = '$file_name' where id_checklist = '$id_checklist_group';");
-        echo "<script> location.replace('form_checklist_group.php?status=selesai')</script>";
+        $sql_insert1 = mysqli_query($conn,"UPDATE checklist_group set status = 'done', resume = '$resume', dokumentasi = '$file_name' where id_checklist_group = '$id_checklist_group';");
+        
+        if($sql_insert1){
+            echo "<script> location.replace('tampil_checklist_group.php?id_checklist_group=$id_checklist_group&status=selesai')</script>";
+        }else{
+            echo "<script type='text/javascript'> window.onload = function(){ alert('Gagal mengeakhiri checklist'); } </script>";
+        }
     }
 
     if(isset($_GET['status'])){
         if($_GET['status'] == "mulai"){
             echo "<script type='text/javascript'> window.onload = function(){ alert('Checklist group telah dimulai'); } </script>";
-        }else if($_GET['status'] == "selesai"){
-            echo "<script type='text/javascript'> window.onload = function(){ alert('Checklist group telah selesai. Terima Kasih'); } 
-            location.replace('tabel_checklist_group.php')</script>";
         }
     }
 ?>

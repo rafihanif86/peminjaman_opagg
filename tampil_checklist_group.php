@@ -230,7 +230,15 @@
 </div><!-- .content -->
 
 <div class="clearfix"></div>
-<?php include 'footer_admin.php'; ?>
+<?php 
+    include 'footer_admin.php'; 
+    
+    if(isset($_GET['status'])){
+        if($_GET['status'] == "selesai"){
+            echo "<script type='text/javascript'> window.onload = function(){ alert('Checklist group telah selesai. Terima Kasih'); }</script>";
+        }
+    }
+?>
 <script>
 var camera = document.getElementById('camera');
 var frame = document.getElementById('frame');
