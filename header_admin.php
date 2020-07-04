@@ -99,7 +99,7 @@
                             <i class="menu-icon fa fa-clipboard-list"></i>Checklist</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-list"></i><a href="tabel_checklist.php">Terbaru</a></li>
-                            <li><i class="fa fa-users"></i><a href=<?php echo $link;?>>Checklist Group</a></li>
+                            <li><i class="fa fa-users"></i><a href=<?php if($link != ""){echo $link;}else{echo "tabel_checklist_group.php";}?>>Checklist Group</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown <?php if($halaman == 'lain'){echo 'active';}?>"
