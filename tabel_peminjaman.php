@@ -194,13 +194,13 @@
                                                             </thead>
                                                             <tbody>
                                                                 <?php 
-                                                                                $id = $row1["id_peminjaman_masuk"];
-                                                                                $que11 = "SELECT d.*, k.`nama_jenis_alat` FROM `detail_peminjaman_masuk` D, `jenis_alat` K WHERE d.`id_jenis_alat` = k.`id_jenis_alat` AND d.`id_peminjaman_masuk` ='$id';";
-                                                                                $res11=mysqli_query($conn,$que11) ;
-                                                                                $i = 0;
-                                                                                while ($row1=mysqli_fetch_array($res11)){
-                                                                                    $i++;
-                                                                            ?>
+                                                                    $id = $row1["id_peminjaman_masuk"];
+                                                                    $que11 = "SELECT d.*, k.`nama_jenis_alat` FROM `detail_peminjaman_masuk` D, `jenis_alat` K WHERE d.`id_jenis_alat` = k.`id_jenis_alat` AND d.`id_peminjaman_masuk` ='$id';";
+                                                                    $res11=mysqli_query($conn,$que11) ;
+                                                                    $i = 0;
+                                                                    while ($row1=mysqli_fetch_array($res11)){
+                                                                        $i++;
+                                                                ?>
                                                                 <tr>
                                                                     <td><?php echo $row1["nama_jenis_alat"]; ?>
                                                                     </td>

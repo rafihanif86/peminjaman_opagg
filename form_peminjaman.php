@@ -165,7 +165,7 @@
                                             <input type="date" id="tgl_awal" name="tgl_ambil"
                                                 placeholder="Tanggal Ambil" class="form-control"
                                                 value="<?php echo $tgl_ambil; ?>"
-                                                min="<?php $tambahdate = ""; if($nik_potong == "910"){$tambahdate = "+1days";}else{$tambahdate = "+3days";}echo date($tambahdate, strtotime('+3days', strtotime($tgl_hari_ini))); ?>"
+                                                min="<?php $tambahdate = ""; if($nik_potong == "910"){$tambahdate = "+1days";}else{$tambahdate = "+3days";}echo date('Y-m-d', strtotime($tambahdate, strtotime($tgl_hari_ini))); ?>"
                                                 onchange="change_kembali()">
                                             <small class="help-block form-text">Maksimal tanggal ambil adalah 3 hari untuk non anggota dan 1 hari untuk anggota
                                                 setelah
@@ -280,9 +280,9 @@
         </div><!-- .animated -->
     </div><!-- .content -->
 
-    <div class="clearfix"></div>
-    <?php include 'footer_admin.php'; ?>
-    <script>
+<div class="clearfix"></div>
+<?php include 'footer_admin.php'; ?>
+<script>
     if (document.getElementById("tgl_awal").value == '') {
         document.getElementById('kembali').style.display = 'none';
     } else {
@@ -296,18 +296,8 @@
         document.getElementById("tgl_kembali").min = tgl_ambil;
     }
 
-    // var camera = document.getElementById('camera');
-    // var frame = document.getElementById('frame');
-
-
-
-    // camera.addEventListener('change', function(e) {
-    //     var file = e.target.files[0];
-    //     // Do something with the image file.
-    //     frame.src = URL.createObjectURL(file);
-    // });
-    </script>
-    <?php
+</script>
+<?php
 if(isset($_POST["submit"])){
     $id_peminjaman_masuk=$_POST["id_peminjaman_masuk"];
     $nama_kegiatan = $_POST["nama_kegiatan"];

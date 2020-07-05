@@ -104,7 +104,7 @@ $id_checklist_group = $id_detail_masuk = $id_jenis_alat = $tgl_checklist_group =
     </table>
     <br />
 
-    <b>Hasil Checklist:</b>
+    <b>Mengikuti Checklist:</b>
     <table>
         <tr>
             <th>Nama</th>
