@@ -5,48 +5,73 @@ $peminjaman_active = "";
 $about_active = "";
 include 'header_dashboard.php';
 ?>
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel" >
+<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="3"></li>
+        <li data-target="#carouselExampleCaptions" data-slide-to="4"></li>
+    </ol>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img class="d-block w-100" style="max-height: 45rem;" src="images/IMG_8511.JPG" alt="First slide">
+            <img class="d-block w-100" style="max-height: 45rem;" src="images/IMG_4976.JPG" alt="">
+            <div class="carousel-caption d-none d-md-block text-white" style="background-color: rgba(69, 59, 59, 0.5)">
+                <h5>Selamat Datang </h5>
+                <p class="text-white">Website ini digunakan untuk mengelola peralatan OPA Ganendra Giri. Peminjaman OPA Ganendra Giri dapat dilakukan melalui website ini. Cara peminjaman, anda bisa membacanya dibawah ini...</p>
+            </div>
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" style="max-height: 45rem;" src="images/IMG_0446.JPG" alt="Second slide">
+            <img class="d-block w-100" style="max-height: 45rem;" src="images/DSC_1257.JPG" alt="">
+            <div class="carousel-caption d-none d-md-block text-white" style="background-color: rgba(69, 59, 59, 0.5)">
+                <h5><i>Mountainering, Survival, Navigation, Conservation</i></h5>
+                <p class="text-white"><i>Mountainering, Survival, Navigation, Conservation</i> merupakan ilmu dasar yang harus dimiliki seorang pecinta alam. Sehingga para petualang dapat malakukan petualangan dengan <i>happy</i> akan tetapi juga <i>safety</i>. </p>
+            </div>
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" style="max-height: 45rem;" src="images/DSC_1257.JPG" alt="Third slide">
+            <img class="d-block w-100" style="max-height: 45rem;" src="images/IMG_0446.JPG" alt="">
+            <div class="carousel-caption d-none d-md-block text-white" style="background-color: rgba(69, 59, 59, 0.5)">
+                <h5>Panjat Tebing</h5>
+                <p class="text-white">Panjat tebing merupakan salah satu cabang olahraga yang sangat popular oleh penggiat olahraga extrim. Sehingga olahraga ini juga menjadi suatu divisi di OPA Ganendra Giri untuk dipelajari dan mencetak atlit panjat tebing.</p>
+            </div>
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" style="max-height: 45rem;" src="images/20180722_112123.jpg" alt="Third slide">
+            <img class="d-block w-100" style="max-height: 45rem;" src="images/20180722_112123.jpg" alt="">
+            <div class="carousel-caption d-none d-md-block text-white" style="background-color: rgba(69, 59, 59, 0.5)">
+                <h5><i>Caving</i></h5>
+                <p class="text-white"><i>Caving</i> merupakan kegiatan yang jarang diketahui orang. Kegiatan ini merupakan suatu kegiatan pengambilan data dari suatu gua untuk mencari potensi-potensi yang ada dalam goa tersebut dengan melakukan eksplorasi di dalam goa.</p>
+            </div>
         </div>
         <div class="carousel-item">
-            <img class="d-block w-100" style="max-height: 45rem;" src="images/IMG_4976.JPG" alt="Third slide">
+            <img class="d-block w-100" style="max-height: 45rem;" src="images/IMG_8511.JPG" alt="">
+            <div class="carousel-caption d-none d-md-block text-white" style="background-color: rgba(69, 59, 59, 0.5)">
+                <h5>ORAD</h5>
+                <p class="text-white">ORAD (Olah Raga Arus Deras) atau yang sering dikenal dengan <i>Rafting</i> ini merupakan orahraga yang menyenangkan. Dengan mengarungi derasnya sungai orahraga ini juga mencetak atlet-atlet internaional.</p>
+            </div>
         </div>
     </div>
-    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
     </a>
-    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
 </div>
 <div class="content" style="max-width: 90%; margin: auto; float:none;">
-    <div class="row">
-        <!-- text header -->
+    <!-- <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
                     <p>Selamat datang di inventori OPA Ganendra Giri. Di web ini anda dapat meminjam perlatan yang
-                        dimiliki
-                        Ganendra Giri dengan mengisi form yang ada di tab Peminjaman. Anda juga bisa melihat peminjaman
+                        dimiliki OPA Ganendra Giri dengan mengisi form yang ada di tab Peminjaman. Anda juga bisa melihat peminjaman
                         yang
                         telah masuk dan melihat prosesnya</p>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <hr />
 
