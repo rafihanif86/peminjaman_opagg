@@ -54,9 +54,6 @@ try {
                 location.replace('$link')</script>";
        }
     
-        
-    
-    
 } catch (Exception $e) {
     // echo 'Message could not be sent.';
     // echo 'Mailer Error: ' . $mail->ErrorInfo;

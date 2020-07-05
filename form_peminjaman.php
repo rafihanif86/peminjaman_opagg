@@ -209,7 +209,7 @@
                                             <label for="text-input" class=" form-control-label">Lampirkan surat</label>
                                         </div>
                                         <div class="col-12 col-md-9">
-                                            <input type="file" id="fileupload" name="gambar[]" placeholder="Choose file"
+                                            <input type="file" id="fileupload" name="gambar" placeholder="Choose file"
                                                 class="form-control" accept="application/pdf" onchange="validate(this);">
                                             <small class="help-block form-text">Lampirkan surat (jika ada)
                                                 untuk mempermudah proses peminjaman. Pastikan Lampiran berekstensi
@@ -321,27 +321,26 @@ if(isset($_POST["submit"])){
     if($edit != "true"){
         if(($nama_kegiatan and $tgl_ambil and $tgl_kembali and $id_peminjaman_masuk and $nik and $status) != null){
 
-            $jumlah = count($_FILES['gambar']['name']);
-                $file_name ="";
-                if ($jumlah > 0) {
-                    for ($i=0; $i < $jumlah; $i++) { 
-                        $file_name = $_FILES['gambar']['name'][$i];
-                        $tmp_name = $_FILES['gambar']['tmp_name'][$i];
-                        $file_size = $_FILES['gambar']['size'][$i];
-                        $jenis_gambar = $_FILES['gambar']['type'][$i];
-                        if($file_size <= 1048576){
-                            if($jenis_gambar=="application/pdf"){
-                                move_uploaded_file($tmp_name, "images/".$file_name);
-                            }else{
-                                $file_name =  "";
-                                $status1 = "filetype";
-                            }
+            $file_name ="";
+            if ($_FILES['gambar']['name'] != "") {
+                    $file_name = $_FILES['gambar']['name'];
+                    $tmp_name = $_FILES['gambar']['tmp_name'];
+                    $file_size = $_FILES['gambar']['size'];
+                    $jenis_gambar = $_FILES['gambar']['type'];
+                if($file_name != ""){
+                    if($file_size <= 1048576){
+                        if($jenis_gambar=="application/pdf"){
+                            move_uploaded_file($tmp_name, "images/".$file_name);
                         }else{
                             $file_name =  "";
-                            $status1 = "bigsize";
+                            $status1 = "filetype";
                         }
+                    }else{
+                        $file_name =  "";
+                        $status1 = "bigsize";
                     }
                 }
+            }
             $status = "baru";
             $query1="INSERT INTO peminjaman_masuk (id_peminjaman_masuk,nik,nama_kegiatan,tgl_ambil,tgl_kembali,status,lampiran_surat) VALUES ('".$id_peminjaman_masuk."','".$nik."','".$nama_kegiatan."','".$tgl_ambil."','".$tgl_kembali."','".$status."','".$file_name."');";
             $sql_insert1 = mysqli_query($conn,$query1);
@@ -363,8 +362,7 @@ if(isset($_POST["submit"])){
             }
             $file_name = $foto_anggota;
 
-            $jumlah = count($_FILES['gambar']['name']);
-            if ($jumlah > 0 && $_FILES['gambar']['name'] != "") {
+            if ($_FILES['gambar']['name'] != "") {
 
                 if ($foto_anggota  != "" || $foto_anggota != "(NULL)"){
                     $target = "images/" .$foto_anggota  ;
@@ -373,11 +371,11 @@ if(isset($_POST["submit"])){
                     }
                 }
 
-                for ($i=0; $i < $jumlah; $i++) { 
-                    $file_name = $_FILES['gambar']['name'][$i];
-                    $tmp_name = $_FILES['gambar']['tmp_name'][$i];
-                    $file_size = $_FILES['gambar']['size'][$i];
-                    $jenis_gambar = $_FILES['gambar']['type'][$i];
+                $file_name = $_FILES['gambar']['name'];
+                $tmp_name = $_FILES['gambar']['tmp_name'];
+                $file_size = $_FILES['gambar']['size'];
+                $jenis_gambar = $_FILES['gambar']['type'];
+                if($file_name != ""){
                     if($file_size <= 1048576){
                         if($jenis_gambar=="application/pdf"){
                             move_uploaded_file($tmp_name, "images/".$file_name);

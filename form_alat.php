@@ -152,7 +152,7 @@
                                             Alat</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="file" id="text-input" name="gambar[]" placeholder="Choose file"
+                                        <input type="file" id="text-input" name="gambar" placeholder="Choose file"
                                             class="form-control" value="" accept="image/*" capture="camera" id="camera">
                                         <?php
                                                 if(isset($id_alat)){
@@ -262,15 +262,14 @@ function reset() {
         
         if(($merk and $id_jenis_alat and $type) != null){
             if($id_alat =="" || $id_alat == null || empty($id_alat)){
-                $jumlah = count($_FILES['gambar']['name']);
                 $file_name ="";
                 $status = "";
-                if ($jumlah > 0) {
-                    for ($i=0; $i < $jumlah; $i++) { 
-                        $file_name = $_FILES['gambar']['name'][$i];
-                        $tmp_name = $_FILES['gambar']['tmp_name'][$i];
-                        $file_size = $_FILES['gambar']['size'][$i];
-                        $jenis_gambar = $_FILES['gambar']['type'][$i];
+                if ($_FILES['gambar']['name'] != "") { 
+                    $file_name = $_FILES['gambar']['name'];
+                    $tmp_name = $_FILES['gambar']['tmp_name'];
+                    $file_size = $_FILES['gambar']['size'];
+                    $jenis_gambar = $_FILES['gambar']['type'];
+                    if($file_name != ""){
                         if($file_size <= 1048576){
                             if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png"){
                                 move_uploaded_file($tmp_name, "images/".$file_name);
@@ -314,8 +313,7 @@ function reset() {
                 $file_name = $foto_anggota;
                 $status = "";
 
-                $jumlah = count($_FILES['gambar']['name']);
-                if ($jumlah > 0) {
+                if ($_FILES['gambar']['name'] != "") {
 
                     if ($foto_anggota  != ""){
                         $target = "images/" .$foto_anggota  ;
@@ -324,11 +322,11 @@ function reset() {
                         }
                     }
 
-                    for ($i=0; $i < $jumlah; $i++) { 
-                        $file_name = $_FILES['gambar']['name'][$i];
-                        $tmp_name = $_FILES['gambar']['tmp_name'][$i];
-                        $file_size = $_FILES['gambar']['size'][$i];
-                        $jenis_gambar = $_FILES['gambar']['type'][$i];
+                    $file_name = $_FILES['gambar']['name'];
+                    $tmp_name = $_FILES['gambar']['tmp_name'];
+                    $file_size = $_FILES['gambar']['size'];
+                    $jenis_gambar = $_FILES['gambar']['type'];
+                    if($file_name != ""){
                         if($file_size <= 1048576){
                             if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png"){
                                 move_uploaded_file($tmp_name, "images/".$file_name);

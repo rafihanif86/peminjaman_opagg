@@ -20,10 +20,8 @@
 
         if($id_kat == "" || $id_kat == null){
             if($nama_kat != ""){
-                $jumlah = count($_FILES['gambar']['name']);
                 $file_name ="";
-                if ($jumlah > 0) {
-                    for ($i=0; $i < $jumlah; $i++) { 
+                if ($_FILES['gambar']['name'] != "") {
                         $file_name = $_FILES['gambar']['name'][$i];
                         $tmp_name = $_FILES['gambar']['tmp_name'][$i];
                         $file_size = $_FILES['gambar']['size'][$i];
@@ -42,7 +40,6 @@
                                 $status = "bigsize";
                             }
                         }
-                    }
                 }
                 $query="INSERT INTO kategori set nama_kat = '$nama_kat', foto_kat = '$file_name';";
                 $sql_insert1 = mysqli_query($conn,$query);
@@ -60,8 +57,7 @@
             }
             $file_name = $foto_anggota;
 
-            $jumlah = count($_FILES['gambar']['name']);
-            if ($jumlah > 0) {
+            if ($_FILES['gambar']['name'] != "") {
 
                 if ($foto_anggota  != ""){
                     $target = "images/" .$foto_anggota  ;
@@ -70,11 +66,11 @@
                     }
                 }
 
-                for ($i=0; $i < $jumlah; $i++) { 
-                    $file_name = $_FILES['gambar']['name'][$i];
-                    $tmp_name = $_FILES['gambar']['tmp_name'][$i];
-                    $file_size = $_FILES['gambar']['size'][$i];
-                    $jenis_gambar = $_FILES['gambar']['type'][$i];
+                $file_name = $_FILES['gambar']['name'];
+                $tmp_name = $_FILES['gambar']['tmp_name'];
+                $file_size = $_FILES['gambar']['size'];
+                $jenis_gambar = $_FILES['gambar']['type'];
+                if($file_name != ""){
                     if($file_size <= 1048576){
                         if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png"){
                             move_uploaded_file($tmp_name, "images/".$file_name);
@@ -157,7 +153,7 @@
                                             kategori</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="file" name="gambar[]" placeholder="Choose file"
+                                        <input type="file" name="gambar" placeholder="Choose file"
                                             class="form-control" value="" accept="image/jpg,image/jpeg,image/png"
                                             capture="camera" id="camera">
                                         <img id="frame">

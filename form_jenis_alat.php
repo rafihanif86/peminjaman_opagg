@@ -21,14 +21,13 @@
 
         if($id_jenis_alat == "" || $id_jenis_alat == null){
             if(($id_jenis_alat and $nama_jenis_alat) != null){
-                $jumlah = count($_FILES['gambar']['name']);
                 $file_name ="";
-                if ($jumlah > 0) {
-                    for ($i=0; $i < $jumlah; $i++) { 
-                        $file_name = $_FILES['gambar']['name'][$i];
-                        $tmp_name = $_FILES['gambar']['tmp_name'][$i];
-                        $file_size = $_FILES['gambar']['size'][$i];
-                        $jenis_gambar = $_FILES['gambar']['type'][$i];
+                if ($_FILES['gambar']['name'] != "") {
+                    $file_name = $_FILES['gambar']['name'];
+                    $tmp_name = $_FILES['gambar']['tmp_name'];
+                    $file_size = $_FILES['gambar']['size'];
+                    $jenis_gambar = $_FILES['gambar']['type'];
+                    if($file_name != ""){
                         if($file_size <= 1048576){
                             if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png"){
                                 move_uploaded_file($tmp_name, "images/".$file_name);
@@ -56,8 +55,7 @@
             }
             $file_name = $foto_anggota;
 
-            $jumlah = count($_FILES['gambar']['name']);
-            if ($jumlah > 0) {
+            if ($_FILES['gambar']['name'] != "") {
 
                 if ($foto_anggota  != ""){
                     $target = "images/" .$foto_anggota  ;
@@ -66,11 +64,11 @@
                     }
                 }
 
-                for ($i=0; $i < $jumlah; $i++) { 
-                    $file_name = $_FILES['gambar']['name'][$i];
-                    $tmp_name = $_FILES['gambar']['tmp_name'][$i];
-                    $file_size = $_FILES['gambar']['size'][$i];
-                    $jenis_gambar = $_FILES['gambar']['type'][$i];
+                $file_name = $_FILES['gambar']['name'];
+                $tmp_name = $_FILES['gambar']['tmp_name'];
+                $file_size = $_FILES['gambar']['size'];
+                $jenis_gambar = $_FILES['gambar']['type'];
+                if($file_name != ""){
                     if($file_size <= 1048576){
                         if($jenis_gambar=="image/jpeg" || $jenis_gambar=="image/jpg" || $jenis_gambar=="image/gif" || $jenis_gambar=="image/x-png"){
                             move_uploaded_file($tmp_name, "images/".$file_name);
@@ -84,6 +82,7 @@
                     }
                 }
             }
+
             $query="UPDATE kategori set nama_jenis_alat = '$nama_jenis_alat', foto_jenis_alat = '$file_name' where id_jenis_alat = $id_jenis_alat;";
             $sql_insert1 = mysqli_query($conn,$query);
         }
@@ -178,7 +177,7 @@
                                         <div class="col col-md-3">
                                             <label for="text-input" class=" form-control-label">Lampirkan Foto kategori</label>
                                         </div>
-                                        <div class="col-12 col-md-9"><input type="file" id="text-input" name="gambar[]"
+                                        <div class="col-12 col-md-9"><input type="file" id="text-input" name="gambar"
                                                 placeholder="Choose file" class="form-control" value="">
                                             <small class="help-block form-text">Lampirkan Foto Alat untuk mempermudah
                                                 proses pengecekan</small>

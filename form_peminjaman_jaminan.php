@@ -61,7 +61,7 @@
                                             Jaminan</label>
                                     </div>
                                     <div class="col col-md-9" <?php if($status_peminjaman != "disetujui" ){echo "hidden";}?>>
-                                        <input type="file" name="gambar1[]" placeholder="Choose file"
+                                        <input type="file" name="gambar1" placeholder="Choose file"
                                             class="form-control" value="" accept="image/*" capture="camera" id="camera1" onchange="validate(this);">
                                         <img id="frame1">
                                         <small class="help-block form-text">Lampirkan foto jaminan untuk syarat
@@ -74,7 +74,7 @@
                                             Seluruh Alat Diserahkan</label>
                                     </div>
                                     <div class="col col-md-9">
-                                        <input type="file" name="gambar2[]" placeholder="Choose file"
+                                        <input type="file" name="gambar2" placeholder="Choose file"
                                             class="form-control" value="" accept="image/*" capture="camera" id="camera2" onchange="validate(this);">
                                         <img id="frame2">
                                         <small class="help-block form-text">Lampirkan foto seluruh alat diserahkan untuk syarat
@@ -87,7 +87,7 @@
                                             Seluruh Alat Dikembalikan</label>
                                     </div>
                                     <div class="col col-md-9">
-                                        <input type="file" name="gambar3[]" placeholder="Choose file"
+                                        <input type="file" name="gambar3" placeholder="Choose file"
                                             class="form-control" value="" accept="image/*" capture="camera" id="camera3" onchange="validate(this);">
                                         <img id="frame3">
                                         <small class="help-block form-text">Lampirkan foto jaminan untuk syarat
@@ -370,8 +370,7 @@
             $file_name3 = $foto_alat_pengembalian;
             $status = "";
 
-            $jumlah1 = count($_FILES['gambar1']['name']);
-            if ($jumlah1 > 0) {
+            if ($_FILES['gambar1']['name'] != "") {
 
                 if ($file_name1  != ""){
                     $target = "images/" .$file_name1  ;
@@ -380,11 +379,11 @@
                     }
                 }
 
-                for ($i=0; $i < $jumlah1; $i++) { 
-                    $file_name1 = $_FILES['gambar1']['name'][$i];
-                    $tmp_name1 = $_FILES['gambar1']['tmp_name'][$i];
-                    $file_size1 = $_FILES['gambar1']['size'][$i];
-                    $jenis_gambar1 = $_FILES['gambar1']['type'][$i];
+                $file_name1 = $_FILES['gambar1']['name'];
+                $tmp_name1 = $_FILES['gambar1']['tmp_name'];
+                $file_size1 = $_FILES['gambar1']['size'];
+                $jenis_gambar1 = $_FILES['gambar1']['type'];
+                if($file_name1 != ""){
                     if($file_size1 <= 1048576){
                         if($jenis_gambar1 =="image/jpeg" || $jenis_gambar1 =="image/jpg" || $jenis_gambar1 =="image/gif" || $jenis_gambar1 =="image/x-png"){
                             move_uploaded_file($tmp_name1, "images/".$file_name1);
@@ -400,8 +399,7 @@
                 }
             }
 
-            $jumlah2 = count($_FILES['gambar2']['name']);
-            if ($jumlah2 > 0) {
+            if ($_FILES['gambar2']['name'] != "") {
 
                 if ($file_name2  != ""){
                     $target = "images/" .$file_name2  ;
@@ -410,11 +408,11 @@
                     }
                 }
 
-                for ($i=0; $i < $jumlah2; $i++) { 
-                    $file_name2 = $_FILES['gambar2']['name'][$i];
-                    $tmp_name2 = $_FILES['gambar2']['tmp_name'][$i];
-                    $file_size2 = $_FILES['gambar2']['size'][$i];
-                    $jenis_gambar2 = $_FILES['gambar2']['type'][$i];
+                $file_name2 = $_FILES['gambar2']['name'];
+                $tmp_name2 = $_FILES['gambar2']['tmp_name'];
+                $file_size2 = $_FILES['gambar2']['size'];
+                $jenis_gambar2 = $_FILES['gambar2']['type'];
+                if($file_name2 != ""){
                     if($file_size2 <= 1048576){
                         if($jenis_gambar2 =="image/jpeg" || $jenis_gambar2 =="image/jpg" || $jenis_gambar2 =="image/gif" || $jenis_gambar2 =="image/x-png"){
                             move_uploaded_file($tmp_name2, "images/".$file_name2);
@@ -430,9 +428,7 @@
                 }
             }
 
-            $jumlah3 = count($_FILES['gambar3']['name']);
-            if ($jumlah3 > 0) {
-
+            if ($_FILES['gambar3']['name'] != "") {
                 if ($file_name3  != ""){
                     $target = "images/" .$file_name3  ;
                     if(file_exists($target)){
@@ -440,11 +436,11 @@
                     }
                 }
 
-                for ($i=0; $i < $jumlah3; $i++) { 
-                    $file_name3 = $_FILES['gambar3']['name'][$i];
-                    $tmp_name3 = $_FILES['gambar3']['tmp_name'][$i];
-                    $file_size3 = $_FILES['gambar3']['size'][$i];
-                    $jenis_gambar3 = $_FILES['gambar3']['type'][$i];
+                $file_name3 = $_FILES['gambar3']['name'];
+                $tmp_name3 = $_FILES['gambar3']['tmp_name'];
+                $file_size3 = $_FILES['gambar3']['size'];
+                $jenis_gambar3 = $_FILES['gambar3']['type'];
+                if($file_name3 != ""){
                     if($file_size3 <= 1048576){
                         if($jenis_gambar3 =="image/jpeg" || $jenis_gambar3 =="image/jpg" || $jenis_gambar3 =="image/gif" || $jenis_gambar3 =="image/x-png"){
                             move_uploaded_file($tmp_name3, "images/".$file_name3);
