@@ -59,7 +59,7 @@
                             <div class="col col-md-6">
                                 <form action="tabel_checklist_group.php" method="post" name="frm"
                                     enctype="multipart/form-data">
-                                    <button type="submit" class="btn btn-primary btn-sm float-right" name="mulai"
+                                    <button type="submit" class="btn btn-primary btn-sm float-right" name="mulai" onClick="return confirm('Memulai Checklist Grup?')"
                                         <?php echo $hidden_button;?>>
                                         <i class="fa fa-dot-circle-o"></i> Mulai Checklist Group
                                     </button>
@@ -97,7 +97,7 @@
                                                                 <a class="text-dark"
                                                                     href="tampil_peminjaman.php?id_peminjaman_masuk=<?php echo $row1["id_peminjaman_masuk"];?>">
                                                                     <small
-                                                                        class="text-secondary"><?php echo tgl_indo($row1["tgl_checklist_group"]); ?></small><br />
+                                                                        class="text-secondary"><?php echo $row1["tgl_checklist_group"]; ?></small><br />
                                                                     Koordinator:<br />
                                                                     <h3> <?php echo $row1["nama_user"]; ?></h3>
                                                                     Resume:<br />
@@ -131,11 +131,11 @@
                                                                             <td>Alat dichecklist</td>
                                                                             <td>
                                                                                 <?php
-                                                                                        $query2="SELECT c.* FROM `checklist_group_item` C, `alat` A, `user` U, `jenis_alat` J, `checklist_record` R WHERE c.`id_checklist_group` = '$id_checklist_group' AND c.`id_check` = r.`id_check` AND a.`id_jenis_alat` = j.`id_jenis_alat` AND a.`id_alat` = c.`id_alat` AND c.`petugas_check` = u.`nia` ORDER BY c.`id_alat` DESC;";
-                                                                                        $result2=mysqli_query($conn,$query2);
-                                                                                        $jumlah_telah_check = mysqli_num_rows($result2);
-                                                                                        echo $jumlah_telah_check;
-                                                                                    ?>
+                                                                                    $query2="SELECT c.* FROM `checklist_group_item` C, `alat` A, `user` U, `jenis_alat` J, `checklist_record` R WHERE c.`id_checklist_group` = '$id_checklist_group' AND c.`id_check` = r.`id_check` AND a.`id_jenis_alat` = j.`id_jenis_alat` AND a.`id_alat` = c.`id_alat` AND c.`petugas_check` = u.`nia` ORDER BY c.`id_alat` DESC;";
+                                                                                    $result2=mysqli_query($conn,$query2);
+                                                                                    $jumlah_telah_check = mysqli_num_rows($result2);
+                                                                                    echo $jumlah_telah_check;
+                                                                                ?>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -154,18 +154,12 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="card-footer">
-                        <button type="button" class="btn btn-success btn-md data-toggle="modal"
-                            data-target="#exampleModalCenter">
-                            <i class='fa fa-file-download fa-1x'></i> Download laporan checklist bulanan file.xls
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <button type="button" class="btn btn-success btn-md" data-toggle="modal"
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal"
                     data-target="#exampleModalCenter">
                     <i class='fa fa-file-download fa-1x'></i> Download laporan checklist bulanan file.xls
                 </button>
@@ -194,7 +188,7 @@
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="date" id="tgl_awal" name="tgl_awal" placeholder="Tanggal Awal"
-                                class="form-control" value="" max="<?php echo $tgl_hari_ini;  ?>" onchange="change_kembali()">
+                                class="form-control" value="" max="<?php echo $tgl_hari_ini;?>" onchange="change_kembali()">
                             <small class="help-block form-text">Maksimal hari ini</small>
                         </div>
                     </div>
@@ -204,7 +198,7 @@
                         </div>
                         <div class="col-12 col-md-9">
                             <input type="date" id="tgl_kembali" name="tgl_akhir" placeholder="Tanggal Akhir"
-                                class="form-control" value="">
+                                class="form-control" value="" max="<?php echo $tgl_hari_ini;?>">
                             <!-- <small class="help-block form-text">Masukkan Tanggal Kembali</small> -->
                         </div>
                     </div>
@@ -215,7 +209,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" name="submit_tanggal">Simpan</button>
+                    <button type="submit" class="btn btn-success" name="submit_tanggal"><i class='fa fa-file-download fa-1x'></i> Download</button>
                 </div>
             </form>
         </div>

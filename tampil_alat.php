@@ -104,7 +104,7 @@ function printContent(el) {
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col col-md-3"><label for="text-input"
-                                                        class=" form-control-label"><b>Kategori</b></label></div>
+                                                        class=" form-control-label"><b>Jenis Alat</b></label></div>
                                                 <div class="col-12 col-md-9"><?php echo ": ";
                                                                         echo $nama_jenis_alat; ?></div>
                                             </div>

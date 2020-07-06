@@ -22,7 +22,7 @@
         }
     }
 
-    $query = "SELECT a.*, k.nama_jenis_alat, i.nama_kat FROM alat A, jenis_alat K, kategori i where k.id_jenis_alat = a.id_jenis_alat and k.id_kat = i.id_kat;";
+    $query = "SELECT a.*, k.nama_jenis_alat, i.nama_kat FROM alat A, jenis_alat K, kategori i where k.id_jenis_alat = a.id_jenis_alat and k.id_kat = i.id_kat order by a.id_alat desc;";
 
     if(isset($_GET['id_jenis_alat'])){
         $id_jenis_alat = $_GET['id_jenis_alat'];
@@ -31,7 +31,7 @@
         while ($row=mysqli_fetch_array($res)){
             $judul = $row["nama_jenis_alat"];
         }
-        $query = "SELECT a.*, k.nama_jenis_alat, i.nama_kat FROM alat A, jenis_alat K, kategori i where k.id_jenis_alat = a.id_jenis_alat and k.id_kat = i.id_kat and k.id_jenis_alat = '$id_jenis_alat';";
+        $query = "SELECT a.*, k.nama_jenis_alat, i.nama_kat FROM alat A, jenis_alat K, kategori i where k.id_jenis_alat = a.id_jenis_alat and k.id_kat = i.id_kat and k.id_jenis_alat = '$id_jenis_alat' order by a.id_alat desc;";
         $act = "seluruh";
     }
     
@@ -70,6 +70,8 @@
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Data Tabel</strong>
+                        <a href="export_data_alat.php?action=<?php echo $act;?>"  class="btn btn-success btn-md float-right" role="button"
+                            aria-pressed="true"> <i class='fa fa-file-download fa-1x'></i> Data alat.xls</a>
                     </div>
                     <div class="card-body">
                         <table id="bootstrap-data-table" class="table table-border-0">

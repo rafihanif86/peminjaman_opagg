@@ -7,6 +7,7 @@
     $id_peminjaman_masuk = $nama_instansi = $nik = $petugas_menyetujui = $lampiran_surat = $petugas_pengambilan = $petugas_pengembalian = $nama_peminjam = $nama_kegiatan = $email_peminjam = $tgl_ambil = $tgl_kembali =  $no_wa = $status = null;
     $hidden_disetujui = "hidden";
     $hidden_dikeluarkan = "hidden";
+    $tgl_hari_ini = date('Y-m-d');
     
     $judul_action = "Action";
     $link_action = "#";
@@ -465,21 +466,21 @@
                                                                 <div class="container">
                                                                     <b>Kondisi Penyerahan: </b><br />
                                                                     <?php 
-                                                                                $id_detail = $row2["id_detail"];
-                                                                                $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_keluar` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
-                                                                                while ($row1=mysqli_fetch_array($res1)){
-                                                                                echo $row1["kondisi"].", ".$row1["keterangan"]." <small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).")</small> ";
-                                                                                } 
-                                                                            ?>
+                                                                        $id_detail = $row2["id_detail"];
+                                                                        $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_keluar` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
+                                                                        while ($row1=mysqli_fetch_array($res1)){
+                                                                        echo $row1["kondisi"].", ".$row1["keterangan"]." <small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).")</small> ";
+                                                                        } 
+                                                                    ?>
                                                                     <br />
                                                                     <b>Kondisi Pengembalian: </b><br />
                                                                     <?php 
-                                                                                $id_detail = $row2["id_detail"];
-                                                                                $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_masuk` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
-                                                                                while ($row1=mysqli_fetch_array($res1)){
-                                                                                echo $row1["kondisi"].", ".$row1["keterangan"]." <small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).") </small>";
-                                                                                } 
-                                                                            ?>
+                                                                        $id_detail = $row2["id_detail"];
+                                                                        $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_masuk` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
+                                                                        while ($row1=mysqli_fetch_array($res1)){
+                                                                        echo $row1["kondisi"].", ".$row1["keterangan"]." <small class='text-secondary'>(".tgl_indo($row1["tgl_checklist"]).") </small>";
+                                                                        } 
+                                                                    ?>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -501,7 +502,7 @@
         <div class="row" <?php echo $hidden_data_peminjaman;?>>
             <div class="col-md-12 ">
                 <div class="btn-group ">
-                    <?php if($_SESSION['status'] == "anggota" && $status =="baru"){ ?>
+                    <?php if(($_SESSION['status'] == "anggota" && $status =="baru")|| $tgl_kembali < $tgl_hari_ini){ ?>
                     <?php } else {?>
                     <a href="<?php echo $link_action; ?>" class="btn btn-primary btn-sm"
                         disabled><?php echo $judul_action; ?></a>

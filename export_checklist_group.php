@@ -6,7 +6,6 @@ $id_checklist_group = $id_detail_masuk = $id_jenis_alat = $tgl_checklist_group =
     if(isset($_GET['id_checklist_group'])){
         $id_checklist_group = $_GET['id_checklist_group'];
         $sql=mysqli_query($conn,"SELECT g.*, u.`nama_user` FROM `checklist_group` G, `user`U WHERE g.`koordinator` = u.`nia` and `id_checklist_group` = '$id_checklist_group';");
-        $jumlah_berjalan = mysqli_num_rows($res);
         while ($row=mysqli_fetch_array($sql)) {
             $id_checklist_group =  $row['id_checklist_group'];
             $status =  $row['status'];

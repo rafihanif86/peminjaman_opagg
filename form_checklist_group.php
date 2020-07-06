@@ -408,7 +408,7 @@
 <?php 
     include 'footer_admin.php'; 
 
-    if($jumlah_belum == 0){
+    if($jumlah_belum == 0 and $status == "onprocess"){
         echo "<script type='text/javascript'> window.onload = function(){ alert('Seluruh Alat telah dichecklist. Silahkan tekan tombol selesai untuk mengakhiri checklist group.'); }</script>";
     }
 
