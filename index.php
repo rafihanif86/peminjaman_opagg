@@ -1,9 +1,19 @@
 <?php
-$title_header = "Home | Inventory OPA Ganendra Giri";
-$home_active = "active";
-$peminjaman_active = "";
-$about_active = "";
-include 'header_dashboard.php';
+    $title_header = "Home | Inventory OPA Ganendra Giri";
+    $home_active = "active";
+    $peminjaman_active = "";
+    $about_active = "";
+    include 'header_dashboard.php';
+
+    $result=mysqli_query($conn, "SELECT * FROM user WHERE nia = $nia_anggota");
+        while ($row1=mysqli_fetch_array($result)){
+            $nama_user      =   $row1["nama_user"];
+            $username       =   $row1["username"];
+            $password       =   $row1["password"];
+            $email       =   $row1["email"];
+            $nohp = $row1["no_telp"];
+            $status_anggota = $row1["status_anggota"];
+        }
 ?>
 <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">

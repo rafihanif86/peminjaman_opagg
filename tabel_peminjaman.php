@@ -136,24 +136,24 @@
                                                             </h5>
 
                                                             <?php
-                                                            $nama_instansi      =   "";
-                                                            $nama_peminjam      =   "";
-                                                            $nik_potong = substr($row1["nik"],0,3);
-                                                            $nik = $row1["nik"];
-                                                            if($nik_potong == "910"){
-                                                                $result2=mysqli_query($conn,"SELECT * FROM user  WHERE nia = '$nik';");
-                                                                while ($row2=mysqli_fetch_array($result2)){
-                                                                    $nama_instansi      =   "OPA Ganendra Giri";
-                                                                    $nama_peminjam      =   $row2["nama_user"];
+                                                                $nama_instansi      =   "";
+                                                                $nama_peminjam      =   "";
+                                                                $nik_potong = substr($row1["nik"],0,3);
+                                                                $nik = $row1["nik"];
+                                                                if($nik_potong == "910"){
+                                                                    $result2=mysqli_query($conn,"SELECT * FROM user  WHERE nia = '$nik';");
+                                                                    while ($row2=mysqli_fetch_array($result2)){
+                                                                        $nama_instansi      =   "OPA Ganendra Giri";
+                                                                        $nama_peminjam      =   $row2["nama_user"];
+                                                                    }
+                                                                }else{
+                                                                    $result2=mysqli_query($conn,"SELECT * FROM peminjam  WHERE nik = '$nik';");
+                                                                    while ($row2=mysqli_fetch_array($result2)){
+                                                                        $nama_instansi      =   $row2["instansi"];
+                                                                        $nama_peminjam      =   $row2["nama"];
+                                                                    }
                                                                 }
-                                                            }else{
-                                                                $result2=mysqli_query($conn,"SELECT * FROM peminjam  WHERE nik = '$nik';");
-                                                                while ($row2=mysqli_fetch_array($result2)){
-                                                                    $nama_instansi      =   $row2["instansi"];
-                                                                    $nama_peminjam      =   $row2["nama"];
-                                                                }
-                                                            }
-                                                        ?>
+                                                            ?>
                                                             <h3> <?php echo $nama_peminjam; ?> <small
                                                                     class="text-secondary">(<?php echo $nama_instansi;?>)</small>
                                                             </h3>
