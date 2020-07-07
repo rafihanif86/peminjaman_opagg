@@ -91,6 +91,8 @@
                             <li><i class="fa fa-ghost"></i><a href="tabel_alat.php?action=hilang">Hilang</a></li>
                             <li><i class="fa fa-times-circle"></i><a href="tabel_alat.php?action=diputihkan">Diputihkan</a></li>
                             <li><i class="fa fa-folder-plus"></i><a href="form_alat.php">Alat Baru</a></li>
+                            <li><i class="fa fa-file-medical"></i><a href="form_berita_acara.php?action=baru">Berita Acara (Baru)</a></li>
+                            <li><i class="fa fa-file-excel"></i><a href="form_berita_acara.php?action=diputihkan">Berita Acara (Diputihkan)</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown <?php if($halaman == 'checklist'){echo 'active';}?>"

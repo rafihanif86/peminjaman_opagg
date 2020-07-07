@@ -142,6 +142,12 @@
                     }
                 }
 
+                if($kondisi == "rusak"){
+                    echo "<script> var win = window.open('form_berita_acara.php?id_alat=$id_alat', '_blank'); win.focus();</script>";
+                }else if($kondisi == "hilang"){
+                    echo "<script> var win = window.open('form_berita_acara.php?id_alat=$id_alat', '_blank'); win.focus();</script>";                    
+                }
+
                 if(($id_peminjaman_masuk and $id_detail_masuk) != "" and $sql_insert1){
                     $insert_tr = "";
                     $result_ins=mysqli_query($conn,"SELECT COUNT(*) AS jumlah FROM `detail_peminjaman_diterima` WHERE `id_check_keluar` = '$id_check_max' OR `id_check_masuk` = '$id_check_max'; ") ;
