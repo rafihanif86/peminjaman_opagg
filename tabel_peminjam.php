@@ -73,6 +73,9 @@
                                     <td><?php echo $row1["instansi"]; ?></td>
                                     <td>
                                         <a class="btn btn-outline-primary "
+                                            href="tabel_peminjaman.php?nik=<?php echo $row1["nik"];?>">
+                                            <i class='fa fa-envelope-open-text fa-1x'> </i> </a>
+                                        <a class="btn btn-outline-primary "
                                             href="form_peminjam.php?nik=<?php echo $row1["nik"];?>">
                                             <i class='fa fa-pencil fa-1x'> </i> </a>
                                         <a class="btn btn-outline-danger"

@@ -517,7 +517,7 @@
                             href="form_peminjaman_list.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"><i
                                 class='fa fa-check fa-1x'></i> Alat Disetujui</a>
                         <?php } ?>
-                        <?php if($status == "disetujui" ){?>
+                        <?php if($status == "disetujui" && $tgl_kembali > $tgl_hari_ini){?>
                         <a class="dropdown-item"
                             href="<?php if(date('Y-m-d') >= $tgl_ambil){echo 'form_peminjaman_pengambilan.php?id_peminjaman_masuk='.$id_peminjaman_masuk;}else{echo '#';}?>"><i
                                 class='fa fa-people-carry fa-1x'></i> Pengambilan</a>
@@ -536,9 +536,9 @@
                             href="form_peminjaman.php?edit=true&id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"><i
                                 class='fa fa-pencil fa-1x'></i> Ubah </a>
                         <?php }?>
-                        <?php if($_SESSION['status'] == "admin"){ ?>
+                        <?php if($_SESSION['status'] == "admin" && ($status == "baru" || $status == "disetujui")){ ?>
                         <a class="dropdown-item"
-                            href="delete_peminjaman.php?id_peminjaman_masuk=<?php echo $row1["id_peminjaman_masuk"];?>"
+                            href="delete_peminjaman.php?id_peminjaman_masuk=<?php echo $id_peminjaman_masuk;?>"
                             onClick="return confirm('Hapus peminjaman ini?')">
                             <i class='fa fa-trash-o fa-1x'> </i> Hapus</a>
                         <?php } ?>

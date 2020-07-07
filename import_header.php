@@ -19,5 +19,6 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
     <script src="https://kit.fontawesome.com/7a0f45a9b4.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+    <script src="js/Chart.js"></script>
 
     

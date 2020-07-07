@@ -29,7 +29,7 @@
             $query="SELECT * FROM peminjaman_masuk WHERE status = 'baru' order by id_peminjaman_masuk desc;"; //query vendor
         } else if( $act== "disetujui"){
             $judul = "Telah disetujui";
-            $query="SELECT * FROM peminjaman_masuk WHERE status = 'disetujui' order by id_peminjaman_masuk desc;"; //query vendor
+            $query="SELECT * FROM peminjaman_masuk WHERE status = 'disetujui' and tgl_kembali >= '$tgl_hari_ini'  order by id_peminjaman_masuk desc;"; //query vendor
         }else if($act == "diambil"){
             $judul = "Telah diambil";
             $query="SELECT * FROM peminjaman_masuk WHERE status = 'diambil' order by id_peminjaman_masuk desc;"; //query vendor
@@ -39,7 +39,17 @@
         }else if($act == "seluruh"){
             $judul = "Seluruh Data";
             $query="SELECT * FROM peminjaman_masuk order by id_peminjaman_masuk desc;"; //query vendor
+        }else if($act == "tidakdiambil"){
+            $judul = "Tidak Diambil";
+            $query="SELECT * FROM peminjaman_masuk WHERE status = 'disetujui' and tgl_kembali <= '$tgl_hari_ini'  order by id_peminjaman_masuk desc;"; //query vendor
         }
+    }
+
+    if(isset($_GET['nik'])){
+        $nik_send = $_GET['nik'];
+        $act = "seluruh";
+        $judul = "Seluruh Data";
+        $query="SELECT * FROM peminjaman_masuk where nik = '$nik_send' order by id_peminjaman_masuk desc;"; //query vendor
     }
 
     $result=mysqli_query($conn,$query);
@@ -102,6 +112,7 @@
                                                     <div class="container">
                                                         <small
                                                             class="text-secondary"><?php echo $row1["tgl_ambil"]." s/d ".$row1["tgl_kembali"]; ?></small>
+
                                                         <div class="btn-group float-right">
                                                             <button type="button"
                                                                 class="btn btn-outline-danger btn-sm dropdown-toggle dropdown-toggle-split"
@@ -110,11 +121,13 @@
                                                                 <span class="sr-only">Toggle Dropdown</span>
                                                             </button>
                                                             <div class="dropdown-menu">
+                                                                <?php if($status == "baru" || $status == "disetujui"){?>
                                                                 <a class="dropdown-item"
                                                                     href="delete_peminjaman.php?id_peminjaman_masuk=<?php echo $row1["id_peminjaman_masuk"];?>"
                                                                     onClick="return confirm('Hapus peminjaman ini?')">
                                                                     <i class='fa fa-trash-o fa-1x'> </i>
                                                                     Hapus</a>
+                                                                <?php } ?>
                                                             </div>
                                                         </div>
                                                         <a class="text-dark"

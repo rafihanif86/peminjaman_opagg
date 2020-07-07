@@ -18,7 +18,7 @@
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-namespace PHPMailer\PHPMailer;
+namespace PHPMailer\PHPMailer1;
 
 use League\OAuth2\Client\Grant\RefreshToken;
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -123,7 +123,7 @@ class OAuth
     public function getOauth64()
     {
         // Get a new token if it's not available or has expired
-        if (null === $this->oauthToken || $this->oauthToken->hasExpired()) {
+        if (null === $this->oauthToken or $this->oauthToken->hasExpired()) {
             $this->oauthToken = $this->getToken();
         }
 

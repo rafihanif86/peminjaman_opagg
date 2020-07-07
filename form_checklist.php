@@ -473,7 +473,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="float-md-left ">
+                                    <div class="float-md-right ">
                                         <div class="container">
                                             <div class="row form-group">
                                                 <div class="col col-md-12">
@@ -597,9 +597,9 @@
                                                     Alat</label>
                                             </div>
                                             <div class="col-12 col-md-9">
-                                                <input type="text" id="text-input" name="keterangan"
+                                                <textarea type="text" id="text-input" name="keterangan"
                                                     placeholder="Keterangan" class="form-control"
-                                                    value="<?php echo $keterangan; ?>">
+                                                    value="<?php echo $keterangan; ?>" rows="6" ></textarea>
                                                 <small class="form-text text-muted">Berikan keterangan kondisi
                                                     alat
                                                     secara rinci</small>

@@ -118,8 +118,8 @@
                                         <label for="type-input" class=" form-control-label">Deskripsi</label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" id="text-input" name="deskripsi" placeholder="Deskripsi"
-                                            class="form-control" value="<?php echo $deskripsi; ?>">
+                                        <textarea type="text" id="text-input" name="deskripsi" placeholder="Deskripsi"
+                                            class="form-control" value="<?php echo $deskripsi; ?>" rows="6"></textarea>
                                         <small class="form-text text-muted">Masukkan Deskripsi Alat</small>
                                     </div>
                                 </div>

@@ -23,7 +23,7 @@ $pesan_replace = $_GET['pesan_replace'];
     require 'PHPMailer/src/SMTP.php';
     require 'PHPMailer/src/Exception.php';
 
-    $mail =  new PHPMailer\PHPMailer\PHPMailer();
+    $mail =  new PHPMailer\PHPMailer1\PHPMailer();
 try {
     //Server settings
     $mail->SMTPDebug = 2;                                 // Enable verbose debug output
@@ -36,7 +36,7 @@ try {
     $mail->Port = 587;                                    // TCP port to connect to
 
     //Recipients
-    $mail->setFrom('rafihanif86@gmail.com', '');
+    $mail->setFrom('rafihanif86@gmail.com', 'Admin Inventory OPA Ganendra Giri');
     $mail->addAddress($usermail,$name);                   // Add a recipient        
 
  

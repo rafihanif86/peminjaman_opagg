@@ -73,6 +73,7 @@
                             <li><i class="fa fa-check"></i><a href="tabel_peminjaman.php?action=disetujui"> Pengambilan</a></li>
                             <li><i class="fa fa-people-carry"></i><a href="tabel_peminjaman.php?action=diambil"> Pengembalian</a></li>
                             <li><i class="fa fa-warehouse"></i><a href="tabel_peminjaman.php?action=dikembalikan"> Selesai</a></li>
+                            <li><i class="fa fa-times"></i><a href="tabel_peminjaman.php?action=tidakdiambil"> Tidak Diambil</a></li>
                             <li><i class="fa fa-infinity"></i><a href="tabel_peminjaman.php?action=seluruh"> Seluruh</a></li>
                         </ul>
                     </li>
