@@ -82,6 +82,7 @@
                 $status_print = 'Alat Telah Diambil';
                 $hidden_dikeluarkan = "";
                 $progress = '80%';
+                $hidden_disetujui = "";
             } else if ($status == 'dikembalikan') {
                 $status_print = 'Alat Telah Dikembalikan';
                 $progress = '100%';
@@ -203,7 +204,7 @@
                     <div class="container">
                         <div class="row">
                             <div class="col">
-                                <div class="float-md-left">
+                                <div class="float-md-left" style="min-width: 23rem;">
                                     <div class="container">
                                         <div class="row form-group">
                                             <div class="col col-md-4"><label for="email-input"
@@ -242,7 +243,7 @@
                                     </div>
                                 </div>
 
-                                <div class="float-md-left border-left">
+                                <div class="float-md-left border-left" style="min-width: 23rem;">
                                     <div class="container">
                                         <div class="row form-group">
                                             <div class="col col-md-4"><label for="text-input"
@@ -264,6 +265,64 @@
                                         </div>
                                     </div>
 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <h4>List Permintaan</h4>
+                                <hr />
+                                <div class="row">
+                                    <?php
+                                        $query="SELECT D.*, K.nama_jenis_alat, K.foto_jenis_alat  FROM detail_peminjaman_masuk D, jenis_alat K WHERE K.id_jenis_alat = D.id_jenis_alat AND id_peminjaman_masuk = '$id_peminjaman_masuk' ORDER BY D.`id_detail_masuk`";
+                                        $result=mysqli_query($conn,$query) ;
+                                        $i = 0;
+                                        while ($row2=mysqli_fetch_array($result)){
+                                            $i++;
+                                    ?>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="row no-gutters">
+                                                <div class="col-md-4">
+                                                    <img src="images/<?php if($row2["foto_jenis_alat"] != "" || !empty($row2["foto_jenis_alat"]) || $row2["foto_jenis_alat"] != null ){echo $row2["foto_jenis_alat"];}else{echo "no_image.png";}?>"
+                                                        style="max-height: 20rem; float:none;" class="card-img-top"
+                                                        alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <div class="col col-md-12 border-left">
+                                                            <div class="card-title">
+                                                                <h6><?php echo $row2["nama_jenis_alat"]; ?></h6>
+                                                            </div>
+                                                            <div class="card-text text-secondary">
+                                                                <small>
+                                                                    <b>Permintaan : </b>
+                                                                    <?php echo $row2["jumlah"]; ?><br />
+                                                                    <b <?php echo  $hidden_disetujui;?>>Disetujui
+                                                                        : </b>
+                                                                    <?php echo $row2["jumlah_dikeluarkan"]; ?><br />
+                                                                    <b <?php echo  $hidden_dikeluarkan;?>>Dikeluarkan
+                                                                        : </b>
+                                                                    <?php
+                                                                        $id_detail_masuk = $row2["id_detail_masuk"];
+                                                                        $jum_kel="";
+                                                                        $queryKel="SELECT COUNT(*) AS jum_keluar FROM detail_peminjaman_diterima WHERE id_detail_masuk = '$id_detail_masuk'; ";
+                                                                        $resultKel=mysqli_query($conn,$queryKel) ;
+                                                                        while ($row6=mysqli_fetch_array($resultKel)){
+                                                                            $jum_kel = $row6["jum_keluar"];
+                                                                        }
+                                                                        if($jum_kel != "0" || $hidden_dikeluarkan != "hidden"){echo $jum_kel;}
+                                                                    ?>
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php if($i==2){ $i = 0; echo '</div><div class="row">';} } ?>
                                 </div>
                             </div>
                         </div>
@@ -307,12 +366,12 @@
                                                                     </b><?php echo $row2["deskripsi"]; ?><br />
                                                                     <b>Kondisi: </b>
                                                                     <?php 
-                                                                                $id_detail = $row2["id_detail"];
-                                                                                $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_keluar` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
-                                                                                while ($row1=mysqli_fetch_array($res1)){
-                                                                                echo $row2["kondisi"].", ".$row2["keterangan"]." <small class='text-secondary'>(".tgl_indo($row2["tgl_checklist"]).")</small> ";
-                                                                                } 
-                                                                            ?>
+                                                                        $id_detail = $row2["id_detail"];
+                                                                        $res1=mysqli_query($conn,"SELECT c.`kondisi`, c.`keterangan`, c.`tgl_checklist` FROM `detail_peminjaman_diterima` D, `checklist_record` C WHERE d.`id_check_keluar` = c.`id_check` AND d.`id_detail` = '$id_detail';") ;
+                                                                        while ($row1=mysqli_fetch_array($res1)){
+                                                                        echo $row2["kondisi"].", ".$row2["keterangan"]." <small class='text-secondary'>(".tgl_indo($row2["tgl_checklist"]).")</small> ";
+                                                                        } 
+                                                                    ?>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -191,7 +191,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <div class="float-md-left">
+                                    <div class="float-md-left"  style="min-width: 23rem;">
                                         <div class="container">
                                             <div class="row form-group">
                                                 <div class="col col-md-4"><label for="email-input"
@@ -230,7 +230,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="float-md-left border-left">
+                                    <div class="float-md-left border-left"  style="min-width: 23rem;">
                                         <div class="container">
                                             <div class="row form-group">
                                                 <div class="col col-md-4"><label for="text-input"
