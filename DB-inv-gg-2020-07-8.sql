@@ -48,7 +48,7 @@ CREATE TABLE `checklist_group` (
   `resume` text DEFAULT NULL,
   `dokumentasi` varbinary(40) DEFAULT NULL,
   PRIMARY KEY (`id_checklist_group`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 /*Data for the table `checklist_group` */
 
@@ -125,7 +125,7 @@ CREATE TABLE `detail_peminjaman_masuk` (
 
 /*Data for the table `detail_peminjaman_masuk` */
 
-insert  into `detail_peminjaman_masuk`(`id_detail_masuk`,`id_peminjaman_masuk`,`id_jenis_alat`,`jumlah`,`jumlah_dikeluarkan`) values (30,'PJ20200525001',21,2,1),(32,'PJ20200604002',21,2,1),(33,'PJ20200604002',11,1,1),(34,'PJ20200615003',11,1,1),(35,'PJ20200615003',21,2,2),(36,'PJ20200615003',12,1,1),(37,'PJ20200619004',21,1,NULL),(38,'PJ20200627005',11,1,NULL),(39,'PJ20200627006',21,2,NULL),(40,'PJ20200629007',21,2,2),(41,'PJ20200630008',7,1,NULL),(44,'PJ20200701009',21,2,1),(45,'PJ20200701009',11,1,1),(46,'PJ20200604002',12,1,1);
+insert  into `detail_peminjaman_masuk`(`id_detail_masuk`,`id_peminjaman_masuk`,`id_jenis_alat`,`jumlah`,`jumlah_dikeluarkan`) values (30,'PJ20200525001',21,2,1),(32,'PJ20200604002',21,2,1),(33,'PJ20200604002',11,1,1),(34,'PJ20200615003',11,1,1),(35,'PJ20200615003',21,2,2),(36,'PJ20200615003',12,1,1),(37,'PJ20200619004',21,1,NULL),(38,'PJ20200627005',11,1,NULL),(39,'PJ20200627006',21,2,1),(40,'PJ20200629007',21,2,2),(41,'PJ20200630008',7,1,NULL),(44,'PJ20200701009',21,2,1),(45,'PJ20200701009',11,1,1),(46,'PJ20200604002',12,1,1);
 
 /*Table structure for table `jenis_alat` */
 
@@ -220,7 +220,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`nia`,`nama_user`,`username`,`password`,`posisi`,`login_status`,`status_anggota`,`no_telp`,`email`,`foto_anggota`) values (910280509,'Fricelia Andrianing Putri','sniper','sniper','anggota','logout','Anggota Biasa','081938734916','friceliaandrian@gmail.com',''),(910280513,'M.Yusril Iqbal','palapa','palapa','admin','logout','Departemen Rumah Tangga',NULL,'myusriliqbal@hmail.com',NULL),(910280515,'Aldy Zazmi Yuliansyah','aldyzazmi','aldyzazmi','anggota','logout','Anggota Biasa','081203469015','aldyzazmi@gmail.com',''),(910280519,'Rafi Hanif Rahmadhani','kagura','kagura','admin','login','Wakil Ketua 1','085896404314','rafizmujahid86@gmail.com','DSC_1239-min.jpg'),(910290520,'Arikh Thuqo','nagoya','nagoya','anggota','login','Anggota Biasa','085608583337','arikhthuqo@gmail.com','');
+insert  into `user`(`nia`,`nama_user`,`username`,`password`,`posisi`,`login_status`,`status_anggota`,`no_telp`,`email`,`foto_anggota`) values (910280509,'Fricelia Andrianing Putri','sniper','sniper','anggota','logout','Anggota Biasa','081938734916','friceliaandrian@gmail.com',''),(910280513,'M.Yusril Iqbal','palapa','palapa','anggota','logout','Departemen Rumah Tangga','','myusriliqbal@hmail.com','GOPR3570.jpg'),(910280515,'Aldy Zazmi Yuliansyah','aldyzazmi','aldyzazmi','admin','logout','Ketua Umum','081203469015','aldyzazmi@gmail.com',''),(910280519,'Rafi Hanif Rahmadhani','kagura','kagura','admin','login','Wakil Ketua 1','085896404314','rafizmujahid86@gmail.com','DSC_1239-min.jpg'),(910290520,'Arikh Thuqo','nagoya','nagoya','anggota','login','Anggota Biasa','085608583337','arikhthuqo@gmail.com','');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
