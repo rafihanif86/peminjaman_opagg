@@ -4,7 +4,7 @@
     include 'header_admin.php';
     include 'tgl_indo.php';
 
-    $id_check = $tgl_checklist = $kondisi = $id_alat = $keterangan = $id_user = $petugas = $dipinjam = $peminjaman = $id_detail_masuk = $foto_alat = $id_peminjaman_masuk =  $edit  = $id_detail = $disAlatPinjam = $nama_user= $disIdAlat = "";
+    $id_check = $tgl_checklist = $kondisi = $id_alat_diacarakan = $keterangan = $id_user = $petugas = $dipinjam = $peminjaman = $id_detail_masuk = $foto_alat = $id_peminjaman_masuk =  $edit  = $id_detail = $disAlatPinjam = $nama_user= $disIdAlat = "";
     $id_check_last = $tgl_checklist_last = $status = $deskripsi = $id_alat_last = $status_peminjaman =  $kondisi_last = $id_checklist_group_item= $keterangan_last = $capture_true = $foto_alat_check_last = $nama_user_last = $dipinjam_last = $id_peminjaman_masuk_last = $tgl_terbaru_last = $id_checklist_group = "";
     $res3= $judul = $action = $kronologi = $act = "";
 
@@ -60,15 +60,15 @@
     }
 
     if(isset($_GET['id_alat'])){
-        $id_alat = $_GET['id_alat'];
+        $id_alat_diacarakan = $_GET['id_alat'];
     }else if(isset($_POST['id_alat'])){
-        $id_alat = $_POST['id_alat'];
+        $id_alat_diacarakan = $_POST['id_alat'];
     }
 
 
 
-    if($id_alat != ""){
-        $result=mysqli_query($conn, "SELECT a.*, k.`nama_jenis_alat` FROM alat A, jenis_alat K WHERE id_alat = '$id_alat' AND k.`id_jenis_alat` = a.`id_jenis_alat`;");
+    if($id_alat_diacarakan != ""){
+        $result=mysqli_query($conn, "SELECT a.*, k.`nama_jenis_alat` FROM alat a, jenis_alat k WHERE id_alat = '$id_alat' AND k.`id_jenis_alat` = a.`id_jenis_alat`;");
         while ($row1=mysqli_fetch_array($result)){
             $type           =   $row1["type"];
             $merk           =   $row1["merk"];
@@ -104,11 +104,11 @@
         if($action == "baru"){
             $judul = "Alat Ditambahkan Hari Ini";
             $act = "seluruh";
-            $res3=mysqli_query($conn, "SELECT a.*, k.nama_jenis_alat, i.nama_kat FROM alat A, jenis_alat K, kategori I, `checklist_record` C where k.id_jenis_alat = a.id_jenis_alat and k.id_kat = i.id_kat and a.`checklist_masuk` = c.`id_check` AND c.`tgl_checklist` = '$tgl_hari_ini' order by a.id_alat desc;");
+            $res3=mysqli_query($conn, "SELECT a.*, k.nama_jenis_alat, i.nama_kat FROM alat a, jenis_alat k, kategori i, `checklist_record` c WHERE k.id_jenis_alat = a.id_jenis_alat AND k.id_kat = i.id_kat AND a.`checklist_masuk` = c.`id_check` AND c.`tgl_checklist` = '$tgl_hari_ini' ORDER BY a.id_alat desc;");
         }else if($action == "diputihkan"){
             $judul = "Alat Diputihkan Hari Ini";
             $act = "seluruh";
-            $res3=mysqli_query($conn, "SELECT a.*, k.nama_jenis_alat, i.nama_kat FROM alat A, jenis_alat K, kategori I, `checklist_record` C WHERE k.id_jenis_alat = a.id_jenis_alat AND k.id_kat = i.id_kat AND a.`id_alat` = c.`id_alat` AND c.`kondisi` = 'diputihkan' AND c.`tgl_checklist` = '$tgl_hari_ini' ORDER BY a.id_alat DESC;");
+            $res3=mysqli_query($conn, "SELECT a.*, k.nama_jenis_alat, i.nama_kat FROM alat a, jenis_alat k, kategori i, `checklist_record` c WHERE k.id_jenis_alat = a.id_jenis_alat AND k.id_kat = i.id_kat AND a.`id_alat` = c.`id_alat` AND c.`kondisi` = 'diputihkan' AND c.`tgl_checklist` = '$tgl_hari_ini' ORDER BY a.id_alat DESC;");
         }
     }
     
@@ -143,102 +143,9 @@
 
 <div class="content">
     <div class="animated fadeIn">
-
-        <!-- data alat banyak  -->
-        <?php if($action != ""){?>
-        <div class="row" <?php if(isset($_POST['submit'])){echo "hidden";}?>>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <strong class="card-title"><?php echo $judul;?></strong>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-border-0">
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                    $i = 0;
-                                    while ($row1=mysqli_fetch_array($res3)){
-                                        $i++; 
-                                        $kondisi = "";
-                                        $keterangan = "";
-                                        $petugas = "";
-                                        $tgl_checklist = "";
-                                        $nama_petugas = "";
-                                        $status_peminjaman = "";
-                                        $id_peminjaman_masuk = "";
-
-                                        $id_alat = $row1["id_alat"];
-                                        $res1=mysqli_query($conn,"SELECT * FROM `checklist_record` WHERE `id_check` IN (SELECT MAX(`id_check`) FROM `checklist_record` WHERE `id_alat` = '$id_alat');");
-                                        while ($row2=mysqli_fetch_array($res1)){
-                                            $kondisi = $row2["kondisi"];
-                                            $keterangan = $row2["keterangan"];
-                                            $petugas = $row2["petugas"];
-                                            $tgl_checklist = $row2["tgl_checklist"];
-                                            $status_peminjaman = $row2["status_peminjaman"];
-                                            $id_peminjaman_masuk = $row2["id_peminjaman_masuk"];
-                                        }
-                                        $res2=mysqli_query($conn,"SELECT nama_user FROM user WHERE nia = '$petugas';");
-                                        while ($row2=mysqli_fetch_array($res2)){
-                                            $nama_petugas = $row2["nama_user"];
-                                        }
-
-                                        if($kondisi == $act || $act == "seluruh"){ 
-                                    ?>
-                                <tr>
-                                    <td>
-                                        <div class="card mb-12">
-                                            <div class="row no-gutters">
-                                                <div class="col-md-2">
-                                                    <img src="images/<?php if($row1["foto_alat"] != "" || !empty($row1["foto_alat"]) || $row1["foto_alat"] != null ){echo $row1["foto_alat"];}else{echo "no_image.png";}?>"
-                                                        class="card-img" alt="..."
-                                                        style="max-height: 20rem; float:none;">
-                                                </div>
-                                                <div class="col-md-10 ">
-                                                    <div class="card-body">
-                                                        <div class="float-md-left border-left">
-                                                            <div class="container">
-                                                                <a class="text-dark"
-                                                                    href="tampil_alat.php?id_alat=<?php echo $row1["id_alat"];?>">
-                                                                    <h6><?php echo $row1["id_alat"]; ?></h6>
-                                                                    <h5> <?php echo $row1["merk"]." ".$row1["type"]; ?>
-                                                                    </h5>
-                                                                </a>
-                                                                <small
-                                                                    class="text-secondary"><?php echo $row1["nama_jenis_alat"]." | ".$row1["nama_kat"]; ?></small>
-                                                            </div>
-                                                        </div>
-                                                        <div class="float-md-left border-left">
-                                                            <div class="container">
-                                                                <b>Deskripsi : </b><br />
-                                                                <?php echo $row1["deskripsi"]; ?><br />
-                                                                <b>Kondisi : </b><br />
-                                                                <?php if($status_peminjaman != ""){echo "Alat ini ".$status_peminjaman." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$id_peminjaman_masuk."'> ".$id_peminjaman_masuk."</a>. ";} if($kondisi != ""){echo "Alat ini memiliki kondisi ".$kondisi.", ".$keterangan.". <br/><small class='text-secondary'>(".tgl_indo($tgl_checklist).", ".$nama_petugas.") </small>";} ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <?php
-                                        } }
-                                    ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php } ?>
-
+        
         <!-- data alat satuan -->
-        <?php if($id_alat != ""){?>
+        <?php if($id_alat_diacarakan != ""){?>
         <div class="row" <?php if(isset($_POST['submit'])){echo "hidden";}?>>
             <div class="col-lg-12">
                 <div class="card">
@@ -265,7 +172,7 @@
                                             <div class="row form-group">
                                                 <div class="col col-md-3"><label for="text-input"
                                                         class=" form-control-label">Nomor Inventaris</label></div>
-                                                <div class="col-12 col-md-9"><?php echo ": "; echo $id_alat; ?></div>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $id_alat_diacarakan; ?></div>
                                             </div>
                                             <div class="row form-group">
                                                 <div class="col col-md-3"><label for="text-input"
@@ -291,7 +198,7 @@
                                             <div class="row form-group">
                                                 <?php 
                                                     if($checklist_masuk != ""){ 
-                                                        $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` C, `user` U WHERE c.`id_check` = '$checklist_masuk' and c.`petugas` = u.`nia`;") ;
+                                                        $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` c, `user` u WHERE c.`id_check` = '$checklist_masuk' and c.`petugas` = u.`nia`;") ;
                                                         while ($row3=mysqli_fetch_array($result1)){
                                                 ?>
                                                 <div class="row">
@@ -318,7 +225,7 @@
                                                     }
                                                 
                                                     if($checklist_keluar != ""){ 
-                                                        $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` C, `user` U WHERE c.`id_check` = '$checklist_keluar' and c.`petugas` = u.`nia`;") ;
+                                                        $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` c, `user` u WHERE c.`id_check` = '$checklist_keluar' and c.`petugas` = u.`nia`;") ;
                                                         while ($row3=mysqli_fetch_array($result1)){
                                                 ?>
                                                 <div class="row">
@@ -427,6 +334,100 @@
         </div>
         <?php } ?>
 
+        <!-- data alat banyak  -->
+        <?php if($action != ""){?>
+        <div class="row" <?php if(isset($_POST['submit'])){echo "hidden";}?>>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title"><?php echo $judul;?></strong>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-border-0">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                    $i = 0;
+                                    while ($row1=mysqli_fetch_array($res3)){
+                                        $i++; 
+                                        $kondisi = "";
+                                        $keterangan = "";
+                                        $petugas = "";
+                                        $tgl_checklist = "";
+                                        $nama_petugas = "";
+                                        $status_peminjaman = "";
+                                        $id_peminjaman_masuk = "";
+
+                                        $id_alat = $row1["id_alat"];
+                                        $res1=mysqli_query($conn,"SELECT * FROM `checklist_record` WHERE `id_check` IN (SELECT MAX(`id_check`) FROM `checklist_record` WHERE `id_alat` = '$id_alat');");
+                                        while ($row2=mysqli_fetch_array($res1)){
+                                            $kondisi = $row2["kondisi"];
+                                            $keterangan = $row2["keterangan"];
+                                            $petugas = $row2["petugas"];
+                                            $tgl_checklist = $row2["tgl_checklist"];
+                                            $status_peminjaman = $row2["status_peminjaman"];
+                                            $id_peminjaman_masuk = $row2["id_peminjaman_masuk"];
+                                        }
+                                        $res2=mysqli_query($conn,"SELECT nama_user FROM user WHERE nia = '$petugas';");
+                                        while ($row2=mysqli_fetch_array($res2)){
+                                            $nama_petugas = $row2["nama_user"];
+                                        }
+
+                                        if($kondisi == $act || $act == "seluruh"){ 
+                                    ?>
+                                <tr>
+                                    <td>
+                                        <div class="card mb-12">
+                                            <div class="row no-gutters">
+                                                <div class="col-md-2">
+                                                    <img src="images/<?php if($row1["foto_alat"] != "" || !empty($row1["foto_alat"]) || $row1["foto_alat"] != null ){echo $row1["foto_alat"];}else{echo "no_image.png";}?>"
+                                                        class="card-img" alt="..."
+                                                        style="max-height: 20rem; float:none;">
+                                                </div>
+                                                <div class="col-md-10 ">
+                                                    <div class="card-body">
+                                                        <div class="float-md-left border-left">
+                                                            <div class="container">
+                                                                <a class="text-dark"
+                                                                    href="tampil_alat.php?id_alat=<?php echo $row1["id_alat"];?>">
+                                                                    <h6><?php echo $row1["id_alat"]; ?></h6>
+                                                                    <h5> <?php echo $row1["merk"]." ".$row1["type"]; ?>
+                                                                    </h5>
+                                                                </a>
+                                                                <small
+                                                                    class="text-secondary"><?php echo $row1["nama_jenis_alat"]." | ".$row1["nama_kat"]; ?></small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="float-md-left border-left">
+                                                            <div class="container">
+                                                                <b>Deskripsi : </b><br />
+                                                                <?php echo $row1["deskripsi"]; ?><br />
+                                                                <b>Kondisi : </b><br />
+                                                                <?php if($status_peminjaman != ""){echo "Alat ini ".$status_peminjaman." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$id_peminjaman_masuk."'> ".$id_peminjaman_masuk."</a>. ";} if($kondisi != ""){echo "Alat ini memiliki kondisi ".$kondisi.", ".$keterangan.". <br/><small class='text-secondary'>(".tgl_indo($tgl_checklist).", ".$nama_petugas.") </small>";} ?>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php
+                                        } }
+                                    ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+
+
         <!-- form kronologi  -->
         <div class="row" <?php if(isset($_POST['submit'])){echo "hidden";}?>>
             <div class="col-lg-12">
@@ -453,7 +454,7 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <input type="hidden" name="id_alat" value="<?php echo $id_alat; ?>">
+                            <input type="hidden" name="id_alat" value="<?php echo $id_alat_diacarakan; ?>">
                             <input type="hidden" name="action" value="<?php echo $action; ?>">
                             <button type="submit" class="btn btn-primary btn-sm" name="submit">
                                 <i class="fa fa-dot-circle-o"></i> Submit
@@ -496,8 +497,7 @@
                             <div class="col-md-1">
                             </div>
                             <div class="col-md-10">
-                                <p class="text-dark"><br /><?php echo $keterangan; ?></p>
-                                <?php if($id_alat != ""){?>
+                                <?php if($id_alat_diacarakan != ""){?>
                                 <div class="container">
                                     <div class="row">
                                         <div class="col col-md-12">
@@ -520,7 +520,7 @@
                                                 <div class="col col-md-3"><label for="text-input"
                                                         class=" form-control-label">Nomor Inventaris</label>
                                                 </div>
-                                                <div class="col-12 col-md-9"><?php echo ": "; echo $id_alat; ?>
+                                                <div class="col-12 col-md-9"><?php echo ": "; echo $id_alat_diacarakan; ?>
                                                 </div>
                                             </div>
                                             <div class="row form-group">
@@ -551,7 +551,7 @@
                                             <div class="row form-group">
                                                 <?php 
                                                     if($checklist_masuk != ""){ 
-                                                        $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` C, `user` U WHERE c.`id_check` = '$checklist_masuk' and c.`petugas` = u.`nia`;") ;
+                                                        $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` c, `user` u WHERE c.`id_check` = '$checklist_masuk' and c.`petugas` = u.`nia`;") ;
                                                         while ($row3=mysqli_fetch_array($result1)){
                                                 ?>
                                                 <div class="row">
@@ -578,7 +578,7 @@
                                                     }
                                                 
                                                     if($checklist_keluar != ""){ 
-                                                        $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` C, `user` U WHERE c.`id_check` = '$checklist_keluar' and c.`petugas` = u.`nia`;") ;
+                                                        $result1=mysqli_query($conn,"SELECT c.*, u.`nama_user` FROM `checklist_record` c, `user` u WHERE c.`id_check` = '$checklist_keluar' and c.`petugas` = u.`nia`;") ;
                                                         while ($row3=mysqli_fetch_array($result1)){
                                                 ?>
                                                 <div class="row">
@@ -678,77 +678,87 @@
                                     </div>
                                     <?php } ?>
                                 </div>
-                                <?php }  if($action != ""){ ?>
-                                <?php
-                                    $i = 0;
-                                    while ($row1=mysqli_fetch_array($res3)){
-                                        $i++; 
-                                        $kondisi = "";
-                                        $keterangan = "";
-                                        $petugas = "";
-                                        $tgl_checklist = "";
-                                        $nama_petugas = "";
-                                        $status_peminjaman = "";
-                                        $id_peminjaman_masuk = "";
-
-                                        $id_alat = $row1["id_alat"];
-                                        $res1=mysqli_query($conn,"SELECT * FROM `checklist_record` WHERE `id_check` IN (SELECT MAX(`id_check`) FROM `checklist_record` WHERE `id_alat` = '$id_alat');");
-                                        while ($row2=mysqli_fetch_array($res1)){
-                                            $kondisi = $row2["kondisi"];
-                                            $keterangan = $row2["keterangan"];
-                                            $petugas = $row2["petugas"];
-                                            $tgl_checklist = $row2["tgl_checklist"];
-                                            $status_peminjaman = $row2["status_peminjaman"];
-                                            $id_peminjaman_masuk = $row2["id_peminjaman_masuk"];
-                                        }
-                                        $res2=mysqli_query($conn,"SELECT nama_user FROM user WHERE nia = '$petugas';");
-                                        while ($row2=mysqli_fetch_array($res2)){
-                                            $nama_petugas = $row2["nama_user"];
-                                        }
-
-                                        if($kondisi == $act || $act == "seluruh"){ 
-                                ?>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card mb-12">
-                                            <div class="row no-gutters">
-                                                <div class="col-md-2">
-                                                    <img src="images/<?php if($row1["foto_alat"] != "" || !empty($row1["foto_alat"]) || $row1["foto_alat"] != null ){echo $row1["foto_alat"];}else{echo "no_image.png";}?>"
-                                                        class="card-img" alt="..."
-                                                        style="max-height: 20rem; float:none;">
-                                                </div>
-                                                <div class="col-md-10 ">
-                                                    <div class="card-body">
-                                                        <div class="float-md-left border-left">
-                                                            <div class="container">
-                                                                <a class="text-dark"
-                                                                    href="tampil_alat.php?id_alat=<?php echo $row1["id_alat"];?>">
-                                                                    <h6><?php echo $row1["id_alat"]; ?></h6>
-                                                                    <h5> <?php echo $row1["merk"]." ".$row1["type"]; ?>
-                                                                    </h5>
-                                                                </a>
-                                                                <small
-                                                                    class="text-secondary"><?php echo $row1["nama_jenis_alat"]." | ".$row1["nama_kat"]; ?></small>
+                                <?php }  
+                                    if($action != ""){ ?>
+                                    <table class="table table-border-0">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                                $i = 0;
+                                                while ($row5=mysqli_fetch_array($res3)){
+                                                    $i++; 
+                                                    $kondisi = "";
+                                                    $keterangan = "";
+                                                    $petugas = "";
+                                                    $tgl_checklist = "";
+                                                    $nama_petugas = "";
+                                                    $status_peminjaman = "";
+                                                    $id_peminjaman_masuk = "";
+            
+                                                    $id_alat = $row5["id_alat"];
+                                                    $res1=mysqli_query($conn,"SELECT * FROM `checklist_record` WHERE `id_check` IN (SELECT MAX(`id_check`) FROM `checklist_record` WHERE `id_alat` = '$id_alat');");
+                                                    while ($row2=mysqli_fetch_array($res1)){
+                                                        $kondisi = $row2["kondisi"];
+                                                        $keterangan = $row2["keterangan"];
+                                                        $petugas = $row2["petugas"];
+                                                        $tgl_checklist = $row2["tgl_checklist"];
+                                                        $status_peminjaman = $row2["status_peminjaman"];
+                                                        $id_peminjaman_masuk = $row2["id_peminjaman_masuk"];
+                                                    }
+                                                    $res2=mysqli_query($conn,"SELECT nama_user FROM user WHERE nia = '$petugas';");
+                                                    while ($row2=mysqli_fetch_array($res2)){
+                                                        $nama_petugas = $row2["nama_user"];
+                                                    }
+            
+                                                    if($act == "seluruh"){ 
+                                                ?>
+                                            <tr>
+                                                <td>
+                                                    <div class="card mb-12">
+                                                        <div class="row no-gutters">
+                                                            <div class="col-md-2">
+                                                                <img src="images/<?php if($row5["foto_alat"] != "" || !empty($row5["foto_alat"]) || $row5["foto_alat"] != null ){echo $row5["foto_alat"];}else{echo "no_image.png";}?>"
+                                                                    class="card-img" alt="..."
+                                                                    style="max-height: 20rem; float:none;">
                                                             </div>
-                                                        </div>
-                                                        <div class="float-md-left border-left">
-                                                            <div class="container">
-                                                                <b>Deskripsi : </b><br />
-                                                                <?php echo $row1["deskripsi"]; ?><br />
-                                                                <b>Kondisi : </b><br />
-                                                                <?php if($status_peminjaman != ""){echo "Alat ini ".$status_peminjaman." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$id_peminjaman_masuk."'> ".$id_peminjaman_masuk."</a>. ";} if($kondisi != ""){echo "Alat ini memiliki kondisi ".$kondisi.", ".$keterangan.". <br/><small class='text-secondary'>(".tgl_indo($tgl_checklist).", ".$nama_petugas.") </small>";} ?>
+                                                            <div class="col-md-10 ">
+                                                                <div class="card-body">
+                                                                    <div class="float-md-left border-left">
+                                                                        <div class="container">
+                                                                            <a class="text-dark"
+                                                                                href="tampil_alat.php?id_alat=<?php echo $row5["id_alat"];?>">
+                                                                                <h6><?php echo $row5["id_alat"]; ?></h6>
+                                                                                <h5> <?php echo $row5["merk"]." ".$row5["type"]; ?>
+                                                                                </h5>
+                                                                            </a>
+                                                                            <small
+                                                                                class="text-secondary"><?php echo $row5["nama_jenis_alat"]." | ".$row5["nama_kat"]; ?></small>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="float-md-left border-left">
+                                                                        <div class="container">
+                                                                            <b>Deskripsi : </b><br />
+                                                                            <?php echo $row5["deskripsi"]; ?><br />
+                                                                            <b>Kondisi : </b><br />
+                                                                            <?php if($status_peminjaman != ""){echo "Alat ini ".$status_peminjaman." pada nomor peminjaman <a class='text-dark' href='tampil_peminjaman.php?id_peminjaman_masuk=".$id_peminjaman_masuk."'> ".$id_peminjaman_masuk."</a>. ";} if($kondisi != ""){echo "Alat ini memiliki kondisi ".$kondisi.", ".$keterangan.". <br/><small class='text-secondary'>(".tgl_indo($tgl_checklist).", ".$nama_petugas.") </small>";} ?>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php
-                                        } }
-                                    ?>
-                                <?php } ?>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                                    } }
+                                                ?>
+                                        </tbody>
+                                    </table>
+                                    <?php } ?>
                             </div>
                             <div class="col-md-1">
                             </div>

@@ -1,5 +1,6 @@
 <?php
 function send_mail($name, $usermail,$subjeck, $message){
+    $status = "";
     error_reporting(E_ALL);
     require 'PHPMailer/src/PHPMailer.php' ;
     require 'PHPMailer/src/SMTP.php';
@@ -8,7 +9,7 @@ function send_mail($name, $usermail,$subjeck, $message){
     $mail =  new PHPMailer\PHPMailer1\PHPMailer();
     try {
         //Server settings
-        $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+        // $mail->SMTPDebug = 2;                                 // Enable verbose debug output
         $mail->isSMTP();                                      // Set mailer to use SMTP
         $mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
         $mail->SMTPAuth = true;                               // Enable SMTP authentication
@@ -28,10 +29,15 @@ function send_mail($name, $usermail,$subjeck, $message){
         $mail->Body    = $message;
         $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
-        $mail->Send();
+        if($mail->Send()){
+            $status = "berhasil_dikirim";
+        }else{
+            $status = "gagal_dikirim";
+        }
         
     } catch (Exception $e) {
         // echo 'Message could not be sent.';
         // echo 'Mailer Error: ' . $mail->ErrorInfo;
     }
+    return ;
 }

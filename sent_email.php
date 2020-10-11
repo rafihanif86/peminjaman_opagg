@@ -47,12 +47,10 @@ try {
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     if($mail->Send()){
-        echo "<script>alert('$pesan_replace')
-                location.replace('$link')</script>"; 
-       }else{
-        echo "<script>alert('Gagal Mengirim Email')
-                location.replace('$link')</script>";
-       }
+        echo "<script>alert('$pesan_replace') location.replace('$link')</script>"; 
+    }else{
+        echo "<script>alert('Gagal Mengirim Email') location.replace('$link')</script>";
+    }
     
 } catch (Exception $e) {
     // echo 'Message could not be sent.';

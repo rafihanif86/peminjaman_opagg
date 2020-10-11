@@ -4,7 +4,7 @@
     include "header_admin.php";
 
     $nama_kategori = "";
-    $query="SELECT j.*, k.nama_kat FROM jenis_alat J, kategori k where j.id_kat = k.id_kat;";
+    $query="SELECT j.*, k.nama_kat FROM jenis_alat j, kategori k where j.id_kat = k.id_kat;";
     
     if(isset($_GET['id_kat'])){
         $id_kat = $_GET['id_kat'];
